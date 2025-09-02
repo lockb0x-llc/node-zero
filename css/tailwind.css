@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Cyberpunk Custom Utilities & Effects --- */
+@layer components {
+  .cyberpunk-bg {
+    @apply bg-cyberpunk bg-cover bg-fixed;
+  }
+  .scanlines {
+    @apply bg-scanlines;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .neon-cyan {
+    @apply text-cyber-neon drop-shadow-[0_0_8px_#00fff7] font-orbitron;
+  }
+  .neon-magenta {
+    @apply text-cyber-magenta drop-shadow-[0_0_8px_#ff00ea] font-orbitron;
+  }
+  .neon-green {
+    @apply text-cyber-green drop-shadow-[0_0_8px_#39ff14] font-orbitron;
+  }
+  .glitch {
+    @apply animate-glitch relative font-orbitron;
+  }
+  .flicker {
+    @apply animate-flicker;
+  }
+  .cyber-btn {
+    @apply px-6 py-2 rounded font-bold uppercase tracking-widest bg-cyber-neon text-black shadow-neon-cyan hover:bg-cyber-magenta hover:shadow-neon-magenta transition-all duration-200;
+  }
+}
+
+/* --- End Cyberpunk Custom Utilities --- */
+
+/* in /css/tailwind.css */
+@layer utilities {
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+}

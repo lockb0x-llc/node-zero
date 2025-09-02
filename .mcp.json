@@ -1,0 +1,79 @@
+{
+  "servers": [
+    {
+      "name": "stellar/docs",
+      "url": "https://github.com/stellar/docs",
+      "description": "Official Stellar documentation repository."
+    },
+    {
+      "name": "stellar/stellar-core",
+      "url": "https://github.com/stellar/stellar-core",
+      "description": "Stellar Core implementation and technical documentation."
+    },
+    {
+      "name": "stellar/js-stellar-sdk",
+      "url": "https://github.com/stellar/js-stellar-sdk",
+      "description": "JavaScript SDK for Stellar with documentation and examples."
+    },
+    {
+      "name": "stellar/go",
+      "url": "https://github.com/stellar/go",
+      "description": "Go SDK and Horizon server implementation for Stellar."
+    },
+    {
+      "name": "stellar/python-stellar-sdk",
+      "url": "https://github.com/stellar/python-stellar-sdk",
+      "description": "Python SDK for Stellar with documentation."
+    },
+    {
+      "name": "stellar/stellar-protocol",
+      "url": "https://github.com/stellar/stellar-protocol",
+      "description": "Stellar protocol specifications and ecosystem proposals."
+    },
+    {
+      "name": "learn.microsoft.com",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "description": "Microsoft Learn MCP server for documentation and learning content."
+    },
+    {
+      "name": "docs.microsoft.com",
+      "url": "https://docs.microsoft.com/api/mcp",
+      "description": "Official Microsoft Docs MCP server for technical documentation."
+    },
+    {
+      "name": "azure.microsoft.com",
+      "url": "https://azure.microsoft.com/api/mcp",
+      "description": "Azure documentation and learning content MCP server."
+    },
+    {
+      "name": "github.com",
+      "url": "https://github.com/api/mcp",
+      "description": "GitHub documentation and learning resources MCP server."
+    },
+    {
+      "name": "nuget.org",
+      "url": "https://nuget.org/api/mcp",
+      "description": "NuGet package documentation and learning resources MCP server."
+    },
+    {
+      "name": "bootstrap",
+      "url": "https://getbootstrap.com/api/mcp",
+      "description": "Bootstrap MCP server for responsive UI framework documentation."
+    },
+    {
+      "name": "creative-writing-genre",
+      "url": "http://localhost:3000/api/mcp/genre",
+      "description": "Custom MCP server for genre-specific creative writing resources."
+    },
+    {
+      "name": "author-voice",
+      "url": "http://localhost:3001/api/mcp/author",
+      "description": "Custom MCP server for emulating specific author voices and styles."
+    },
+    {
+      "name": "ai-memory",
+      "url": "http://localhost:3002/api/mcp/memory",
+      "description": "Custom MCP server for storing and retrieving AI prompt history and writing samples."
+    }
+  ]
+}

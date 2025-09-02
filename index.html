@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node_Zero Preview</title>
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  
+</head>
+<body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
+  <!-- Animated scanlines overlay -->
+  <div class="scanlines pointer-events-none"></div>
+
+  <!-- Cyberpunk Navigation -->
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-row space-x-8 bg-black/60 px-8 py-3 rounded-full shadow-neon-cyan border border-cyber-neon backdrop-blur-md">
+    <a href="#chapter-1" class="neon-cyan text-lg hover:neon-magenta transition-all">Chapter 1</a>
+    <a href="#chapter-2" class="neon-cyan text-lg hover:neon-magenta transition-all">Chapter 2</a>
+  </nav>
+
+  <!-- Wallet UI -->
+  <div id="wallet-ui" class="flex flex-col items-center py-8 mt-20">
+    <button id="connectLamina1" class="cyber-btn mb-2">Connect with Lamina1</button>
+    <span id="walletStatus" class="text-sm text-cyber-neon flicker"></span>
+    <button id="mockAuth" class="cyber-btn bg-cyber-magenta text-white mt-2">Mock Auth (Test)</button>
+  </div>
+
+  <!-- Main Content -->
+  <main class="w-full min-h-screen flex flex-col items-center justify-center relative z-10">
+    <!-- Chapter 1 -->
+    <section id="chapter-1" class="min-h-screen w-full max-w-3xl snap-start p-8 flex flex-col items-center justify-center">
+      <h1 class="text-5xl md:text-7xl neon-cyan mb-6 glitch">The Whispering Code</h1>
+      <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-cyber-green flicker">
+        Even in the dead zones of night, the digital lattice pulsed...
+      </p>
+    </section>
+
+    <!-- Chapter 2 (Gated) -->
+    <section id="chapter-2" class="min-h-screen w-full max-w-3xl snap-start p-8 flex flex-col items-center justify-center" data-requires-nft="true">
+      <h1 class="text-5xl md:text-7xl neon-magenta mb-6 glitch">Encrypted Echoes</h1>
+      <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-cyber-yellow flicker">
+        This content is restricted. Connect your wallet to access it.
+      </p>
+    </section>
+  </main>
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="js/main.js"></script>
+  <!--
+    Cyberpunk UI/UX Enhancements:
+    - Neon nav, animated scanlines, glitch/flicker headings, responsive layout
+    - All navigation and gating logic handled in main.js
+    - Custom utilities in tailwind.css
+    - Test with window.__test hooks
+  -->
+</body>
+</html>
