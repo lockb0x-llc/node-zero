@@ -15,16 +15,16 @@
     z-index: 0;
   }
   .neon-cyan {
-    @apply text-cyber-neon drop-shadow-[0_0_8px_#00fff7] font-orbitron;
+    @apply text-cyber-neon drop-shadow-[0_0_8px_#00fff7] font-cyber;
   }
   .neon-magenta {
-    @apply text-cyber-magenta drop-shadow-[0_0_8px_#ff00ea] font-orbitron;
+    @apply text-cyber-magenta drop-shadow-[0_0_8px_#ff00ea] font-cyber;
   }
   .neon-green {
-    @apply text-cyber-green drop-shadow-[0_0_8px_#39ff14] font-orbitron;
+    @apply text-cyber-green drop-shadow-[0_0_8px_#39ff14] font-cyber;
   }
   .glitch {
-    @apply animate-glitch relative font-orbitron;
+    @apply animate-glitch relative font-cyber;
   }
   .flicker {
     @apply animate-flicker;

@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-  "type": "chrome",
+  "type": "msedge",
       "request": "launch",
       "name": "Launch Edge against localhost",
       "url": "http://localhost:5500",
