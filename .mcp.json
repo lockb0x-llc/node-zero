@@ -74,6 +74,11 @@
       "name": "ai-memory",
       "url": "http://localhost:3002/api/mcp/memory",
       "description": "Custom MCP server for storing and retrieving AI prompt history and writing samples."
+    },
+    {
+      "name": "clarity.microsoft.com",
+      "url": "https://clarity.microsoft.com/api/mcp",
+      "description": "Microsoft Clarity MCP server for analytics and session insights documentation."
     }
   ]
 }

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HashPipe: Message Integrity Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+        h1 { text-align: center; }
+        .section { margin-bottom: 24px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        textarea, input[type="text"] { width: 100%; padding: 8px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #ccc; }
+        button { padding: 10px 18px; border: none; border-radius: 4px; background: #0078d7; color: #fff; font-size: 16px; cursor: pointer; }
+        button:disabled { background: #aaa; }
+        .result { padding: 12px; border-radius: 4px; margin-top: 12px; }
+        .valid { background: #d4edda; color: #155724; }
+        .invalid { background: #f8d7da; color: #721c24; }
+        .manipulate { color: #c00; cursor: pointer; text-decoration: underline; }
+        .hash { font-family: monospace; font-size: 14px; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HashPipe: Message Integrity Game</h1>
+        <div class="section">
+            <label for="aliceMessage">Alice writes a message:</label>
+            <textarea id="aliceMessage" rows="3" placeholder="Type your message here..."></textarea>
+            <button id="hashBtn">Hash & Send to Bob</button>
+        </div>
+        <div class="section" id="networkSection" style="display:none;">
+            <label>Message sent over the network:</label>
+            <div>
+                <span id="networkMessage"></span>
+                <span class="manipulate" id="manipulateBtn" title="Simulate a man-in-the-middle attack">✏️ Tamper</span>
+            </div>
+            <div>
+                <label>Digest (SHA-256):</label>
+                <div class="hash" id="networkHash"></div>
+            </div>
+            <button id="deliverBtn">Deliver to Bob</button>
+        </div>
+        <div class="section" id="bobSection" style="display:none;">
+            <label>Bob receives:</label>
+            <div>
+                <strong>Message:</strong>
+                <div id="bobMessage"></div>
+            </div>
+            <div>
+                <strong>Digest (SHA-256):</strong>
+                <div class="hash" id="bobHash"></div>
+            </div>
+            <button id="verifyBtn">Verify Integrity</button>
+            <div id="result" class="result" style="display:none;"></div>
+        </div>
+    </div>
+    <script>
+        // Helper: SHA-256 hash as hex
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Elements
+        const aliceMessage = document.getElementById('aliceMessage');
+        const hashBtn = document.getElementById('hashBtn');
+        const networkSection = document.getElementById('networkSection');
+        const networkMessage = document.getElementById('networkMessage');
+        const networkHash = document.getElementById('networkHash');
+        const manipulateBtn = document.getElementById('manipulateBtn');
+        const deliverBtn = document.getElementById('deliverBtn');
+        const bobSection = document.getElementById('bobSection');
+        const bobMessage = document.getElementById('bobMessage');
+        const bobHash = document.getElementById('bobHash');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const result = document.getElementById('result');
+
+        let originalMessage = '';
+        let sentMessage = '';
+        let sentHash = '';
+
+        hashBtn.onclick = async () => {
+            const msg = aliceMessage.value.trim();
+            if (!msg) return;
+            originalMessage = msg;
+            sentMessage = msg;
+            sentHash = await sha256(msg);
+            networkMessage.textContent = sentMessage;
+            networkHash.textContent = sentHash;
+            networkSection.style.display = '';
+            bobSection.style.display = 'none';
+            result.style.display = 'none';
+        };
+
+        manipulateBtn.onclick = () => {
+            const tampered = prompt("Edit the message (simulate a man-in-the-middle attack):", sentMessage);
+            if (tampered !== null) {
+                sentMessage = tampered;
+                networkMessage.textContent = sentMessage;
+                // Note: The hash is NOT updated, simulating a real attack!
+            }
+        };
+
+        deliverBtn.onclick = () => {
+            bobMessage.textContent = sentMessage;
+            bobHash.textContent = sentHash;
+            bobSection.style.display = '';
+            result.style.display = 'none';
+        };
+
+        verifyBtn.onclick = async () => {
+            const receivedMsg = bobMessage.textContent;
+            const receivedHash = bobHash.textContent;
+            const computedHash = await sha256(receivedMsg);
+            if (computedHash === receivedHash) {
+                result.textContent = "✅ Message is valid! No tampering detected.";
+                result.className = "result valid";
+            } else {
+                result.textContent = "❌ Message integrity check failed! The message was altered in transit.";
+                result.className = "result invalid";
+            }
+            result.style.display = '';
+        };
+    </script>
+</body>
+</html>

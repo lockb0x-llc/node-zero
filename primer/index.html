@@ -1,67 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Primer | Node_Zero</title>
-	<link href="../css/tailwind.generated.css" rel="stylesheet">
-	<link href="../css/styles.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer | Node_Zero</title>
+    <link href="../css/tailwind.generated.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        @keyframes neonPulse {
+            0%, 100% { filter: drop-shadow(0 0 8px #00fff7) drop-shadow(0 0 16px #ffe600); opacity: 1; }
+            50% { filter: drop-shadow(0 0 24px #00fff7) drop-shadow(0 0 32px #ffe600); opacity: 0.85; }
+        }
+        .neon-pulse {
+            animation: neonPulse 2.5s infinite alternate;
+        }
+    </style>
 </head>
 <body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
-	<div id="site-header"></div>
-	<main class="flex flex-col items-center min-h-screen w-full pt-8 px-4 relative z-10">
+    <div id="site-header"></div>
+    <main class="flex flex-col items-center min-h-screen w-full pt-8 px-4 relative z-10">
         <div class="max-w-3xl w-full mx-auto flex flex-col items-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold neon-cyan mb-4" style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">Primer</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold neon-cyan mb-4"
+                style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">
+                Primer
+            </h1>
             <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 w-full text-center">
                 <h2 class="text-2xl neon-cyan mb-4">Welcome to the Primer</h2>
-                <p class="text-zinc-300 mb-6">This section provides foundational knowledge and context for the Node_Zero universe. Explore the concepts, technologies, and lore that underpin the stories and artifacts you'll encounter.</p>
-                <p class="text-zinc-300 mb-6">Dive into topics such as cybernetics, AI ethics, digital consciousness, and the socio-political landscape of this cyberpunk world. Whether you're a newcomer or a seasoned explorer, the Primer is your gateway to understanding the intricate web of narratives and technologies that define Node_Zero.</p>
-                <p class="text-zinc-300 mb-6">Stay tuned for updates as we expand this section with more detailed articles, glossaries, and reference materials to enhance your journey through Node_Zero.</p>
+                <p class="text-zinc-300 mb-6">
+                    This section provides foundational knowledge and context for the Node_Zero universe. Explore the concepts, technologies, and lore that underpin the stories and artifacts you'll encounter.
+                </p>
+                <p class="text-zinc-300 mb-6">
+                    Dive into topics such as cybernetics, AI ethics, digital consciousness, and the socio-political landscape of this cyberpunk world. Whether you're a newcomer or a seasoned explorer, the Primer is your gateway to understanding the intricate web of narratives and technologies that define Node_Zero.
+                </p>
+                <p class="text-zinc-300 mb-6">
+                    Stay tuned for updates as we expand this section with more detailed articles, glossaries, and reference materials to enhance your journey through Node_Zero.
+                </p>
             </div>
 
-                                    <div class="mt-14 w-full max-w-2xl">
-                                            <div class="flex justify-center mb-10">
-                                                <div class="relative">
-                                                    <div class="absolute -inset-2 rounded-2xl border-4 border-cyber-neon shadow-neon-cyan animate-pulse-slow z-0"></div>
-                                                    <div class="absolute -inset-4 rounded-3xl border-4 border-cyber-yellow shadow-neon-yellow animate-pulse-slow z-0"></div>
-                                                    <h2 class="relative z-10 text-3xl md:text-4xl font-extrabold text-cyber-neon mb-0 font-orbitron tracking-widest neon-pulse" style="font-family: 'Orbitron', 'monospace', sans-serif; letter-spacing: 0.13em; padding: 1rem 3rem; text-shadow: 0 0 128px #00fff7, 0 0 64px #ffe600;">
-                                                        Articles
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <ul class="space-y-6">
-<style>
-@keyframes neonPulse {
-    0%, 100% { filter: drop-shadow(0 0 8px #00fff7) drop-shadow(0 0 16px #ffe600); opacity: 1; }
-    50% { filter: drop-shadow(0 0 24px #00fff7) drop-shadow(0 0 32px #ffe600); opacity: 0.85; }
-}
-.neon-pulse {
-    animation: neonPulse 2.5s infinite alternate;
-}
-</style>
-                                    <li>
-                                        <a href="Apophis.html" class="block bg-black/80 border-2 border-cyber-yellow rounded-xl shadow-neon-yellow px-6 py-5 transition-all duration-200 hover:bg-cyber-yellow/10 hover:border-cyber-neon">
-                                            <div class="flex flex-col md:flex-row md:items-center gap-4">
-                                                <div class="flex-shrink-0 flex items-center justify-center">
-                                                    <span class="inline-block w-12 h-12 rounded-full bg-cyber-yellow/20 border-2 border-cyber-yellow flex items-center justify-center">
-                                                        <svg class="w-7 h-7 text-cyber-yellow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
-                                                    </span>
-                                                </div>
-                                                <div class="flex-1 text-left">
-                                                    <div class="text-lg font-semibold text-cyber-yellow mb-1">The Apophis Event</div>
-                                                    <div class="text-zinc-300 text-sm">How a near-miss asteroid changed the Substrate and the world forever.</div>
-                                                </div>
-                                                <div class="hidden md:block">
-                                                    <span class="text-cyber-yellow text-xl">&rarr;</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- Add more articles here as <li> blocks -->
-                                </ul>
-                        </div>
-	</main>
-	<script src="../js/header-loader.js"></script>
+            <div class="mt-14 w-full max-w-2xl">
+                <div class="flex justify-center mb-10">
+                    <div class="relative">
+                        <div class="absolute -inset-2 rounded-2xl border-4 border-cyber-neon shadow-neon-cyan animate-pulse-slow z-0"></div>
+                        <div class="absolute -inset-4 rounded-3xl border-4 border-cyber-yellow shadow-neon-yellow animate-pulse-slow z-0"></div>
+                        <h2 class="relative z-10 text-3xl md:text-4xl font-extrabold text-cyber-neon mb-0 font-orbitron tracking-widest neon-pulse"
+                            style="font-family: 'Orbitron', 'monospace', sans-serif; letter-spacing: 0.13em; padding: 1rem 3rem; text-shadow: 0 0 128px #00fff7, 0 0 64px #ffe600;">
+                            Articles
+                        </h2>
+                    </div>
+                </div>
+                <ul class="space-y-6">
+                    <li>
+                        <a href="Apophis.html" class="block bg-black/80 border-2 border-cyber-yellow rounded-xl shadow-neon-yellow px-6 py-5 transition-all duration-200 hover:bg-cyber-yellow/10 hover:border-cyber-neon">
+                            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                                <div class="flex-shrink-0 flex items-center justify-center">
+                                    <span class="inline-block w-12 h-12 rounded-full bg-cyber-yellow/20 border-2 border-cyber-yellow flex items-center justify-center">
+                                        <svg class="w-7 h-7 text-cyber-yellow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="flex-1 text-left">
+                                    <div class="text-lg font-semibold text-cyber-yellow mb-1">The Apophis Event</div>
+                                    <div class="text-zinc-300 text-sm">How a near-miss asteroid changed the Substrate and the world forever.</div>
+                                </div>
+                                <div class="hidden md:block">
+                                    <span class="text-cyber-yellow text-xl">&rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- Add more articles here as <li> blocks -->
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script src="../js/header-loader.js"></script>
 </body>
 </html>
