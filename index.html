@@ -3,80 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node_Zero Preview</title>
+  <title>Node_Zero // Universe-First Homepage</title>
   <link href="css/tailwind.generated.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  
 </head>
 <body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
+  <div id="site-header"></div>
   <!-- Animated scanlines overlay -->
-  <div class="scanlines pointer-events-none"></div>
+  <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+  <main>
+    <!-- Node_Zero | Universe-First Homepage Intro -->
+    <section class="relative min-h-[92vh] flex items-center justify-center bg-zinc-950 text-zinc-100 overflow-hidden">
+      <!-- ambient field -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 [background:radial-gradient(1100px_520px_at_70%_20%,rgba(59,130,246,.10),transparent_60%),radial-gradient(760px_360px_at_18%_82%,rgba(168,85,247,.10),transparent_60%)]"></div>
+      <div aria-hidden="true" class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.22)_1px,transparent_1px)]; [background-size:32px_32px]"></div>
 
-  <!-- Cyberpunk Navigation -->
-  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-row space-x-8 bg-black/60 px-8 py-3 rounded-full shadow-neon-cyan border border-cyber-neon backdrop-blur-md">
-    <a href="#chapter-1" class="neon-cyan text-lg hover:neon-magenta transition-all">Chapter 1</a>
-    <a href="#chapter-2" class="neon-cyan text-lg hover:neon-magenta transition-all">Chapter 2</a>
-  </nav>
+      <div class="relative z-10 mx-auto w-full max-w-5xl px-6 py-16">
+        <!-- status badge -->
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Carrier detected
+        </div>
 
-  <!-- Wallet UI -->
-  <div id="wallet-ui" class="flex flex-col items-center py-8 mt-20">
-    <button id="connectLamina1" class="cyber-btn mb-2">Connect with Lamina1</button>
-    <span id="walletStatus" class="text-sm text-cyber-neon flicker"></span>
-    <button id="mockAuth" class="cyber-btn bg-cyber-magenta text-white mt-2">Mock Auth (Test)</button>
-  </div>
+        <!-- title (subtle glitch, no spoilers) -->
+        <h1 class="font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl">
+          <span class="relative inline-block">
+            <span class="relative z-[2] block select-none">NODE_ZERO</span>
+          </span>
+        </h1>
+       
+        <div class="prose prose-invert mt-8 max-w-none">
+          <h2 class="mb-2 text-zinc-100">A World Threaded Through Networks</h2>
+          <p class="text-zinc-300">
+            Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
+            It is not a single plot or platform, but the inception of threads in the fabric of time and space.<br/>
+            Experiences you can encounter in any order.
+          </p>
 
-  <!-- Main Content -->
-  <main class="w-full min-h-screen flex flex-col items-center justify-center relative z-10">
-    <!-- Chapter 1 -->
-    <section id="chapter-1" class="min-h-screen w-full max-w-3xl snap-start p-8 flex flex-col items-center justify-center">
-      <a href="chapters/chapter1.html" class="group w-full flex flex-col items-center justify-center cursor-pointer">
-        <h1 class="text-5xl md:text-7xl neon-cyan mb-6 glitch group-hover:underline">The Whispering Code</h1>
-        <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-cyber-green flicker group-hover:text-cyber-magenta">
-          The Substrate didn’t sleep.  It didn’t idle, buffer, or await command.
-        </p>
-      </a>
-    </section>
+          <h2 class="mt-6 mb-2 text-zinc-100">How to Read This Place</h2>
+          <p class="text-zinc-300">
+            Think of this site as a catalog to a distributed archive. node_zero is a trans-media experience existing across the digital landscape, 
+            hidden in plain-sight, deployed off-label.
+          </p>
 
-    <!-- Chapter 1A -->
-    <section id="chapter-1a" class="min-h-screen w-full max-w-3xl snap-start p-8 flex flex-col items-center justify-center">
-      <a href="chapters/chapter1a.html" class="group w-full flex flex-col items-center justify-center cursor-pointer">
-        <h1 class="text-5xl md:text-7xl neon-cyan mb-6 glitch group-hover:underline">Keya Plays A Game</h1>
-        <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-cyber-green flicker group-hover:text-cyber-magenta">
-          When dealing with Artificial Intelligence, sometimes it's best to play dumb.
-        </p>
-      </a>
-    </section>
+          <p class="mt-6 text-zinc-200 font-medium">Start anywhere. Wander. Return with context.</p>
+        </div>
 
-    <!-- Chapter 2 (Gated) -->
-    <section id="chapter-2" class="min-h-screen w-full max-w-3xl snap-start p-8 flex flex-col items-center justify-center" data-requires-nft="true">
-      <a href="chapters/chapter2.html" class="group w-full flex flex-col items-center justify-center cursor-pointer">
-        <h1 class="text-5xl md:text-7xl neon-magenta mb-6 glitch group-hover:underline">Encrypted Echoes</h1>
-        <p class="text-xl md:text-2xl leading-relaxed max-w-2xl text-cyber-yellow flicker group-hover:text-cyber-magenta">
-          This content is restricted. Connect your wallet to access it.
-        </p>
-      </a>
+        <h2>Entry Points</h2>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          <!-- Entry: Vignette (Whispering Code) -->
+          <a href="the-whispering-code/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">Vignette: The Whispering Code</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">A first encounter. Optional reading order.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Open vignette →</div>
+          </a>
+          
+          <!-- Entry: Universe Primer -->
+          <a href="primer.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">Universe Primer</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">A gentle orientation to the meta-web and its moving parts.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Read overview →</div>
+          </a>
+
+          <!-- Entry: Artifacts Index -->
+          <a href="artifacts.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">Artifacts Index</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">Minted pages, ledgers, posts, and other traceable objects.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Browse artifacts →</div>
+          </a>
+
+          <!-- Entry: Stories Hub -->
+          <a href="stories.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">Stories Hub</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">Short fiction and serials from multiple points of view.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Enter stories →</div>
+          </a>
+
+          <!-- Entry: The Blue (metaspace) -->
+          <a href="the-blue.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">The Blue</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">A metaspace where instances spin up, do their work, and fade.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Visit the edge →</div>
+          </a>
+
+          <!-- Entry: Ledgers & Signals -->
+          <a href="signals.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
+            <h3 class="m-0 text-zinc-100">Ledgers &amp; Signals</h3>
+            <p class="m-0 mt-1 text-sm text-zinc-400">On-chain traces, off-chain echoes, and how to verify them.</p>
+            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Trace signals →</div>
+          </a>
+
+          
+        </div>
+
+        <!-- Footer tags -->
+        <div class="mt-8 text-xs text-zinc-500">
+          #NodeZero #CentralInquiry #BeforeTheInquiry #FragmentsOfTheCollapse #QuantumBlockchain #nft #blockchain #ai #metaverse #scifi #booksky
+        </div>
+      </div>
     </section>
   </main>
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
-  <!--
-    Cyberpunk UI/UX Enhancements:
-    - Neon nav, animated scanlines, glitch/flicker headings, responsive layout
-        This content is restricted. Connect your wallet to access it.
-      </p>
-    </section>
-  </main>
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="js/main.js"></script>
-  <!--
-    Cyberpunk UI/UX Enhancements:
-    - Neon nav, animated scanlines, glitch/flicker headings, responsive layout
-    - All navigation and gating logic handled in main.js
-    - Custom utilities in tailwind.css
-    - Test with window.__test hooks
-  -->
 </body>
 </html>

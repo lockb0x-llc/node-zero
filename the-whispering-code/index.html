@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The Whispering Code — Table of Contents</title>
+	<link href="../css/tailwind.generated.css" rel="stylesheet">
+	<link href="../css/styles.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		.vending-bg {
+			background: linear-gradient(135deg, #0a0b10 80%, #1a2a1a 100%);
+		}
+		.vending-machine {
+			border-radius: 2rem;
+			box-shadow: 0 0 32px #00f0ff55, 0 0 8px #ff00e055, 0 0 0 4px #222 inset;
+			border: 4px solid #00f0ff;
+			background: linear-gradient(120deg, #181a22 90%, #23243a 100%);
+			padding: 2.5rem 2rem 2rem 2rem;
+			position: relative;
+			overflow: hidden;
+		}
+		.vending-machine::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+			background: repeating-linear-gradient(
+				to bottom,
+				rgba(0,255,163,0.08), rgba(0,255,163,0.08) 2px,
+				transparent 2px, transparent 16px
+			);
+			opacity: 0.18;
+			z-index: 1;
+		}
+		.vending-title {
+			font-family: 'Orbitron', monospace;
+			letter-spacing: 0.12em;
+			color: #00f0ff;
+			text-shadow: 0 0 12px #00f0ff, 0 0 32px #00f0ff44;
+		}
+		.vending-btn {
+			font-family: 'Orbitron', monospace;
+			background: linear-gradient(90deg, #0a0b10 60%, #00f0ff22 100%);
+			border: 2.5px solid #00ffa3;
+			color: #00ffa3;
+			border-radius: 1.2rem;
+			box-shadow: 0 0 12px #00ffa3cc, 0 0 2px #fff;
+			font-size: 1.25rem;
+			padding: 1.1rem 2.2rem;
+			margin: 0.5rem 0;
+			transition: all 0.18s cubic-bezier(.4,0,.6,1);
+			text-transform: uppercase;
+			letter-spacing: 0.09em;
+			position: relative;
+			z-index: 2;
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+		.vending-btn:hover, .vending-btn:focus {
+			background: linear-gradient(90deg, #00ffa3 10%, #0a0b10 100%);
+			color: #0a0b10;
+			border-color: #ff00e0;
+			box-shadow: 0 0 24px #ff00e0cc, 0 0 2px #fff;
+			outline: none;
+		}
+		.vending-label {
+			font-size: 0.95rem;
+			color: #fbbf24;
+			letter-spacing: 0.08em;
+			margin-bottom: 0.2rem;
+			text-shadow: 0 0 4px #fbbf24cc;
+		}
+		.vending-panel {
+			background: #181a22;
+			border-radius: 1.2rem;
+			border: 2px solid #00f0ff44;
+			box-shadow: 0 0 8px #00f0ff44;
+			padding: 1.5rem 1rem 1rem 1rem;
+			margin-bottom: 1.5rem;
+			z-index: 2;
+			position: relative;
+		}
+	</style>
+</head>
+<body class="vending-bg text-white font-mono min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden">
+	<div id="site-header"></div>
+	<div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+	<main class="flex flex-col items-center justify-center min-h-screen w-full py-12 px-4 relative z-10">
+		<div class="vending-machine w-full max-w-2xl mx-auto flex flex-col items-center">
+			<h1 class="vending-title text-4xl md:text-5xl font-extrabold mb-8">The Whispering Code</h1>
+			<div class="vending-panel w-full mb-6">
+				<div class="text-cyber-green text-lg mb-2 font-mono">Table of Contents</div>
+				<div class="vending-label">Choose your entry point:</div>
+				<a href="chapter1.html" class="vending-btn">Chapter 1: The Substrate</a>
+				<a href="chapter1a.html" class="vending-btn">Chapter 1A: Interactive — Node_Zero</a>
+                <a href="chapter2.html" class="vending-btn">
+                    Chapter 2: Encrypted Echoes
+                    <span style="margin-left: 0.5em;" aria-label="Locked" title="Locked">&#128274;</span>
+                </a>
+				<a href="chapter3.html" class="vending-btn">Chapter 3: Coming Soon</a>
+				</div>
+			<div class="vending-panel w-full mt-2 text-center text-sm text-cyber-green">
+				<span class="vending-label">Return to Universe Home</span>
+				<a href="../index.html" class="vending-btn">← Node_Zero Universe Home</a>
+			</div>
+		</div>
+	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+	<script src="../js/main.js"></script>
+</body>
+</html>

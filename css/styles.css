@@ -159,3 +159,48 @@ legend {
   padding: 0;
 }
 
+/* Pixel dissolve fade in/out animation */
+@keyframes pixel-dissolve-fade {
+  0% {
+    opacity: 0;
+    -webkit-mask-image: linear-gradient(135deg, transparent 40%, #fff 60%);
+    mask-image: linear-gradient(135deg, transparent 40%, #fff 60%);
+  }
+  10% {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(135deg, transparent 30%, #fff 70%);
+    mask-image: linear-gradient(135deg, transparent 30%, #fff 70%);
+  }
+  30% {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(135deg, transparent 10%, #fff 90%);
+    mask-image: linear-gradient(135deg, transparent 10%, #fff 90%);
+  }
+  50% {
+    opacity: 1;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  70% {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(135deg, #fff 90%, transparent 10%);
+    mask-image: linear-gradient(135deg, #fff 90%, transparent 10%);
+  }
+  90% {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(135deg, #fff 70%, transparent 30%);
+    mask-image: linear-gradient(135deg, #fff 70%, transparent 30%);
+  }
+  100% {
+    opacity: 0;
+    -webkit-mask-image: linear-gradient(135deg, #fff 60%, transparent 40%);
+    mask-image: linear-gradient(135deg, #fff 60%, transparent 40%);
+  }
+}
+.pixel-dissolve {
+  -webkit-animation: pixel-dissolve-fade 3.5s linear infinite;
+  animation: pixel-dissolve-fade 3.5s linear infinite;
+  display: inline-block;
+  will-change: opacity, mask-image, -webkit-mask-image;
+}
+
