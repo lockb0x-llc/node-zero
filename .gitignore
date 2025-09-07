@@ -1,6 +1,7 @@
-# Ignore node_modules and lock files everywhere
+# Ignore node_modules everywhere
 node_modules/
-package-lock.json
+
+# Keep main package-lock.json for consistent builds, ignore others
 
 # Ignore MCP server config and local-only files
 ai-memory-mcp/.env

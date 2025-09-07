@@ -1,0 +1,35 @@
+{
+  "routes": [
+    {
+      "route": "/primer",
+      "rewrite": "/primer/index.html"
+    },
+    {
+      "route": "/artifacts",
+      "rewrite": "/artifacts.html"
+    },
+    {
+      "route": "/the-blue",
+      "rewrite": "/the-blue.html"
+    },
+    {
+      "route": "/signals",
+      "rewrite": "/signals.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/css/*", "/js/*", "/media/*", "/*.{css,js,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,eot}"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html"
+    }
+  },
+  "mimeTypes": {
+    ".css": "text/css",
+    ".js": "application/javascript",
+    ".json": "application/json",
+    ".html": "text/html"
+  }
+}
