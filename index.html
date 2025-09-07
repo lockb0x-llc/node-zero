@@ -13,13 +13,12 @@
   <!-- Animated scanlines overlay -->
   <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
   <main>
-    <!-- Node_Zero | Universe-First Homepage Intro -->
     <section class="relative min-h-[92vh] flex items-center justify-center bg-zinc-950 text-zinc-100 overflow-hidden">
       <!-- ambient field -->
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 [background:radial-gradient(1100px_520px_at_70%_20%,rgba(59,130,246,.10),transparent_60%),radial-gradient(760px_360px_at_18%_82%,rgba(168,85,247,.10),transparent_60%)]"></div>
       <div aria-hidden="true" class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.22)_1px,transparent_1px)]; [background-size:32px_32px]"></div>
 
-      <div class="relative z-10 mx-auto w-full max-w-5xl px-6 py-16">
+      <div class="relative z-10 mx-auto w-[70vw] max-w-5xl px-6 py-16 flex flex-col items-center justify-center text-left">
         <!-- status badge -->
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
           <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -33,24 +32,32 @@
           </span>
         </h1>
        
-        <div class="prose prose-invert mt-8 max-w-none">
-          <h2 class="mb-2 text-zinc-100">A World Threaded Through Networks</h2>
-          <p class="text-zinc-300">
-            Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
-            It is not a single plot or platform, but the inception of threads in the fabric of time and space.<br/>
-            Experiences you can encounter in any order.
-          </p>
+        <div id="intro-text" class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mt-10 mb-12 flex flex-col md:flex-row items-center gap-8">
+          <!-- Visual/Artwork Placeholder -->
+          <div class="flex-shrink-0 w-full md:w-1/3 flex justify-center items-center mb-6 md:mb-0">
+            <div class="bg-zinc-900/80 rounded-xl border border-zinc-700 shadow-md flex items-center justify-center h-48 w-48">
+              <span class="text-zinc-500 text-sm">[Artwork Coming Soon]</span>
+            </div>
+          </div>
+          <div class="flex-1 text-justify">
+            <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
+            <p class="text-zinc-300">
+              Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
+              It is not a single plot or platform, but the inception of threads in the fabric of time and space.<br/>
+              Experiences you can encounter in any order.
+            </p>
 
-          <h2 class="mt-6 mb-2 text-zinc-100">How to Read This Place</h2>
-          <p class="text-zinc-300">
-            Think of this site as a catalog to a distributed archive. node_zero is a trans-media experience existing across the digital landscape, 
-            hidden in plain-sight, deployed off-label.
-          </p>
+            <h2 class="mt-6 mb-2 text-cyber-neon neon-cyan">How to Read This Place</h2>
+            <p class="text-zinc-300">
+              Think of this site as a catalog to a distributed archive. node_zero is a trans-media experience existing across the digital landscape, 
+              hidden in plain-sight, deployed off-label.
+            </p>
 
-          <p class="mt-6 text-zinc-200 font-medium">Start anywhere. Wander. Return with context.</p>
+            <p class="mt-6 text-cyber-green font-medium">Start anywhere. Wander. Return with context.</p>
+          </div>
         </div>
 
-        <h2>Entry Points</h2>
+        <h2 class="text-left">Entry Points</h2>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           <!-- Entry: Vignette (Whispering Code) -->
           <a href="the-whispering-code/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
@@ -98,7 +105,7 @@
         </div>
 
         <!-- Footer tags -->
-        <div class="mt-8 text-xs text-zinc-500">
+        <div class="mt-8 text-xs text-zinc-500 text-left">
           #NodeZero #CentralInquiry #BeforeTheInquiry #FragmentsOfTheCollapse #QuantumBlockchain #nft #blockchain #ai #metaverse #scifi #booksky
         </div>
       </div>
@@ -107,5 +114,6 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/header-loader.js"></script>
 </body>
 </html>
