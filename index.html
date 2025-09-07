@@ -33,13 +33,33 @@
         </h1>
        
         <div id="intro-text" class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mt-10 mb-12 flex flex-col md:flex-row items-center gap-8">
-          <!-- Visual/Artwork Placeholder -->
-          <div class="flex-shrink-0 w-full md:w-1/3 flex justify-center items-center mb-6 md:mb-0">
-            <div class="bg-zinc-900/80 rounded-xl border border-zinc-700 shadow-md flex items-center justify-center h-48 w-48">
-              <span class="text-zinc-500 text-sm"><img src="media/image/you-are-here.png" alt="You Are Here" /></span>
+          <!-- You Are Here Image -->
+          <div class="w-full flex flex-col items-center justify-center mb-8">
+            <div class="relative flex items-center justify-center">
+              <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
+              <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
+              <img src="media/image/you-are-here.png" alt="You Are Here" class="relative z-10 h-48 w-48 object-contain rounded-xl bg-zinc-900/80 shadow-lg" />
             </div>
           </div>
-          <div class="flex-1 text-justify">
+          <div class="flex-1 text-justify w-full">
+        <style>
+        @keyframes neonGlowCyan {
+          0%, 100% { box-shadow: 0 0 16px #00fff7, 0 0 32px #00fff7, 0 0 64px #00fff744; }
+          50% { box-shadow: 0 0 32px #00fff7, 0 0 64px #00fff7cc, 0 0 128px #00fff7aa; }
+        }
+        @keyframes neonGlowMagenta {
+          0%, 100% { box-shadow: 0 0 16px #ff00e0, 0 0 32px #ff00e0, 0 0 64px #ff00e044; }
+          50% { box-shadow: 0 0 32px #ff00e0, 0 0 64px #ff00e0cc, 0 0 128px #ff00e0aa; }
+        }
+        .animate-glow-cyan {
+          animation: neonGlowCyan 2.5s infinite alternate;
+          border-color: #00fff7;
+        }
+        .animate-glow-magenta {
+          animation: neonGlowMagenta 2.5s infinite alternate;
+          border-color: #ff00e0;
+        }
+        </style>
             <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
             <p class="text-zinc-300">
               Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
