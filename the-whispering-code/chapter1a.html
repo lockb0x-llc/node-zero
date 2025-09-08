@@ -49,7 +49,7 @@
   </style>
 </head>
 <body class="min-h-screen text-white font-mono px-4 md:px-8 py-8 md:py-12">
-
+<div id="site-header"></div>
   <header class="mb-6 md:mb-10 text-center">
     <h1 class="title-font text-3xl md:text-5xl font-bold glow-cyan">Node_Zero :: The Substrate</h1>
     <p class="mt-2 text-sm md:text-base text-gray-300">Interactive text adventure. Your choices unlock intel and illuminate the universe.</p>
@@ -748,19 +748,35 @@
   // Render choices for a scene
   function renderChoices(scene) {
     elChoices.innerHTML = '';
-    (scene.choices || []).forEach(ch => {
+    // Remove any previous keydown handler
+    if (window._choiceKeyHandler) {
+      document.removeEventListener('keydown', window._choiceKeyHandler);
+    }
+    const btns = [];
+    (scene.choices || []).forEach((ch, idx) => {
       const btn = document.createElement('button');
-      btn.className = 'choice rounded-md px-3 py-2 text-left';
+      btn.className = 'choice rounded-md px-3 py-3 text-left text-base md:text-lg';
       btn.textContent = ch.label;
+      btn.style.minWidth = '120px';
+      btn.style.marginBottom = '6px';
       btn.addEventListener('click', () => {
         if (ch.intel) unlockIntel(ch.intel);
-        // Log the choice
         pushSystemLine('YOU CHOSE: ' + ch.label);
-        // Advance
         runScene(ch.next, { fromChoice: ch });
       });
       elChoices.appendChild(btn);
+      btns.push(btn);
     });
+    // Add keydown handler for number keys
+    window._choiceKeyHandler = function(e) {
+      // Only allow 1-9 keys
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const n = parseInt(e.key, 10);
+      if (!isNaN(n) && n >= 1 && n <= btns.length) {
+        btns[n-1].click();
+      }
+    };
+    document.addEventListener('keydown', window._choiceKeyHandler);
   }
 
   // Replay previous log, then resume scene (used when continuing)
@@ -795,6 +811,9 @@
       }
     }
 
+    // Clear the console before showing the new scene
+    elLog.innerHTML = '';
+
     // Type this scene's text, then render choices
     typeBlock(scene.lines, () => { renderChoices(scene); });
     // Save the block to history for future continues
@@ -814,6 +833,8 @@
       runScene('intro');
     }
   })();
+  
   </script>
+  <script src="../js/header-loader.js"></script>
 </body>
 </html>
