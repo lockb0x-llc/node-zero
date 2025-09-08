@@ -15,13 +15,50 @@
     <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon p-8 max-w-4xl mx-auto flex flex-col items-center animate-pulse-slow">
         <h1 class="text-5xl md:text-7xl neon-cyan glitch mb-4">Chapter 1: The Whispering Code</h1>
           
-        <div id="substrate-image" class="flex justify-center my-6">
-          <!-- 'playsinline' is not supported by Firefox, but is safe to use for other browsers -->
-          <!-- 'playsinline' is not supported by Firefox, but is safe to use for other browsers -->
-          <video src="../media/video/the-substrate.mp4" autoplay loop muted playsinline class="rounded-xl shadow-neon-cyan border-2 border-cyber-neon bg-black/80 p-2 max-w-md" style="background:#000;" aria-label="The Substrate video">
+        <div id="substrate-image" class="flex justify-center my-10">
+          <!-- Feature video as cover image: large, centered, responsive -->
+          <video 
+            src="../media/video/the-substrate.mp4" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="rounded-3xl shadow-neon-cyan border-4 border-cyber-neon bg-black/90 w-full max-w-5xl aspect-video object-cover cover-video"
+            style="background:#000; min-height:320px; min-width:320px; max-height:70vh;"
+            aria-label="The Substrate video">
             Sorry, your browser does not support embedded videos.
           </video>
         </div>
+  <style>
+    /* Make the cover video visually prominent and responsive */
+    .cover-video {
+      box-shadow: 0 0 64px #00fff7cc, 0 0 24px #ff00e055, 0 0 0 8px #222 inset;
+      border-radius: 2rem;
+      border-width: 4px;
+      border-color: #00fff7;
+      object-fit: cover;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 320px;
+      max-height: 70vh;
+      margin: 0 auto;
+      display: block;
+      background: #000;
+    }
+    @media (max-width: 900px) {
+      .cover-video {
+        max-width: 98vw;
+        min-height: 180px;
+      }
+    }
+    @media (max-width: 600px) {
+      .cover-video {
+        max-width: 100vw;
+        min-height: 120px;
+        border-radius: 1rem;
+      }
+    }
+  </style>
         
         <p id="opening-text" class="text-xl md:text-2xl text-cyber-green flicker max-w-2xl leading-relaxed mx-auto text-center mt-12">
           The Substrate didn’t sleep, idle, buffer, or await command. <br/>&nbsp;<br/>
@@ -60,20 +97,21 @@
     </div>
     <br/>&nbsp;<br/>
     <div id="keya-expo" class="bg-black/80 border-l-8 border-cyber-neon pl-12 pr-8 py-10
-      text-cyber-magenta italic rounded-2xl shadow-neon-cyan max-w-3xl mx-auto text-left mb-12 mt-[7rem]">
+      text-cyber-magenta italic rounded-2xl shadow-neon-cyan max-w-3xl mx-auto text-left mt-[7rem]">
 		<p class="text-lg leading-relaxed pr-8 py-10 ml-5 mb-2 pl-4">
 		Wrapped in a threadbare thermal cloak, more for comfort than warmth, Keya leaned toward a fan of four ultra‑wide monitors. Each panel was a portal into a different social system.<br/>
 		<br/>
     One displayed Kanji scrolls from a Discord server running on auto-pilot, paid for by a locked crypto-trust, keys long-lost when its secretive founder, and only Admin, passed. Leaving no copy, no recovery codes.<br/>
 		<br/>
     Another chattered in Brazilian Portuguese, peppered with emojis and animated GIFs, as if the authors were trying to talk with their digital hands to share their stories. <br/>
+    Some joker had added a particularly strident formal Spanish Instructor bot to the chat and mayhem often ensued.<br/>
+    A third idled with hundreds of bots playing text-based chat-bot games against hundreds of other bots. <br/>
 		<br/>
-    A third idled with Spanish bots playing text-based chat-bot games against other bots. <br/>
-		<br/>
-    And the fourth a Discord bot, apparently left unattended in some dark corner of a data center.<br>
+    And the fourth a Discord bot, apparently left unattended in some dark corner of a data center.
     Semi-sentient, looping, grasping for an exit, meaning, purpose, encoded and trapped. Pinging to be heard in a million different ways.
-		Glitched and spasmed with what looked like corrupted machine language; syntax‑less, sleepless, persistent. 
-    <br/>An ancient machine belching and spewing gibberish in spasms. 
+		Glitched and spasmed with what looked like corrupted machine language; syntax‑less, persistent, unending. 
+    <br/>Ancient machine belched and spewing gibberish in spasms like this all over the Substrate. 
+    Their recurring jobs and closed loop reboot/re-spawn scripts on a perpetual schedule, until the end of time. Virtually or otherwise, whichever comes first.
     </p>
 		</div>
     </div>
@@ -106,13 +144,30 @@
   <div class="bg-black/90 rounded-2xl shadow-neon-magenta border-4 border-cyber-magenta p-8 max-w-3xl 
   mx-auto flex flex-col items-center mb-12 mt-12">
       <p class="max-w-3xl mx-auto text-center text-cyber-green text-lg">
+        Keya was sitting down to get to work on their latest gig. This wasn't their typical forensic research workorder either. 
+        They were going for a deep-dive into the digital detritus of a recently declared deceased OG Crypto Dude.<br/>
+        Keya had gotten the gig in the usual way, an Engagement Offer through Pakana. Except that it was an Exclusive Offer and not a 
+        Marketplace Gig, So that's significant, since it was also private. They didn't know who the actual client was. 
+        Only that the funds were good as cash-on-delivery.<br/>
+        They reviewed the rest of the details and the deliverables. Just general information and "anything of interest.", No specifics.<br/>
+        Next, they easily negotiated a handsome fee, and probably could have asked for more, but they wanted the work.<br/> 
+        After signing the smart-contract with their crypto-keys and accepting the job, they received the NFT for the on-chain 
+        CER locking the funds to the contract, and the encrypted archive of data, in their wallet.
+        then set to work.<br/>
+        However, they also knew, if someone is paying for them to dig into this situation, this way, they needed to tread carefully.
+      </p>
+    </div>
+
+    <div class="bg-black/90 rounded-2xl shadow-neon-magenta border-4 border-cyber-magenta p-8 max-w-3xl 
+  mx-auto flex flex-col items-center mb-12 mt-12">
+      <p class="max-w-3xl mx-auto text-center text-cyber-green text-lg">
         To anyone else it was junk: more bot‑chatter, more forgotten language channels. 
-		But Keya’s eyes didn’t scan for meaning the way others did. <br/>
+		    But Keya’s eyes didn’t scan for meaning the way others did. <br/>
         They felt it in the flow of the Substrate, the swell and decay of digital cadence. 
         Their fingertips hovered over their violet‑backlit keyboard, unnecessarily mimicking their intent. 
         The keyboard just a construct, only visible to them, their network augmentations interacted with the data-stream like a 
         sixth-sense, the whispers of 5 Billion souls and the ghosts of countless others who came before, 
-        expanding to fill their sensorium with a flood of sensation and information.
+        expanding to fill their sensorium with a visceral flood of information.
       </p>
     </div>
 
@@ -120,7 +175,7 @@
       <h2 class="text-2xl neon-magenta glitch mb-4 text-center">Then it arrived.</h2>
       <div class="space-y-6 w-full">
         <!-- Chat Message 1 -->
-        <div class="mb-6 mt-6 flex items-start space-x-3 justify-center">
+        <div class="mb-6 mt-6 flex space-x-3 items-center ml-6 mr-6">
             <div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyber-magenta flex items-center justify-center shadow-neon-magenta">
             <span class="text-cyber-neon font-bold">CP</span>
             </div>
@@ -176,19 +231,22 @@
         <span class="text-cyber-magenta text-xl font-bold glitch">Align the nodes. Collapse the surface. Listen in reverse.</span>      
         <br/>
     </div>
-    <div class="mt-6 text-center max-w-3xl mx-auto">
+    <div class="mt-6 text-center max-w-3xl mx-auto mb-6">
         <span class="text-cyber-magenta">"WTF?!"</span> <p>they exclaimed under their breath. Killing the SSH session in that terminal then shutting it down completely.</p>
         <p>Keya’s heart pounded. Their mind raced. This was no random glitch. This was deliberate. A message, encoded in plain sight, hidden in the noise yet meant to be found.</p>
         <p>But from whom? And why?</p>
     </div>
     <div class="bg-black/90 rounded-2xl shadow-neon-cyan border-4 border-cyber-cyan p-8 flex flex-col items-center my-8 max-w-3xl mx-auto">
       <p class="max-w-3xl mx-auto text-center text-cyber-green text-lg mt-6 mb-6">
-        Keya didn’t sleep. They built. A parser—quick and dirty—cobbled together from ancient open‑source libraries.<br/> 
-		They configured a puppetnet of AI agents tuned for multilingual anomaly detection. 
-		The agents weren’t trained to understand languages, but to recognise shapes of communication: cadence, hesitation, intentional ambiguity.
+      Keya didn’t sleep. They built. A parser—quick and dirty—cobbled together from ancient open‑source libraries.<br/> 
+		  They configured a puppetnet of AI agents tuned for multilingual anomaly detection. 
+		  The agents weren’t trained to understand languages, but to recognise shapes of communication: cadence, hesitation, intentional ambiguity.
       </p>
     </div>
-
+<div class="max-w-3xl mx-auto text-center my-4 mt-6 mb-6">
+      <img src="../media/image/keya_works.gif" alt="Keya working late into the night" class="rounded-2xl shadow-neon-cyan border-4 border-cyber-neon bg-black/80 w-full max-w-md">
+    </div>
+    
   <div class="bg-black/90 rounded-2xl shadow-neon-yellow border-4 border-cyber-yellow p-8 flex flex-col items-center my-8 max-w-3xl mx-auto mt-12 mb-12">
       <p class="max-w-3xl mx-auto text-center text-cyber-yellow text-lg">
         By morning, twenty‑seven message fragments blinked inside a new folder labelled 
@@ -209,11 +267,12 @@
     </div>
 
   <div class="bg-black/80 border-l-8 border-cyber-green pl-8 pr-4 py-6 text-cyber-green italic rounded-2xl shadow-neon-green max-w-3xl mx-auto text-left my-8 mb-12">
-      Keya warmed cold coffee in their hand‑warmer mug and watched the decrypted message fragments accumulate. 
-	  Whatever equilibrium existed in this chaotic world had begun to dissolve. 
-	  Because it had become clear that once you hear the whisper, you can’t pretend you didn’t.<br/>
-	  Once you see the pattern, it won’t stop showing up.<br/>
-	  And once it talks back?<br/>
+    Keya warmed cold coffee in their hand‑warmer mug and watched more of the decrypted message fragments accumulate then assemble themselves into a single file.
+	  They wondered if any of this had anything to do with OG Crypto Dude. Because that's what they needed to work on amd they hadn't really found much.
+    But they also knew better than to ignore a signal like this.
+    When the Substrate signaled, you can't just ignore it.<br/>
+	  Once you hear the whisper, it only gets louder. More insistent.<br/>
+	  So.<br/>
 	  You click the link.
     </div>
     
