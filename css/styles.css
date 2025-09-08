@@ -204,3 +204,7 @@ legend {
   will-change: opacity, mask-image, -webkit-mask-image;
 }
 
+#keya-expo p {
+  margin-left: 1.5rem !important;
+}
+

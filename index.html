@@ -13,73 +13,56 @@
   <!-- Animated scanlines overlay -->
   <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
   <main>
-    <section class="relative min-h-[92vh] flex items-center justify-center bg-zinc-950 text-zinc-100 overflow-hidden">
+    <section class="relative min-h-[92vh] flex flex-col items-center justify-start bg-zinc-950 text-zinc-100 overflow-hidden pt-10">
       <!-- ambient field -->
       <div aria-hidden="true" class="pointer-events-none absolute inset-0 [background:radial-gradient(1100px_520px_at_70%_20%,rgba(59,130,246,.10),transparent_60%),radial-gradient(760px_360px_at_18%_82%,rgba(168,85,247,.10),transparent_60%)]"></div>
       <div aria-hidden="true" class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.22)_1px,transparent_1px)]; [background-size:32px_32px]"></div>
 
-      <div class="relative z-10 mx-auto w-[70vw] max-w-5xl px-6 py-16 flex flex-col items-center justify-center text-left">
-        <!-- status badge -->
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
-          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Carrier detected
+      <!-- HERO IMAGE -->
+      <div class="relative z-20 flex flex-col items-center justify-center mb-8">
+        <div class="relative flex items-center justify-center w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] mx-auto">
+          <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
+          <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
+          <img src="media/image/you-are-here.png" alt="You Are Here" class="relative z-10 object-contain rounded-xl bg-zinc-900/80 shadow-lg w-full h-full" />
         </div>
-
-        <!-- title (subtle glitch, no spoilers) -->
-        <h1 class="font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl">
+        <h1 class="font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl mt-8">
           <span class="relative inline-block">
             <span class="relative z-[2] block select-none">NODE_ZERO</span>
           </span>
         </h1>
-       
-        <div id="intro-text" class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mt-10 mb-12 flex flex-col md:flex-row items-center gap-8">
-          <!-- You Are Here Image -->
-          <div class="w-full flex flex-col items-center justify-center mb-8">
-            <div class="relative flex items-center justify-center">
-              <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
-              <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
-              <img src="media/image/you-are-here.png" alt="You Are Here" class="relative z-10 h-48 w-48 object-contain rounded-xl bg-zinc-900/80 shadow-lg" />
-            </div>
-          </div>
-          <div class="flex-1 text-justify w-full">
-        <style>
-        @keyframes neonGlowCyan {
-          0%, 100% { box-shadow: 0 0 16px #00fff7, 0 0 32px #00fff7, 0 0 64px #00fff744; }
-          50% { box-shadow: 0 0 32px #00fff7, 0 0 64px #00fff7cc, 0 0 128px #00fff7aa; }
-        }
-        @keyframes neonGlowMagenta {
-          0%, 100% { box-shadow: 0 0 16px #ff00e0, 0 0 32px #ff00e0, 0 0 64px #ff00e044; }
-          50% { box-shadow: 0 0 32px #ff00e0, 0 0 64px #ff00e0cc, 0 0 128px #ff00e0aa; }
-        }
-        .animate-glow-cyan {
-          animation: neonGlowCyan 2.5s infinite alternate;
-          border-color: #00fff7;
-        }
-        .animate-glow-magenta {
-          animation: neonGlowMagenta 2.5s infinite alternate;
-          border-color: #ff00e0;
-        }
-        </style>
-            <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
-            <p class="text-zinc-300">
-              Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
-              It is not a single plot or platform, but the inception point of threads in the fabric of time and space.<br/>
-              Encounter experiences in any order.<br/>
-              Engagement is rewarded.<br/>
-              Dissemination is celebrated.
-            </p>
-
-            <h2 class="mt-6 mb-2 text-cyber-neon neon-cyan w-full flex justify-center text-center">How to Read This Place</h2>
-            <p class="text-zinc-300">
-              Think of this site as a catalog to a distributed archive. node_zero is a trans-media 
-              experience existing across the digital landscape, 
-              hidden in plain-sight, often deployed off-label.
-            </p>
-
-            <p class="mt-6 text-cyber-green font-medium w-full flex justify-center text-center">Start anywhere. Wander. Contribute. Earn Rewards.</p>
-          </div>
+        <div class="mt-4 mb-2 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Carrier detected
         </div>
+      </div>
 
+      <!-- INTRO TEXT BOX -->
+      <div id="intro-text" class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
+        <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
+        <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
+        <div class="relative z-10 w-full flex flex-col items-center">
+          <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
+          <p class="text-zinc-300">
+            Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
+            It is not a single plot or platform, but the inception point of threads in the fabric of time and space.<br/>
+            Encounter experiences in any order.<br/>
+            Engagement is rewarded.<br/>
+            Dissemination is celebrated.
+          </p>
+          <h2 class="mt-6 mb-2 text-cyber-neon neon-cyan w-full flex justify-center text-center">How to Read This Place</h2>
+          <p class="text-zinc-300">
+            Think of this site as a catalog to a distributed archive. node_zero is a trans-media 
+            experience existing across the digital landscape, 
+            hidden in plain-sight, deployed off-label.
+          </p>
+          <p class="mt-6 text-cyber-green font-medium w-full flex justify-center text-center">
+            Start; Anywhere. Wander. Contribute.<br/>
+            Unlock Rewarding Experiences.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY POINTS -->
+      <div class="relative z-10 w-full max-w-5xl px-6">
         <h2 class="text-left">Entry Points</h2>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           <!-- Entry: Vignette (Whispering Code) -->
@@ -88,45 +71,37 @@
             <p class="m-0 mt-1 text-sm text-zinc-400">Meet Keya and discover node_zero.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Experience The Whispering Code →</div>
           </a>
-          
           <!-- Entry: Universe Primer -->
           <a href="primer.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
             <h3 class="m-0 text-zinc-100">Universe Primer</h3>
             <p class="m-0 mt-1 text-sm text-zinc-400">A gentle orientation to the meta-web and its moving parts.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Read overview →</div>
           </a>
-
           <!-- Entry: Artifacts Index -->
           <a href="artifacts.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
             <h3 class="m-0 text-zinc-100">Artifacts Index</h3>
             <p class="m-0 mt-1 text-sm text-zinc-400">Minted pages, ledgers, posts, and other traceable objects.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Browse artifacts →</div>
           </a>
-
           <!-- Entry: Stories Hub -->
           <a href="stories.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
             <h3 class="m-0 text-zinc-100">Stories Hub</h3>
             <p class="m-0 mt-1 text-sm text-zinc-400">Short fiction and serials from multiple points of view.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Enter stories →</div>
           </a>
-
           <!-- Entry: The Blue (metaspace) -->
           <a href="the-blue.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
             <h3 class="m-0 text-zinc-100">The Blue</h3>
             <p class="m-0 mt-1 text-sm text-zinc-400">A metaspace where instances spin up, do their work, and fade.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Visit the edge →</div>
           </a>
-
           <!-- Entry: Ledgers & Signals -->
           <a href="signals.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
             <h3 class="m-0 text-zinc-100">Ledgers &amp; Signals</h3>
             <p class="m-0 mt-1 text-sm text-zinc-400">On-chain traces, off-chain echoes, and how to verify them.</p>
             <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Trace signals →</div>
           </a>
-
-          
         </div>
-
         <!-- Footer tags -->
         <div class="mt-8 text-xs text-zinc-500 text-left">
           #NodeZero #CentralInquiry #BeforeTheInquiry #FragmentsOfTheCollapse #QuantumBlockchain #nft #blockchain #ai #metaverse #scifi #booksky
