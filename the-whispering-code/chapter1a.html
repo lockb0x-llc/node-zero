@@ -49,7 +49,6 @@
   </style>
 </head>
 <body class="min-h-screen text-white font-mono px-4 md:px-8 py-8 md:py-12">
-  <div id="site-header"></div>
 
   <header class="mb-6 md:mb-10 text-center">
     <h1 class="title-font text-3xl md:text-5xl font-bold glow-cyan">Node_Zero :: The Substrate</h1>
@@ -68,7 +67,7 @@
       <label class="flex items-center gap-2"><input id="chk-autoscroll" type="checkbox" checked /> <span>Auto-Scroll</span></label>
       <div class="hidden md:flex items-center gap-2">
         <span class="opacity-70">Speed</span>
-        <input id="rng-speed" type="range" min="10" max="60" value="18" title="Adjust typing speed" />
+        <input id="rng-speed" type="range" min="10" max="60" value="18" />
       </div>
     </div>
   </section>
@@ -153,7 +152,7 @@
         '> The Strip flickers like a broken circuit. The Substrate hums beneath.',
         '[INBOUND PACKET DETECTED]',
         'crypttext://node-zero.xyz',
-        '"Incoming encrypted message from unknown coordinates."',
+        '"The signal from the future you were never meant to hear."',
         'CHOICES: (1) Open | (2) Trace | (3) Ignore'
       ],
       choices: [
@@ -796,9 +795,6 @@
       }
     }
 
-    // Clear the terminal area before displaying new response
-    elLog.innerHTML = '';
-
     // Type this scene's text, then render choices
     typeBlock(scene.lines, () => { renderChoices(scene); });
     // Save the block to history for future continues
@@ -818,19 +814,6 @@
       runScene('intro');
     }
   })();
-
-  // Keyboard support for number keys (1-9) to select choices
-  document.addEventListener('keydown', function(e) {
-    // Only allow 1-9 keys
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    const n = parseInt(e.key, 10);
-    if (!isNaN(n) && n >= 1 && n <= 9) {
-      const btns = document.querySelectorAll('#choices button.choice');
-      if (btns[n-1]) {
-        btns[n-1].click();
-      }
-    }
-  });
   </script>
 </body>
 </html>
