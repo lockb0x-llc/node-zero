@@ -9,10 +9,47 @@
 </head>
 <body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
   <div id="site-header"></div>
-  <main class="flex flex-col items-center justify-center min-h-screen">
-    <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 max-w-2xl mx-auto mt-16 text-center">
-      <h1 class="text-4xl neon-cyan mb-4">Artifacts Index</h1>
-      <p class="text-zinc-300 mb-6">This is a stub page for the Artifacts Index. Add your artifact content here.</p>
+  <main class="flex flex-col items-center min-h-screen w-full pt-12 px-2">
+    <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 w-full max-w-3xl mx-auto mt-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold neon-cyan mb-4" style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">Artifacts Index</h1>
+      <p class="text-zinc-300 mb-8 text-lg md:text-xl">Browse digital artifacts and profiles from the Node_Zero universe.</p>
+      <div class="flex flex-col gap-8 items-center w-full">
+        <!-- Keya's Lamina1 Profile Card -->
+        <div class="w-full max-w-2xl bg-gradient-to-r from-cyber-neon/30 via-black/80 to-cyber-magenta/30 border-2 border-cyber-neon rounded-xl shadow-lg px-6 py-6 flex gap-6 items-center hover:shadow-neon-cyan hover:border-cyber-magenta group transition">
+          <a href="https://lamina1.com/profile/keya" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img src="https://lamina1.com/_next/image?url=%2Fprofile%2Fkeya.png&w=128&q=75" alt="Keya Profile Thumbnail" class="w-24 h-24 rounded-lg border-2 border-cyber-magenta shadow-cyber-magenta/30 object-cover bg-black" onerror="this.style.display='none'">
+          </a>
+          <div class="flex flex-col flex-1 text-left">
+            <a href="https://lamina1.com/profile/keya" target="_blank" rel="noopener" class="text-2xl font-bold neon-cyan group-hover:text-cyber-magenta transition-colors duration-200" style="letter-spacing:0.09em;">Keya's Lamina1 Profile</a>
+            <span class="text-cyber-magenta text-lg mt-1 mb-1">lamina1.com/profile/keya</span>
+            <span class="text-zinc-300 text-base opacity-80 group-hover:text-cyan-100">View the on-chain identity and digital legacy of Keya</span>
+          </div>
+        </div>
+
+        <!-- Lamina1 Artifact Card -->
+        <div class="w-full max-w-2xl bg-gradient-to-r from-cyber-magenta/30 via-black/80 to-cyber-neon/30 border-2 border-cyber-magenta rounded-xl shadow-lg px-6 py-6 flex gap-6 items-center hover:shadow-neon-cyan hover:border-cyber-neon group transition">
+          <a href="https://lamina1.com/item/0xab4d-fcb8c7-73595868699018418382410298918650094865779493600423522573322029502804357237129" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img src="https://lamina1.com/_next/image?url=%2Fitem%2F0xab4d-fcb8c7-73595868699018418382410298918650094865779493600423522573322029502804357237129.png&w=128&q=75" alt="Artifact Thumbnail" class="w-24 h-24 rounded-lg border-2 border-cyber-neon shadow-cyber-neon/30 object-cover bg-black" onerror="this.style.display='none'">
+          </a>
+          <div class="flex flex-col flex-1 text-left">
+            <a href="https://lamina1.com/item/0xab4d-fcb8c7-73595868699018418382410298918650094865779493600423522573322029502804357237129" target="_blank" rel="noopener" class="text-2xl font-bold neon-cyan group-hover:text-cyber-magenta transition-colors duration-200" style="letter-spacing:0.09em;">Lamina1 Artifact</a>
+            <span class="text-cyber-neon text-lg mt-1 mb-1 break-all">lamina1.com/item/0xab4d-fcb8c7-73595868699018418382410298918650094865779493600423522573322029502804357237129</span>
+            <span class="text-zinc-300 text-base opacity-80 group-hover:text-cyan-100">Unique digital asset on Lamina1. Explore its provenance and metadata.</span>
+          </div>
+        </div>
+
+        <!-- Delta Circuit Artifact Card -->
+        <div class="w-full max-w-2xl bg-gradient-to-r from-cyber-neon/30 via-black/80 to-cyber-magenta/30 border-2 border-cyber-neon rounded-xl shadow-lg px-6 py-6 flex gap-6 items-center hover:shadow-neon-cyan hover:border-cyber-magenta group transition">
+          <a href="https://centralinquiry.com/Delta-Circuit" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img src="https://centralinquiry.com/assets/delta-circuit-thumb.png" alt="Delta Circuit Thumbnail" class="w-24 h-24 rounded-lg border-2 border-cyber-magenta shadow-cyber-magenta/30 object-cover bg-black" onerror="this.style.display='none'">
+          </a>
+          <div class="flex flex-col flex-1 text-left">
+            <a href="https://centralinquiry.com/Delta-Circuit" target="_blank" rel="noopener" class="text-2xl font-bold neon-cyan group-hover:text-cyber-magenta transition-colors duration-200" style="letter-spacing:0.09em;">Delta Circuit Artifact</a>
+            <span class="text-cyber-magenta text-lg mt-1 mb-1">centralinquiry.com/Delta-Circuit</span>
+            <span class="text-zinc-300 text-base opacity-80 group-hover:text-cyan-100">A digital artifact from the Central Inquiry collection. Discover its story and context.</span>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script src="../js/header-loader.js"></script>
