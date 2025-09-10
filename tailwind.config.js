@@ -3,6 +3,11 @@ module.exports = {
   content: [
     "./index.html",
     "./chapters/*.html",
+    "./primer/*.html",
+    "./artifacts/*.html",
+    "./stories/*.html",
+    "./the-blue/*.html",
+    "./signals/*.html",
     "./js/*.js"
   ],
   theme: {
@@ -13,14 +18,12 @@ module.exports = {
       magenta: '#ff00ff',
       neonGreen: '#39ff14',
       neonPink: '#ff1493',
-      cyber: {
-        bg: '#0f111a',
-        neon: '#00fff7',
-        magenta: '#ff00ea',
-        green: '#39ff14',
-        purple: '#a259ff',
-        yellow: '#ffe600',
-      },
+      'cyber-bg': '#0f111a',
+      'cyber-neon': '#00fff7',
+      'cyber-magenta': '#ff00ea',
+      'cyber-green': '#39ff14',
+      'cyber-purple': '#a259ff',
+      'cyber-yellow': '#ffe600',
     },
     fontFamily: {
       cyber: ['Orbitron', 'sans-serif'],
