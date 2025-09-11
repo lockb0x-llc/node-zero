@@ -1,3 +1,11 @@
+/* Override Tailwind's max-width:100% and height:auto for hero video */
+#hero-video {
+  max-width: none !important;
+  max-height: none !important;
+  width: 125% !important;
+  height: 125% !important;
+  display: block;
+}
 @keyframes flash-green {
   0%, 100% { filter: drop-shadow(0 0 8px #00ff00) brightness(1); }
   20% { filter: drop-shadow(0 0 16px #00ff00) brightness(1.3); }
