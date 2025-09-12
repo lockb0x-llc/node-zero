@@ -4,6 +4,42 @@
 
 /* --- Cyberpunk Custom Utilities & Effects --- */
 @layer components {
+  .cyberpunk-panel {
+    @apply bg-[#0a0a0a] bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] rounded-2xl shadow-neon-magenta border-4 border-cyber-magenta p-6 md:p-10 my-8;
+    position: relative;
+    overflow: hidden;
+  }
+  .cyberpunk-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.13"><rect x="0" y="0" width="80" height="80" fill="none" stroke="%2300fff7" stroke-width="0.5"/><rect x="10" y="10" width="60" height="60" fill="none" stroke="%23ff00ea" stroke-width="0.5"/></g></svg>');
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .magenta-glow {
+    @apply text-cyber-magenta font-semibold;
+    text-shadow: 1px 1px 2px #000, 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+  }
+  .cyberpunk-body {
+    @apply text-base leading-relaxed md:text-lg;
+    line-height: 1.7;
+  }
+  .cyberpunk-link {
+    @apply text-cyber-neon hover:text-cyber-green underline transition-all duration-150;
+    text-shadow: 0 0 6px #00fff7, 0 0 12px #00fff7;
+  }
+  .cyberpunk-link-magenta {
+    @apply text-cyber-magenta hover:text-cyber-neon underline transition-all duration-150;
+    text-shadow: 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+  }
+  .cyberpunk-bold {
+    @apply font-bold;
+  }
+  .cyberpunk-bg-dark {
+    @apply bg-[#121212];
+  }
   .cyberpunk-bg {
     @apply bg-cyberpunk bg-cover bg-fixed;
   }

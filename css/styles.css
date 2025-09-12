@@ -1,3 +1,50 @@
+/* --- Cyberpunk Readability & Magenta Contrast Utilities --- */
+.magenta-glow {
+  color: #ff00ea;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px #000, 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+}
+.cyberpunk-panel {
+  background: linear-gradient(135deg, #181824cc 0%, #302b63cc 60%, #24243ecc 100%), rgba(10,10,10,0.92);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 32px #ff00ea55, 0 0 8px #00fff7cc, 0 0 0 4px #222 inset;
+  border: 4px solid #ff00ea;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+}
+.cyberpunk-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.13"><rect x="0" y="0" width="80" height="80" fill="none" stroke="%2300fff7" stroke-width="0.5"/><rect x="10" y="10" width="60" height="60" fill="none" stroke="%23ff00ea" stroke-width="0.5"/></g></svg>');
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+.cyberpunk-body {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.cyberpunk-link {
+  color: #00fff7;
+  text-shadow: 0 0 6px #00fff7, 0 0 12px #00fff7;
+  transition: color 0.15s;
+}
+.cyberpunk-link:hover, .cyberpunk-link:focus {
+  color: #39ff14;
+  text-shadow: 0 0 12px #39ff14, 0 0 24px #00fff7;
+}
+.cyberpunk-link-magenta {
+  color: #ff00ea;
+  text-shadow: 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+  transition: color 0.15s;
+}
+.cyberpunk-link-magenta:hover, .cyberpunk-link-magenta:focus {
+  color: #00fff7;
+  text-shadow: 0 0 12px #00fff7, 0 0 24px #ff00ea;
+}
 /* Override Tailwind's max-width:100% and height:auto for hero video */
 #hero-video {
   max-width: none !important;
