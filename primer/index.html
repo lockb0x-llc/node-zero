@@ -6,6 +6,8 @@
     <title>Primer | Node_Zero</title>
     <link href="../css/tailwind.generated.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
+    <!-- Bootstrap CSS for cards -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
         @keyframes neonPulse {
             0%, 100% { filter: drop-shadow(0 0 8px #00fff7) drop-shadow(0 0 16px #ffe600); opacity: 1; }
@@ -48,29 +50,36 @@
                         </h2>
                     </div>
                 </div>
-                <ul class="space-y-6">
-                    <li>
-                        <a href="Apophis.html" class="block bg-black/80 border-2 border-cyber-yellow rounded-xl shadow-neon-yellow px-6 py-5 transition-all duration-200 hover:bg-cyber-yellow/10 hover:border-cyber-neon">
-                            <div class="flex flex-col md:flex-row md:items-center gap-4">
-                                <div class="flex-shrink-0 flex items-center justify-center">
-                                    <span class="w-12 h-12 rounded-full bg-cyber-yellow/20 border-2 border-cyber-yellow flex items-center justify-center">
-                                        <svg class="w-7 h-7 text-cyber-yellow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="flex-1 text-left">
-                                    <div class="text-lg font-semibold text-cyber-yellow mb-1">The Apophis Event</div>
-                                    <div class="text-zinc-300 text-sm">How a near-miss asteroid changed the Substrate and the world forever.</div>
-                                </div>
-                                <div class="hidden md:block">
-                                    <span class="text-cyber-yellow text-xl">&rarr;</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Add more articles here as <li> blocks -->
-                </ul>
+                <div class="d-flex flex-wrap gap-4 justify-content-center">
+                                    <div class="card bg-dark text-white border-cyber-yellow shadow-neon-yellow mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-cyber-yellow">The Apophis Event</h5>
+                                            <p class="card-text text-zinc-300">How a near-miss asteroid changed the Substrate and the world forever.</p>
+                                            <a href="Apophis.html" class="btn btn-outline-warning">Read Article</a>
+                                        </div>
+                                    </div>
+                                    <div class="card bg-dark text-white border-info shadow-neon-cyan mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                                        <div class="card-body">
+                                              <h5 class="card-title text-info">Artifact: "Machiehood" (Book)</h5>
+                                              <p class="card-text text-zinc-300">A piece of digital ephemera and an artifact in the Node_Zero canon. This novel explores themes and ideas that echo through the Node_Zero universe, but stands apart as its own story.</p>
+                                              <a href="https://amzn.to/42mn0iz" target="_blank" rel="noopener" class="btn btn-outline-info">View on Amazon</a>
+                                        </div>
+                                    </div>
+                  <div class="card bg-dark text-white border-cyber-neon shadow-neon-cyan mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                    <div class="card-body">
+                      <h5 class="card-title text-cyber-neon">Blockchain Scanners</h5>
+                      <p class="card-text text-zinc-300">How to look up and verify transactions and assets on a blockchain.</p>
+                      <a href="blockchain-scanners.html" class="btn btn-outline-info">Read Article</a>
+                    </div>
+                  </div>
+                  <div class="card bg-dark text-white border-cyber-yellow shadow-neon-yellow mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                    <div class="card-body">
+                      <h5 class="card-title text-cyber-yellow">Pakana</h5>
+                      <p class="card-text text-zinc-300">The decentralized gig-economy bridge for Node_Zero, Stellar, and Lamina1.</p>
+                      <a href="pakana.html" class="btn btn-outline-warning">Read Article</a>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </main>
