@@ -116,18 +116,35 @@
         <video src="../media/video/Puppetnet.mp4" autoplay loop muted playsinline class="rounded-2xl shadow-neon-magenta border-4 border-cyber-magenta bg-black/80 max-w-xl w-full"></video>
       </div>
       <div id="echo-pool-green" class="bg-black/80 border-l-8 border-cyber-green pl-8 pr-4 py-6 text-cyber-green italic rounded-2xl shadow-neon-green max-w-3xl mx-auto text-left my-8 mb-12">
-        Keya warmed cold coffee in their hand‑warmer mug and watched more of the decrypted message fragments accumulate then assemble themselves into a single file.
-        What was O G Crypto Dude really up to? Because that's what they needed to work on now, and they hadn't really found much.<br/>
-        They had to figure out what this all meant.
-    </div>
+        <div style="padding:5px;">
+          <p>
+            Keya warmed cold coffee in their hand‑warmer mug and watched more of the decrypted message fragments accumulate then assemble themselves into a single file.
+            What was O G Crypto Dude really up to? Because that's what they needed to work on now, and they hadn't really found much.<br/>
+            They had to figure out what this all meant.
+          </p>
+          <p>
+            When the Substrate signals, you can't just ignore it.<br/>
+            It's not going away, or forgetting, or moving on.<br/>
+            It's everywhere and will stop at nothing to get what it decides it wants.<br/>
+            Once you hear the whisper, it only gets louder. More insistent.<br/>
+            So.<br/>
+            You scroll down and you click the link and you play the game.<br/>
+          </p>
+          <p class="text-center">Because it's always a game in the Substrate.</p>
+        </div>
+      </div>
     </section>
+
+
 <div class="flex justify-center my-2">
           <svg class="animate-flash-green" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 40L10 24H19V8H29V24H38L24 40Z" fill="#00FF00"/>
           </svg>
         </div>
       </div>
-    
+<hr class="cyber-divider cyber-divider-animate">
+
+
    
 
   
@@ -147,7 +164,7 @@
 
     <div id="substrate-signals-section" class="bg-black/80 border-l-8 border-cyber-green pl-8 pr-4 py-6 text-cyber-green italic rounded-2xl shadow-neon-green max-w-3xl mx-auto text-left my-8 mb-12"></div>
     <div class="flex justify-between w-full max-w-3xl mx-auto mt-8">
-      <a href="chapter1-2.html" class="text-cyber-green underline text-lg font-bold">&larr; Previous</a>
+      <a href="chapter1-2.html" class="text-cyber-green underline text-lg font-bold">&larr; Previous</a>&nbsp;&nbsp;
       <a href="chapter1-1.html" class="text-cyber-green underline text-lg font-bold">Back to Start</a>
     </div>
       <style>
@@ -185,14 +202,23 @@
         color: #fff176 !important;
       }
       </style>
-    <section id="play-game" class="slide w-full flex flex-col items-center justify-center mb-16">
-      <div class="flex flex-col items-center my-12 border-double border-4 border-cyber-green p-4 rounded-2xl shadow-neon-green max-w-3xl mx-auto mb-12">
-        <div class="wopr-frame relative p-2 md:p-4">
-          <!-- ...WOPR link and typing effect... -->
-        </div>
-        <span class="block mt-2 text-xs text-cyber-green font-mono tracking-widest" style="letter-spacing:0.12em;"></span>
-      </div>
-    </section>
+    
   </main>
 </body>
+
+<!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/header-loader.js"></script>
+  <script>
+    // Ensure the site-header is loaded on this page
+    if (typeof loadSiteHeader === 'function') {
+      loadSiteHeader();
+    } else {
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof loadSiteHeader === 'function') loadSiteHeader();
+      });
+    }
+  </script>
+
 </html>

@@ -87,5 +87,22 @@
       <a href="chapter1-2.html" class="text-cyber-green underline text-lg font-bold">Next &rarr;</a>
     </div>
   </main>
+  
 </body>
+
+<!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/header-loader.js"></script>
+  <script>
+    // Ensure the site-header is loaded on this page
+    if (typeof loadSiteHeader === 'function') {
+      loadSiteHeader();
+    } else {
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof loadSiteHeader === 'function') loadSiteHeader();
+      });
+    }
+  </script>
+
 </html>
