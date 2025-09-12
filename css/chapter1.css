@@ -1,0 +1,54 @@
+/* Custom styles for The Whispering Code chapter pages */
+
+.cover-video {
+  box-shadow: 0 0 64px #00fff7cc, 0 0 24px #ff00e055, 0 0 0 8px #222 inset;
+  border-radius: 2rem;
+  border-width: 4px;
+  border-color: #00fff7;
+  object-fit: cover;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 320px;
+  max-height: 70vh;
+  margin: 0 auto;
+  display: block;
+  background: #000;
+}
+@media (max-width: 1200px) {
+  .cover-video { max-width: 98vw; min-height: 180px; }
+}
+@media (max-width: 900px) {
+  .cover-video { max-width: 98vw; min-height: 180px; }
+}
+@media (max-width: 600px) {
+  .cover-video { max-width: 100vw; min-height: 120px; border-radius: 1rem; }
+}
+.neon-glow {
+  box-shadow: 0 0 32px #00fff7cc, 0 0 8px #ff00e055, 0 0 0 4px #222 inset;
+  border: 4px solid #00fff7;
+}
+@keyframes cyberGlow {
+  0% { box-shadow: 0 0 32px #00fff7cc, 0 0 8px #ff00e055, 0 0 0 4px #222 inset; }
+  50% { box-shadow: 0 0 64px #ff00e0cc, 0 0 16px #00fff7cc, 0 0 0 8px #222 inset; }
+  100% { box-shadow: 0 0 32px #00fff7cc, 0 0 8px #ff00e055, 0 0 0 4px #222 inset; }
+}
+.animate-cyber-glow {
+  animation: cyberGlow 2.5s infinite alternate;
+  border: 4px solid #ff00e0;
+  box-shadow: 0 0 48px #ff00e0cc, 0 0 8px #00fff7cc;
+}
+@keyframes flashGreen {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 12px #00ff00cc); }
+  50% { opacity: 0.3; filter: drop-shadow(0 0 32px #00ff00); }
+}
+.animate-flash-green {
+  animation: flashGreen 1.1s infinite;
+  display: block;
+}
+@keyframes pulse-intensity {
+  0%, 100% { filter: brightness(1) opacity(1); }
+  50% { filter: brightness(1.25) opacity(0.92); }
+}
+#opening-text {
+  animation: pulse-intensity 2.5s infinite;
+}
