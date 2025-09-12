@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Whispering Code — Chapter 1A | Node Zero</title>
-<meta name="description" content="A text-based adventure game. Play along with Keya, revealing more about the Substrate and hidden technologies.">
+  document.addEventListener('DOMContentLoaded', function() {
+    // ---------------------------
+    // Game Data: Intel (Lore)
+    // ---------------------------
+    const INTEL = {
 <meta name="keywords" content="Node Zero, The Whispering Code, Chapter 1A, cyberpunk story, Substrate, metaverse saga, Collapse, Central Inquiry, AI game, techno narrative">
-<meta property="og:title" content="The Whispering Code — Chapter 1A | Node Zero">
-<meta property="og:description" content="Keya and Node Zero dive deeper into the Substrate in a retro text-based game.">
-<meta property="og:image" content="https://node-zero.xyz/media/image/Keya_circle_profile">
-<meta property="og:url" content="https://node-zero.xyz/the-whispering-code/chapter1a.html">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Whispering Code — Chapter 1A | Node Zero">
-<meta name="twitter:description" content="The Substrate reveals itself through play — Keya’s game becomes part of the story.">
-<meta name="twitter:image" content="https://node-zero.xyz/assets/og-chapter1a.jpg"><link href="../css/tailwind.generated.css" rel="stylesheet">
-  <link href="../css/styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --neon-cyan: #00f0ff;
-      --neon-magenta: #ff00e0;
+    // Init
+    (function init(){
+      // Load saved state if available (but do not auto-write to DOM yet)
+      const hasSave = load();
+      renderIntel();
+      if (hasSave) {
+        // Offer continue (button in header)
+        pushSystemLine('[SAVE FOUND] Press Continue to resume, or New Game to restart.');
+      } else {
+        runScene('intro');
+      }
+    })();
+  
+  });
+  </script>
       --neon-green: #00ffa3;
       --amber: #fbbf24;
       --bg-deep: #0a0b10;
@@ -38,6 +40,34 @@
         transparent 1px, transparent 3px
       );
       mix-blend-mode: overlay; opacity: .25; border-radius: .75rem;
+      z-index: 1;
+    }
+    #console-log {
+      position: relative;
+      z-index: 2;
+    }
+    #choices {
+      position: relative;
+      z-index: 100;
+    }
+    .choice {
+      position: relative;
+      z-index: 101;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.15);
+      min-height: 48px;
+      min-width: 140px;
+      padding: 1rem 1.2rem;
+      font-size: 1.1rem;
+      touch-action: manipulation;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .choice:hover, .choice:active, .choice:focus {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.35);
+      box-shadow: 0 2px 12px 0 rgba(0,240,255,0.08);
+      outline: none;
     }
     pre, .console-line { white-space: pre-wrap; word-wrap: break-word; }
     .cursor::after { content: '▌'; display: inline-block; animation: blink 1s step-end infinite; color: var(--neon-cyan); margin-left: 2px; }
@@ -50,8 +80,29 @@
     .btn-green { border-color: rgba(0,255,163,.35); color: var(--neon-green); }
     .btn-cyan { border-color: rgba(0,240,255,.35); color: var(--neon-cyan); }
     .btn-magenta { border-color: rgba(255,0,224,.35); color: var(--neon-magenta); }
-    .choice { border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.03); }
-    .choice:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.35); }
+    #choices {
+      position: relative;
+      z-index: 10;
+    }
+    .choice {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.03);
+      min-height: 48px;
+      min-width: 140px;
+      padding: 1rem 1.2rem;
+      font-size: 1.1rem;
+      touch-action: manipulation;
+      position: relative;
+      z-index: 11;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .choice:hover, .choice:active, .choice:focus {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.35);
+      box-shadow: 0 2px 12px 0 rgba(0,240,255,0.08);
+      outline: none;
+    }
     .pill { border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:.15rem .6rem; font-size:.75rem; opacity:.85; }
     .badge { border:1px solid rgba(255,255,255,.2); border-radius:.4rem; padding:.1rem .4rem; font-size:.7rem; opacity:.9; }
   </style>
@@ -108,6 +159,7 @@
   </footer>
 
   <script>
+  document.addEventListener('DOMContentLoaded', function() {
   // ---------------------------
   // Game Data: Intel (Lore)
   // ---------------------------
@@ -842,6 +894,7 @@
     }
   })();
   
+  });
   </script>
   <script src="../js/header-loader.js"></script>
 
