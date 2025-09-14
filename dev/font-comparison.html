@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Font Toggle Preview + Code Snippets</title>
+  <!-- Google Fonts (load all candidates at once) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Audiowide&family=Rajdhani:wght@400;600&family=Exo+2:wght@400;700&family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    .orbitron { font-family: 'Orbitron', sans-serif; }
+    .audiowide { font-family: 'Audiowide', cursive; }
+    .rajdhani { font-family: 'Rajdhani', sans-serif; }
+    .exo { font-family: 'Exo 2', sans-serif; }
+    .sharetech { font-family: 'Share Tech Mono', monospace; }
+    .syncopate { font-family: 'Syncopate', sans-serif; }
+    .neon { text-shadow: 0 0 6px #0ff, 0 0 12px #0ff; }
+    .code-block {
+      font-family: 'Share Tech Mono', monospace;
+      background: #111;
+      color: #0ff;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #0ff;
+      margin-top: 1rem;
+      white-space: pre;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white p-10 min-h-screen flex flex-col items-center">
+  <header class="border-b border-zinc-800/60 bg-zinc-950/60 sticky top-0 backdrop-blur">
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent-banner" style="position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:1em;z-index:9999;display:none;justify-content:center;align-items:center;gap:1em;">
+      <span>This site only uses cookies for internal analytics (Microsoft Clarity) and others for some cool features, never for marketing. Do you accept?</span>
+      <button id="accept-cookies" style="background:#4caf50;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Accept</button>
+      <button id="decline-cookies" style="background:#f44336;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Decline</button>
+    </div>
+
+    <nav id="nav-header" class="w-full max-w-full overflow-x-auto px-4 md:px-6 py-4 flex items-center justify-between">
+      <a href="/" class="font-bold tracking-wide text-zinc-100">NODE_ZERO</a>
+      <div class="flex gap-4 text-sm text-zinc-300">&nbsp;|&nbsp;
+        <a href="/primer/index.html">Primer</a>&nbsp;|&nbsp;
+        <a href="/artifacts/index.html">Artifacts</a>&nbsp;|&nbsp;
+        <a href="/stories/index.html">Stories</a>&nbsp;|&nbsp;
+        <a href="/the-blue/index.html">The Blue</a>&nbsp;|&nbsp; 
+        <a href="/signals/index.html">Signals</a>&nbsp;|&nbsp;
+        <a href="/dev/index.html">dev</a>&nbsp;|&nbsp;
+      </div>  
+    </nav>
+    <!-- Clarity & Cookie Consent Logic -->
+    <script>
+      // Show banner if consent not given
+      function hasConsent() {
+        return localStorage.getItem('clarityConsent') === 'accepted';
+      }
+      function hasDeclined() {
+        return localStorage.getItem('clarityConsent') === 'declined';
+      }
+      function showBanner() {
+        document.getElementById('cookie-consent-banner').style.display = 'flex';
+      }
+      function hideBanner() {
+        document.getElementById('cookie-consent-banner').style.display = 'none';
+      }
+      function loadClarity() {
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "t77geqkdbb");
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!hasConsent() && !hasDeclined()) {
+          showBanner();
+        } else if (hasConsent()) {
+          loadClarity();
+        }
+        document.getElementById('accept-cookies').onclick = function() {
+          localStorage.setItem('clarityConsent', 'accepted');
+          hideBanner();
+          loadClarity();
+        };
+        document.getElementById('decline-cookies').onclick = function() {
+          localStorage.setItem('clarityConsent', 'declined');
+          hideBanner();
+        };
+      });
+    </script>
+  </header>
+
+  <h1 class="text-3xl neon mb-6">Font Toggle Preview + Code Snippets</h1>
+
+  <!-- Dropdown selector -->
+  <select id="fontSelector" class="mb-8 p-2 rounded bg-gray-800 text-white border border-cyan-500">
+    <option value="orbitron" data-link="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" data-class=".orbitron { font-family: 'Orbitron', sans-serif; }">Orbitron</option>
+    <option value="audiowide" data-link="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" data-class=".audiowide { font-family: 'Audiowide', cursive; }">Audiowide</option>
+    <option value="rajdhani" data-link="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap" data-class=".rajdhani { font-family: 'Rajdhani', sans-serif; }">Rajdhani</option>
+    <option value="exo" data-link="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" data-class=".exo { font-family: 'Exo 2', sans-serif; }">Exo 2</option>
+    <option value="sharetech" data-link="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" data-class=".sharetech { font-family: 'Share Tech Mono', monospace; }">Share Tech Mono</option>
+    <option value="syncopate" data-link="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" data-class=".syncopate { font-family: 'Syncopate', sans-serif; }">Syncopate</option>
+  </select>
+
+  <!-- Sample text block -->
+  <div id="sampleBlock" class="orbitron max-w-3xl text-lg leading-relaxed text-cyan-400 space-y-4 text-center mb-8">
+    <p class="opacity-0 translate-y-4">Back in ’92, Neal Stephenson dropped <em>Snow Crash</em> on the world.</p>
+    <p class="opacity-0 translate-y-4">Cyberpunk satire dressed up as prophecy.</p>
+    <p class="opacity-0 translate-y-4">Fiction that became blueprint.</p>
+  </div>
+
+  <!-- Code snippets -->
+  <div>
+    <h2 class="text-xl mb-2">Google Fonts Link</h2>
+    <div id="fontLink" class="code-block">
+&lt;link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"&gt;
+    </div>
+
+    <h2 class="text-xl mt-6 mb-2">CSS Class</h2>
+    <div id="fontClass" class="code-block">
+.orbitron { font-family: 'Orbitron', sans-serif; }
+    </div>
+  </div>
+
+  <script>
+    function animateText() {
+      const lines = document.querySelectorAll('#sampleBlock p');
+      lines.forEach(l => { l.style.opacity = 0; l.style.transform = 'translateY(20px)'; });
+      anime.timeline()
+        .add({
+          targets: lines,
+          opacity: [0,1],
+          translateY: [20,0],
+          easing: 'easeOutQuad',
+          duration: 700,
+          delay: anime.stagger(500)
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      animateText();
+      const selector = document.getElementById('fontSelector');
+      const block = document.getElementById('sampleBlock');
+      const fontLink = document.getElementById('fontLink');
+      const fontClass = document.getElementById('fontClass');
+
+      selector.addEventListener('change', () => {
+        const selected = selector.options[selector.selectedIndex];
+        const fontClassName = selected.value;
+        block.className = `${fontClassName} max-w-3xl text-lg leading-relaxed text-cyan-400 space-y-4 text-center mb-8`;
+        animateText();
+
+        // Update code snippets
+        fontLink.textContent = `<link href="${selected.dataset.link}" rel="stylesheet">`;
+        fontClass.textContent = selected.dataset.class;
+      });
+    });
+  </script>
+</body>
+</html>

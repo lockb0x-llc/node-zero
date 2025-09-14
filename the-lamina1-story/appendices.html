@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appendices | Coming Soon</title>
+  <link href="/css/tailwind.generated.css" rel="stylesheet" />
+  <link href="/css/styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif; }
+    .coming-soon-panel {
+      background: rgba(20, 24, 40, 0.97);
+      color: #e3f6ff;
+      box-shadow: 0 0 32px #0033cc55, 0 0 8px #00fff7cc, 0 0 0 4px #222 inset;
+      border: 4px solid #0033cc;
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .royal-blue-border {
+      position: fixed; z-index: 50; pointer-events: none; }
+    .royal-blue-border-top, .royal-blue-border-bottom {
+      left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #0033cc 0%, #1a237e 50%, #0033cc 100%);
+      box-shadow: 0 0 24px 4px #0033cc, 0 0 32px 8px #1a237e;
+      animation: border-flash 2.2s infinite alternate;
+    }
+    .royal-blue-border-top { top: 0; }
+    .royal-blue-border-bottom { bottom: 0; }
+    .royal-blue-border-left, .royal-blue-border-right {
+      top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, #0033cc 0%, #1a237e 50%, #0033cc 100%);
+      box-shadow: 0 0 24px 4px #0033cc, 0 0 32px 8px #1a237e;
+      animation: border-flash 2.2s infinite alternate;
+    }
+    .royal-blue-border-left { left: 0; }
+    .royal-blue-border-right { right: 0; }
+    @keyframes border-flash {
+      0%, 100% { filter: brightness(1) blur(1.5px); }
+      50% { filter: brightness(1.7) blur(3px); }
+    }
+  </style>
+</head>
+  <body class="cyberpunk-bg min-h-screen flex items-center justify-center relative">
+  <header class="w-full z-50 fixed top-0 left-0 flex items-center justify-between px-6 py-3 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan">
+    <div class="flex items-center gap-4">
+      <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
+      <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+      <span class="mx-2 text-cyber-neon">/</span>
+      <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base hover:text-cyber-green transition-all">Table of Contents</a>
+    </div>
+  </header>
+  <div class="royal-blue-border royal-blue-border-top"></div>
+  <div class="royal-blue-border royal-blue-border-bottom"></div>
+  <div class="royal-blue-border royal-blue-border-left"></div>
+  <div class="royal-blue-border royal-blue-border-right"></div>
+  <main class="flex flex-col items-center justify-center min-h-screen pt-20">
+    <div class="coming-soon-panel">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Appendices</h1>
+      <p class="text-lg mb-2">Coming Soon</p>
+      <p class="text-base text-blue-200">This chapter is under construction. Check back soon for updates!</p>
+    </div>
+    <nav class="mt-10 flex w-full max-w-lg justify-start items-center text-cyber-neon">
+      <a href="closing-beat-snow-crash-callback.html" class="cyberpunk-link text-base">⟵ Back</a>
+    </nav>
+  </main>
+</body>
+</html>

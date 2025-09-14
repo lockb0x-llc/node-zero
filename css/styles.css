@@ -1,3 +1,14 @@
+/* Consistent readable background for chapter content */
+.chapter-content {
+  background: rgba(20, 24, 40, 0.97);
+  color: #e3f6ff;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 16px #0033cc55, 0 0 4px #00fff7cc, 0 0 0 2px #222 inset;
+  padding: 2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
 /* --- Cyberpunk Readability & Magenta Contrast Utilities --- */
 .magenta-glow {
   color: #ff00ea;
