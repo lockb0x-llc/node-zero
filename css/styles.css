@@ -1,3 +1,223 @@
+/* Consistent readable background for chapter content */
+.chapter-content {
+  background: rgba(20, 24, 40, 0.97);
+  color: #e3f6ff;
+  border-radius: 1.25rem;
+  box-shadow: 0 0 16px #0033cc55, 0 0 4px #00fff7cc, 0 0 0 2px #222 inset;
+  padding: 2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+/* --- Cyberpunk Readability & Magenta Contrast Utilities --- */
+.magenta-glow {
+  color: #ff00ea;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px #000, 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+}
+.cyberpunk-panel {
+  background: linear-gradient(135deg, #181824cc 0%, #302b63cc 60%, #24243ecc 100%), rgba(10,10,10,0.92);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 32px #ff00ea55, 0 0 8px #00fff7cc, 0 0 0 4px #222 inset;
+  border: 4px solid #ff00ea;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+}
+.cyberpunk-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.13"><rect x="0" y="0" width="80" height="80" fill="none" stroke="%2300fff7" stroke-width="0.5"/><rect x="10" y="10" width="60" height="60" fill="none" stroke="%23ff00ea" stroke-width="0.5"/></g></svg>');
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+.cyberpunk-body {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+.cyberpunk-link {
+  color: #00fff7;
+  text-shadow: 0 0 6px #00fff7, 0 0 12px #00fff7;
+  transition: color 0.15s;
+}
+.cyberpunk-link:hover, .cyberpunk-link:focus {
+  color: #39ff14;
+  text-shadow: 0 0 12px #39ff14, 0 0 24px #00fff7;
+}
+.cyberpunk-link-magenta {
+  color: #ff00ea;
+  text-shadow: 0 0 8px #ff00ea, 0 0 16px #ff00ea;
+  transition: color 0.15s;
+}
+.cyberpunk-link-magenta:hover, .cyberpunk-link-magenta:focus {
+  color: #00fff7;
+  text-shadow: 0 0 12px #00fff7, 0 0 24px #ff00ea;
+}
+/* Override Tailwind's max-width:100% and height:auto for hero video */
+#hero-video {
+  max-width: none !important;
+  max-height: none !important;
+  width: 125% !important;
+  height: 125% !important;
+  display: block;
+}
+@keyframes flash-green {
+  0%, 100% { filter: drop-shadow(0 0 8px #00ff00) brightness(1); }
+  20% { filter: drop-shadow(0 0 16px #00ff00) brightness(1.3); }
+  40% { filter: drop-shadow(0 0 24px #00ff00) brightness(1.1); }
+  60% { filter: drop-shadow(0 0 32px #00ff00) brightness(1.4); }
+  80% { filter: drop-shadow(0 0 16px #00ff00) brightness(1.2); }
+}
+.animate-flash-green {
+  animation: flash-green 1.2s infinite alternate;
+}
+/* === Subtle Animated Light-Matrix Background Effect === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="40,5 75,22.5 75,57.5 40,75 5,57.5 5,22.5" fill="none" stroke="%2300bfff" stroke-width="1.5" opacity="0.7"/><polygon points="40,15 65,27.5 65,52.5 40,65 15,52.5 15,27.5" fill="none" stroke="%2333e0ff" stroke-width="1.2" opacity="0.5"/><polyline points="40,5 40,75" stroke="%2355aaff" stroke-width="0.9" opacity="0.32"/><polyline points="5,22.5 75,22.5" stroke="%2300eaff" stroke-width="0.9" opacity="0.32"/><polyline points="5,57.5 75,57.5" stroke="%2300eaff" stroke-width="0.9" opacity="0.32"/><polyline points="15,27.5 65,52.5" stroke="%2300bfff" stroke-width="0.7" opacity="0.22"/><polyline points="65,27.5 15,52.5" stroke="%2333e0ff" stroke-width="0.7" opacity="0.22"/></svg>');
+  background-size: 80px 80px;
+  animation: cell-twinkle 8s linear infinite;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="40,5 75,22.5" stroke="%2300eaff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.9;0;0;0.7;0" keyTimes="0;0.12;0.22;0.5;0.62;1" dur="7.2s" repeatCount="indefinite" begin="0s"/></polyline><polyline points="75,22.5 75,57.5" stroke="%2333e0ff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.8;0;0;0.9;0" keyTimes="0;0.18;0.28;0.5;0.68;1" dur="7.2s" repeatCount="indefinite" begin="-1.2s"/></polyline><polyline points="75,57.5 40,75" stroke="%2355aaff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.7;0;0;0.8;0" keyTimes="0;0.24;0.34;0.5;0.74;1" dur="7.2s" repeatCount="indefinite" begin="-2.4s"/></polyline><polyline points="40,75 5,57.5" stroke="%2300bfff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.8;0;0;0.9;0" keyTimes="0;0.31;0.41;0.5;0.81;1" dur="7.2s" repeatCount="indefinite" begin="-3.6s"/></polyline><polyline points="5,57.5 5,22.5" stroke="%2300eaff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.9;0;0;0.7;0" keyTimes="0;0.37;0.47;0.5;0.87;1" dur="7.2s" repeatCount="indefinite" begin="-4.8s"/></polyline><polyline points="5,22.5 40,5" stroke="%2333e0ff" stroke-width="1.5" opacity="0.0"><animate attributeName="opacity" values="0;0.8;0;0;0.9;0" keyTimes="0;0.44;0.54;0.5;0.94;1" dur="7.2s" repeatCount="indefinite" begin="-6s"/></polyline></svg>');
+  background-size: 80px 80px;
+  animation: cell-flash 12s steps(7, end) infinite;
+}
+
+@keyframes cell-twinkle {
+  0% { opacity: 0.13; filter: brightness(1) blur(0.5px); background-position: 0 0; }
+  20% { opacity: 0.16; filter: brightness(1.1) blur(0.7px); background-position: 12px 10px; }
+  40% { opacity: 0.11; filter: brightness(0.95) blur(1px); background-position: 24px 20px; }
+  60% { opacity: 0.15; filter: brightness(1.15) blur(0.6px); background-position: 36px 30px; }
+  80% { opacity: 0.12; filter: brightness(1.05) blur(0.8px); background-position: 48px 40px; }
+  100% { opacity: 0.13; filter: brightness(1) blur(0.5px); background-position: 0 0; }
+}
+
+@keyframes cell-flash {
+  0% { opacity: 0.18; filter: brightness(1); background-position: 0 0; }
+  100% { opacity: 0.18; filter: brightness(1.1); background-position: 80px 80px; }
+}
+/* === Centered Video with Hugging Border === */
+.cover-video {
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 64px #00fff7cc, 0 0 24px #ff00e055, 0 0 0 8px #222 inset;
+  border: 4px solid #00fff7;
+  background: #000;
+  object-fit: cover;
+  /* Remove extra padding/margin from parent if needed for tight hug */
+}
+/* === Cyberpunk Animated Magenta Link for Pakana === */
+#pakana-link {
+  color: #ff00e0;
+  text-shadow: 0 0 8px #ff00e0, 0 0 16px #ff00e0, 0 0 32px #ff00e0;
+  font-weight: bold;
+  transition: color 0.2s, text-shadow 0.2s;
+  animation: magenta-flicker 2.2s infinite alternate;
+}
+#pakana-link:hover, #pakana-link:focus {
+  color: #fff;
+  text-shadow: 0 0 24px #ff00e0, 0 0 48px #ff00e0, 0 0 64px #fff;
+}
+@keyframes magenta-flicker {
+  0% { filter: brightness(1) drop-shadow(0 0 8px #ff00e0); }
+  10% { filter: brightness(1.2) drop-shadow(0 0 16px #ff00e0); }
+  20% { filter: brightness(0.8) drop-shadow(0 0 24px #ff00e0); }
+  30% { filter: brightness(1.3) drop-shadow(0 0 32px #ff00e0); }
+  40% { filter: brightness(1) drop-shadow(0 0 16px #ff00e0); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 32px #ff00e0); }
+  60% { filter: brightness(0.9) drop-shadow(0 0 8px #ff00e0); }
+  70% { filter: brightness(1.2) drop-shadow(0 0 24px #ff00e0); }
+  80% { filter: brightness(1) drop-shadow(0 0 16px #ff00e0); }
+  90% { filter: brightness(1.3) drop-shadow(0 0 32px #ff00e0); }
+  100% { filter: brightness(1) drop-shadow(0 0 8px #ff00e0); }
+}
+/* === Tooltip Styles === */
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+.tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  max-width: 260px;
+  background: #111827ee;
+  color: #00fff7;
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  z-index: 20;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 16px #00fff7cc, 0 0 8px #ff00e0cc;
+  font-size: 0.95rem;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+}
+.tooltip:hover .tooltip-text,
+.tooltip:focus .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+/* === Cyberpunk Text Glow Styles === */
+.text-glow-cyan {
+  text-shadow: 0 0 8px #00fff7, 0 0 16px #00fff7, 0 0 32px #00fff7;
+}
+.text-glow-magenta {
+  text-shadow: 0 0 8px #ff00e0, 0 0 16px #ff00e0, 0 0 32px #ff00e0;
+}
+.text-glow-yellow {
+  text-shadow: 0 0 8px #ffe600, 0 0 16px #ffe600, 0 0 32px #ffe600;
+}
+ .text-glow-red {
+   text-shadow: 0 0 8px #ff0033, 0 0 16px #ff0033, 0 0 32px #ff0033;
+   color: #ff0033;
+ }
+/* === Cyberpunk Divider Styles === */
+.cyber-divider {
+  height: 0.25rem;
+  width: 12rem;
+  margin: 3rem auto;
+  border: none;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--cyber-neon, #00fff7), var(--cyber-magenta, #ff00e0), var(--cyber-yellow, #ffe600));
+  box-shadow: 0 0 24px 4px var(--cyber-neon, #00fff7), 0 0 32px 8px var(--cyber-magenta, #ff00e0);
+  filter: blur(1.5px);
+}
+
+@keyframes cyber-divider-pulse {
+  0%, 100% { filter: brightness(1) blur(2px); }
+  50% { filter: brightness(1.5) blur(4px); }
+}
+.cyber-divider-animate {
+  animation: cyber-divider-pulse 2.2s infinite;
+}
+
+/* For use with <hr class="cyber-divider cyber-divider-animate"> */
+
+/* Anime.js variant: <hr class="cyber-divider" id="anime-divider"> */
 /*! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com */
 
 /* Box sizing and border reset */
@@ -147,7 +367,7 @@ summary {
 
 /* Margin reset for block elements */
 blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
-  margin: 0;
+  margin: 10px 0;
 }
 
 fieldset {

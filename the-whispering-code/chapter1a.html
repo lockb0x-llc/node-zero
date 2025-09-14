@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node_Zero // The Substrate — Interactive Text Adventure</title>
-  <!-- Optional: use your existing styles if present -->
+  <title>The Whispering Code — Chapter 1A | Node Zero</title>
+  <meta name="description" content="A text-based adventure game. Play along with Keya, revealing more about the Substrate and hidden technologies.">
+  <meta name="keywords" content="Node Zero, The Whispering Code, Chapter 1A, cyberpunk story, Substrate, metaverse saga, Collapse, Central Inquiry, AI game, techno narrative">
+  <meta property="og:title" content="The Whispering Code — Chapter 1A | Node Zero">
+  <meta property="og:description" content="Keya and Node Zero dive deeper into the Substrate in a retro text-based game.">
+  <meta property="og:image" content="https://node-zero.xyz/media/image/Keya_circle_profile">
+  <meta property="og:url" content="https://node-zero.xyz/the-whispering-code/chapter1a.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Whispering Code — Chapter 1A | Node Zero">
+  <meta name="twitter:description" content="The Substrate reveals itself through play — Keya’s game becomes part of the story.">
+  <meta name="twitter:image" content="https://node-zero.xyz/assets/og-chapter1a.jpg">
   <link href="../css/tailwind.generated.css" rel="stylesheet">
   <link href="../css/styles.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
@@ -30,6 +39,34 @@
         transparent 1px, transparent 3px
       );
       mix-blend-mode: overlay; opacity: .25; border-radius: .75rem;
+      z-index: 1;
+    }
+    #console-log {
+      position: relative;
+      z-index: 2;
+    }
+    #choices {
+      position: relative;
+      z-index: 100;
+    }
+    .choice {
+      position: relative;
+      z-index: 101;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.15);
+      min-height: 48px;
+      min-width: 140px;
+      padding: 1rem 1.2rem;
+      font-size: 1.1rem;
+      touch-action: manipulation;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .choice:hover, .choice:active, .choice:focus {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.35);
+      box-shadow: 0 2px 12px 0 rgba(0,240,255,0.08);
+      outline: none;
     }
     pre, .console-line { white-space: pre-wrap; word-wrap: break-word; }
     .cursor::after { content: '▌'; display: inline-block; animation: blink 1s step-end infinite; color: var(--neon-cyan); margin-left: 2px; }
@@ -42,15 +79,36 @@
     .btn-green { border-color: rgba(0,255,163,.35); color: var(--neon-green); }
     .btn-cyan { border-color: rgba(0,240,255,.35); color: var(--neon-cyan); }
     .btn-magenta { border-color: rgba(255,0,224,.35); color: var(--neon-magenta); }
-    .choice { border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.03); }
-    .choice:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.35); }
+    #choices {
+      position: relative;
+      z-index: 10;
+    }
+    .choice {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.03);
+      min-height: 48px;
+      min-width: 140px;
+      padding: 1rem 1.2rem;
+      font-size: 1.1rem;
+      touch-action: manipulation;
+      position: relative;
+      z-index: 11;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .choice:hover, .choice:active, .choice:focus {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.35);
+      box-shadow: 0 2px 12px 0 rgba(0,240,255,0.08);
+      outline: none;
+    }
     .pill { border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:.15rem .6rem; font-size:.75rem; opacity:.85; }
     .badge { border:1px solid rgba(255,255,255,.2); border-radius:.4rem; padding:.1rem .4rem; font-size:.7rem; opacity:.9; }
   </style>
+   </style>
 </head>
 <body class="min-h-screen text-white font-mono px-4 md:px-8 py-8 md:py-12">
-  <div id="site-header"></div>
-
+<div id="site-header"></div>
   <header class="mb-6 md:mb-10 text-center">
     <h1 class="title-font text-3xl md:text-5xl font-bold glow-cyan">Node_Zero :: The Substrate</h1>
     <p class="mt-2 text-sm md:text-base text-gray-300">Interactive text adventure. Your choices unlock intel and illuminate the universe.</p>
@@ -68,7 +126,7 @@
       <label class="flex items-center gap-2"><input id="chk-autoscroll" type="checkbox" checked /> <span>Auto-Scroll</span></label>
       <div class="hidden md:flex items-center gap-2">
         <span class="opacity-70">Speed</span>
-        <input id="rng-speed" type="range" min="10" max="60" value="18" title="Adjust typing speed" />
+        <input id="rng-speed" type="range" min="10" max="60" value="18" title="Adjust text typing speed" />
       </div>
     </div>
   </section>
@@ -101,6 +159,7 @@
   </footer>
 
   <script>
+  document.addEventListener('DOMContentLoaded', function() {
   // ---------------------------
   // Game Data: Intel (Lore)
   // ---------------------------
@@ -121,7 +180,7 @@
       Constraints exist to preserve causality; you can only collapse states left open by the chain's creation.`
     },
     blue: {
-      title: 'The Blue (L1 Shard)',
+      title: 'The Blue (L1 Space)',
       body: `An AI-powered layer on Lamina1's L1 network. Users can spin up ephemeral micro-metaverses funded by temporary DAOs; 
       spaces dissolve when gas depletes or the shard disconnects.`
     },
@@ -136,9 +195,9 @@
       Private swarms for sensitive work; public gateways only for whitelisted CIDs.`
     },
     ucc: {
-      title: 'UCC Work Orders (CERs)',
-      body: `Under UCC Article 12, certain records can be Controllable Electronic Records (CERs). 
-      Engagement Offers and Work Orders form a signed chain of custody—who controls, who can transfer, and under what conditions.`
+      title: 'Work Orders (CERs)',
+      body: `Pakana is a decentralized marketplace for managing CERs, Engagement Offers, Work Orders, and Disbursements 
+      for Agents On-Chain.`
     }
   };
 
@@ -153,7 +212,7 @@
         '> The Strip flickers like a broken circuit. The Substrate hums beneath.',
         '[INBOUND PACKET DETECTED]',
         'crypttext://node-zero.xyz',
-        '"Incoming encrypted message from unknown coordinates."',
+        '"The signal from the future you were never meant to hear."',
         'CHOICES: (1) Open | (2) Trace | (3) Ignore'
       ],
       choices: [
@@ -749,19 +808,35 @@
   // Render choices for a scene
   function renderChoices(scene) {
     elChoices.innerHTML = '';
-    (scene.choices || []).forEach(ch => {
+    // Remove any previous keydown handler
+    if (window._choiceKeyHandler) {
+      document.removeEventListener('keydown', window._choiceKeyHandler);
+    }
+    const btns = [];
+    (scene.choices || []).forEach((ch, idx) => {
       const btn = document.createElement('button');
-      btn.className = 'choice rounded-md px-3 py-2 text-left';
+      btn.className = 'choice rounded-md px-3 py-3 text-left text-base md:text-lg';
       btn.textContent = ch.label;
+      btn.style.minWidth = '120px';
+      btn.style.marginBottom = '6px';
       btn.addEventListener('click', () => {
         if (ch.intel) unlockIntel(ch.intel);
-        // Log the choice
         pushSystemLine('YOU CHOSE: ' + ch.label);
-        // Advance
         runScene(ch.next, { fromChoice: ch });
       });
       elChoices.appendChild(btn);
+      btns.push(btn);
     });
+    // Add keydown handler for number keys
+    window._choiceKeyHandler = function(e) {
+      // Only allow 1-9 keys
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const n = parseInt(e.key, 10);
+      if (!isNaN(n) && n >= 1 && n <= btns.length) {
+        btns[n-1].click();
+      }
+    };
+    document.addEventListener('keydown', window._choiceKeyHandler);
   }
 
   // Replay previous log, then resume scene (used when continuing)
@@ -796,7 +871,7 @@
       }
     }
 
-    // Clear the terminal area before displaying new response
+    // Clear the console before showing the new scene
     elLog.innerHTML = '';
 
     // Type this scene's text, then render choices
@@ -818,19 +893,32 @@
       runScene('intro');
     }
   })();
-
-  // Keyboard support for number keys (1-9) to select choices
-  document.addEventListener('keydown', function(e) {
-    // Only allow 1-9 keys
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    const n = parseInt(e.key, 10);
-    if (!isNaN(n) && n >= 1 && n <= 9) {
-      const btns = document.querySelectorAll('#choices button.choice');
-      if (btns[n-1]) {
-        btns[n-1].click();
-      }
-    }
+  
   });
   </script>
+  <script src="../js/header-loader.js"></script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "The Whispering Code — Chapter 1A",
+  "url": "https://node-zero.xyz/the-whispering-code/chapter1a.html",
+  "description": "A text-based adventure game. Play along with Keya, revealing more about the Substrate and hidden technologies.",
+  "position": 2,
+  "isPartOf": {
+    "@type": "CreativeWorkSeries",
+    "name": "Node Zero Saga",
+    "url": "https://node-zero.xyz"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Steven B. Tomlinson",
+    "url": "https://steventomlinson.dev"
+  },
+  "genre": ["Science Fiction", "Cyberpunk"],
+  "keywords": "Node Zero, The Whispering Code, Substrate, cyberpunk metaverse, Collapse, Central Inquiry, Lamina1, blockchain storytelling, AI narrative"
+}
+</script>
 </body>
 </html>
