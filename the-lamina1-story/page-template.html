@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Announcement — Lamina1 Enters the Scene (2022) | Coming Soon</title>
+  <title>Page Title | Coming Soon</title>
   <link href="/css/tailwind.generated.css" rel="stylesheet" />
   <link href="/css/styles.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif; }
-    .share-tech-mono { font-family: 'Share Tech Mono', 'Menlo', 'Monaco', 'Consolas', monospace; }
     .coming-soon-panel {
       background: rgba(20, 24, 40, 0.97);
       color: #e3f6ff;
@@ -46,47 +45,43 @@
   </style>
 </head>
 <body class="cyberpunk-bg min-h-screen relative">
+  <div id="site-header"></div>
   <div class="royal-blue-border royal-blue-border-top"></div>
   <div class="royal-blue-border royal-blue-border-bottom"></div>
   <div class="royal-blue-border royal-blue-border-left"></div>
   <div class="royal-blue-border royal-blue-border-right"></div>
   <section class="w-full flex flex-col items-center justify-center px-4 pt-20">
     <div class="cyberpunk-panel max-w-3xl w-full mx-auto mb-6 flex flex-col relative">
-      <header class="w-full flex flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan rounded-t-md" style="margin-bottom: 1.5rem;">
-        <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 w-full">
-          <div class="flex items-center gap-2 md:gap-4">
+      <header class="w-full flex z-50 flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan rounded-t-md" style="margin-bottom: 1.5rem;">
+        <nav class="flex flex-wrap md:flex-nowrap items-center justify-center gap-2 md:gap-4 w-full">
+          <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
             <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
             <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
             <span class="mx-2 text-cyber-neon">/</span>
             <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base hover:text-cyber-green transition-all">Table of Contents</a>
           </div>
-          <span id="back-next-icons" class="flex items-center gap-2">
-            <a href="#" title="Previous chapter">
+          <div class="flex items-center gap-2 ml-auto">
+            <a href="#" title="Previous chapter" class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold text-base hover:bg-cyber-neon/10 transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
               </svg>
+              <span class="text-cyber-neon neon-cyan">Back</span>
             </a>
-            <a href="#" title="Next chapter">
+            <a href="fiction-becomes-blueprint.html" title="Next chapter" class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold text-base hover:bg-cyber-neon/10 transition-all">
+              <span class="text-cyber-neon neon-cyan">Next</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </a>
-          </span>
-          <div class="flex items-center">
-            <a href="#" class="cyberpunk-link text-base whitespace-nowrap ml-2 md:ml-6">Next ⟶</a>
           </div>
-        </div>
+        </nav>
       </header>
-      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">The Announcement — Lamina1 Enters the Scene (2022)</h1>
+      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">Page Title</h1>
       <div id="chapter-content" class="chapter-content text-lg leading-relaxed flex flex-col">
-        <!-- BEGIN STORY CONTENT -->
-        <h2 class="text-2xl neon-magenta mb-4">Coming Soon</h2>
-        <div class="coming-soon-panel mt-8">
-          <p>This chapter is coming soon. Stay tuned for updates!</p>
-        </div>
-        <!-- END STORY CONTENT -->
+        <!-- Chapter content goes here -->
       </div>
     </div>
   </section>
+  <script src="/js/header-laminastory-loader.js"></script>
 </body>
 </html>

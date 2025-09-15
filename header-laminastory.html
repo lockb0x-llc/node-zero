@@ -1,0 +1,46 @@
+<header class="border-b border-zinc-800/60 bg-zinc-950/60 sticky top-0 backdrop-blur">
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" style="position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:1em;z-index:9999;display:none;justify-content:center;align-items:center;gap:1em;">
+    <span>This site only uses cookies for internal analytics (Microsoft Clarity) and others for some cool features, never for marketing. Do you accept?</span>
+    <button id="accept-cookies" style="background:#4caf50;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Accept</button>
+    <button id="decline-cookies" style="background:#f44336;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Decline</button>
+  </div>
+  <!-- Clarity & Cookie Consent Logic -->
+  <script>
+    function hasConsent() {
+      return localStorage.getItem('clarityConsent') === 'accepted';
+    }
+    function hasDeclined() {
+      return localStorage.getItem('clarityConsent') === 'declined';
+    }
+    function showBanner() {
+      document.getElementById('cookie-consent-banner').style.display = 'flex';
+    }
+    function hideBanner() {
+      document.getElementById('cookie-consent-banner').style.display = 'none';
+    }
+    function loadClarity() {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "t77geqkdbb");
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!hasConsent() && !hasDeclined()) {
+        showBanner();
+      } else if (hasConsent()) {
+        loadClarity();
+      }
+      document.getElementById('accept-cookies').onclick = function() {
+        localStorage.setItem('clarityConsent', 'accepted');
+        hideBanner();
+        loadClarity();
+      };
+      document.getElementById('decline-cookies').onclick = function() {
+        localStorage.setItem('clarityConsent', 'declined');
+        hideBanner();
+      };
+    });
+  </script>
+</header>

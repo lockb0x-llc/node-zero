@@ -58,40 +58,35 @@
   </style>
 </head>
   <body class="cyberpunk-bg min-h-screen flex items-center justify-center relative">
+    <div id="site-header"></div>
   <div class="royal-blue-border royal-blue-border-top"></div>
   <div class="royal-blue-border royal-blue-border-bottom"></div>
   <div class="royal-blue-border royal-blue-border-left"></div>
   <div class="royal-blue-border royal-blue-border-right"></div>
   <section class="w-full flex flex-col items-center justify-center px-4 pt-20">
-  <header class="flex items-center justify-between px-6 py-12 bg-black/80 border-b-2 border-cyber-neon 
-  shadow-neon-cyan rounded-t-md mt-2" style="margin:3px;">
+    <div class="cyberpunk-panel z-50 max-w-3xl w-full mx-auto mb-6 flex flex-col">
+      <header class="flex items-center text-center justify-between px-6 py-3 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan">
         <div class="flex items-center gap-4">
-          <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
-          &nbsp;
+          <a href="/index.html"
+            class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵
+            NODE_ZERO</a>
           <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
-          &nbsp;
           <span class="mx-2 text-cyber-neon">/</span>
-          <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base hover:text-cyber-green transition-all">Table of Contents</a>
+          <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base 
+                hover:text-cyber-green transition-all">Table of Contents</a>
         </div>
-        <span id="back-next-icons" class="flex items-center gap-2">
-          <!-- Left Arrow Icon as Back Link (disabled for first chapter) -->
-          <a href="#" tabindex="-1" aria-disabled="true" class="pointer-events-none opacity-40" title="No previous chapter">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </a>
-          <!-- Right Arrow Icon as Next Link -->
-          <a href="precursors-building-blocks-of-the-metaverse.html" title="Next chapter">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+        <nav class="flex max-w-lg justify-between items-center text-cyber-neon mt-2 mb-1">
+          
+          <a href="precursors-building-blocks-of-the-metaverse.html" title="Next chapter"
+            class="flex items-center gap-2 cyberpunk-link text-base px-3 py-1 rounded hover:bg-cyber-neon/10 transition-all">
+            <span>Next</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"
+              class="w-5 h-5 text-cyber-neon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </a>
-        </span>
-        <div class="flex items-center">
-          <a href="precursors-building-blocks-of-the-metaverse.html" class="cyberpunk-link text-base whitespace-nowrap ml-6">Next ⟶</a>
-        </div>
+        </nav>
       </header>
-    <div class="cyberpunk-panel max-w-3xl w-full mx-auto mb-6 flex flex-col">
         <div class="content-panel ...">
         <div class="content-panel rajdhani ...">
       <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">Chapter 1: Fiction Becomes Blueprint</h1>
@@ -130,9 +125,33 @@
               <p class="text-cyber-green text-xs mt-2 text-center">Affiliate links. As an Amazon Associate, this site earns from qualifying purchases.</p>
             </div>
           </div>
+          <footer
+            class="flex items-center text-center justify-between px-6 py-3 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan">
+            <div class="flex items-center gap-4">
+              <a href="/index.html"
+                class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵
+                NODE_ZERO</a>
+              <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+              <span class="mx-2 text-cyber-neon">/</span>
+              <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base 
+                              hover:text-cyber-green transition-all">Table of Contents</a>
+            </div>
+            <nav class="flex max-w-lg justify-between items-center text-cyber-neon mt-2 mb-1">
+          
+              <a href="precursors-building-blocks-of-the-metaverse.html" title="Next chapter"
+                class="flex items-center gap-2 cyberpunk-link text-base px-3 py-1 rounded hover:bg-cyber-neon/10 transition-all">
+                <span>Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"
+                  class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </a>
+            </nav>
+          </footer>
       </div>
     </div>
   </section>
+  <script src="/js/header-laminastory-loader.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
