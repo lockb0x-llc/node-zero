@@ -1,3 +1,5 @@
+![node_zero banner](docs/assets/node_zero-banner.png)
+---
 Contributing to node_zero
 
 Welcome, Agent.
