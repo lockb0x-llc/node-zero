@@ -1,4 +1,4 @@
-![node_zero banner](docs/assets/node_zero-banner.png)
+![node_zero banner](docs/assets/causality.png)
 ---
 Contributing to node_zero
 
