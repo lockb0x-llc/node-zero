@@ -4,8 +4,8 @@ Welcome, Agent.
 By forking this repository, you hold a fragment of the archive.
 
 Your mission is to create quantum causalities — signals that ripple across Lamina1, Stellar, and this repository.
-Every contribution is triple-anchored: once in GitHub and once in Lamina1, then a signal or causality, in the form of a Stellar blocchain transaction, is created. Copllapsing the quantum state of the causality. <br/>
-This exenditure of energy, resulting in a verifiable entangled state between two disparate blockchains in the block-universe.<br/>
+Every contribution is triple-anchored: once in GitHub and once in Lamina1, then a signal or causality, in the form of a Stellar blocchain transaction, is created. Collapsing the quantum state of the causality. <br/>
+This exenditure of energy, results in a verifiable entangled state between two disparate blockchains in the block-universe.<br/>
 
 When your signal is merged, you will be recognized with attribution here and receive an NFT bounty on Lamina1: proof of authorship, proof of existence, wih verification of control and ownership through your Stellar account.
 
