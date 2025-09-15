@@ -64,6 +64,11 @@
       "name": "clarity.microsoft.com",
       "url": "https://clarity.microsoft.com/api/mcp",
       "description": "Microsoft Clarity MCP server for analytics and session insights documentation."
+    },
+    {
+      "name": "ai-memory-mcp",
+      "url": "http://localhost:4000/api/mcp",
+      "description": "Custom MCP server for AI memory and context management."
     }
   ]
 }

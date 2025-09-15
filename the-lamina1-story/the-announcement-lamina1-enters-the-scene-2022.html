@@ -47,62 +47,118 @@
     }
   </style>
 </head>
-  <body class="cyberpunk-bg min-h-screen flex items-center justify-center relative">
-  
-  <div class="royal-blue-border royal-blue-border-top"></div>
-  <div class="royal-blue-border royal-blue-border-bottom"></div>
-  <div class="royal-blue-border royal-blue-border-left"></div>
-  <div class="royal-blue-border royal-blue-border-right"></div>
-  <main class="flex flex-col items-center justify-center min-h-screen pt-20">
-    <div class="cyberpunk-panel max-w-3xl mx-auto mb-6 flex flex-col">
-  <header class="flex items-center justify-between px-6 py-3 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan">
-    <div class="flex items-center gap-4">
-      <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
-      <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
-      <span class="mx-2 text-cyber-neon">/</span>
-      <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base 
-      hover:text-cyber-green transition-all">Table of Contents</a>
-    </div>
-    <nav class="flex max-w-lg justify-between items-center text-cyber-neon mt-2 mb-1">
-      <a href="precursors-building-blocks-of-the-metaverse.html" title="Previous chapter" class="flex items-center gap-2 cyberpunk-link text-base px-3 py-1 rounded hover:bg-cyber-neon/10 transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        <span>Back</span>
-      </a>
-      <a href="betanet-promise-and-play-2023.html" title="Next chapter" class="flex items-center gap-2 cyberpunk-link text-base px-3 py-1 rounded hover:bg-cyber-neon/10 transition-all">
-        <span>Next</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
-      </a>
-    </nav>
-  </header>
-      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">The Announcement — Lamina1 Enters the Scene (2022)</h1>
-      <div id="chapter-content" class="chapter-content text-lg leading-relaxed flex flex-col">
+  <body class="cyberpunk-bg min-h-screen relative">
+    <div id="site-header"></div>
+    <div class="royal-blue-border royal-blue-border-top"></div>
+    <div class="royal-blue-border royal-blue-border-bottom"></div>
+    <div class="royal-blue-border royal-blue-border-left"></div>
+    <div class="royal-blue-border royal-blue-border-right"></div>
+    <section class="w-full flex flex-col items-center justify-center px-4 pt-20">
+      <div class="cyberpunk-panel max-w-3xl w-full mx-auto mb-6 flex flex-col relative">
+        <header class="w-full flex z-50 flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan rounded-t-md" style="margin-bottom: 1.5rem;">
+          <nav class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 flex-shrink-0">
+              <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-xs sm:text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
+              <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+              <span class="mx-2 text-cyber-neon hidden sm:inline">/</span>
+              <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:text-cyber-green transition-all">Table of Contents</a>
+            </div>
+            <div class="flex flex-row items-center gap-2 ml-0 sm:ml-auto">
+              <a href="precursors-building-blocks-of-the-metaverse.html" title="Previous chapter" class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                <span class="text-cyber-neon neon-cyan">Back</span>
+              </a>
+              <a href="betanet-promise-and-play-2023.html" title="Next chapter" 
+              class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold 
+              text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <span class="text-cyber-neon neon-cyan">Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </a>
+            </div>
+          </nav>
+        </header>
+        <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">The Announcement — Lamina1 Enters the Scene (2022)</h1>
+        <div id="chapter-content" class="chapter-content text-lg leading-relaxed flex flex-col">
+          <div id="vignette" class="text-lg leading-relaxed flex flex-col px-6 pb-6" style="letter-spacing:0.045em;">
+            <h2 class="text-cyber-neon text-2xl md:text-3xl font-bold mb-2 mt-6" style="font-family: 'Syncopate', 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif;">The Return of the Author</h2>
+            <p class="opacity-0 translate-y-4 mb-4">It was almost too perfect. The man who coined the word <em>metaverse</em> thirty years earlier stepped out of fiction and into a press release.</p>
+            <p class="opacity-0 translate-y-4 mb-8">June 2022: Neal Stephenson, Rebecca Barkin, and Peter Vessenes announced <strong>Lamina1</strong>. The pitch was crystalline: a Layer One blockchain for the open metaverse. Creator-first. Interoperable. A place where artists, coders, and storytellers could build worlds with permanence and provenance baked into the protocol.</p>
 
+            <h2 class="text-cyber-neon text-2xl md:text-3xl font-bold mb-2 mt-6" style="font-family: 'Syncopate', 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif;">The Timing</h2>
+            <p class="opacity-0 translate-y-4 mb-4">The timing was uncanny. Crypto was on fire — not in the good way. Terra/Luna had collapsed, vaporizing billions. Ethereum gas fees still strangled experimentation. Avalanche, hungry for flagship projects, offered its subnets as an escape hatch: build your own chain on their rails. Lamina1 seized it. Instead of starting from scratch, it would launch as an Avalanche subnet, inheriting speed and scalability while borrowing credibility from Avalanche’s ecosystem.</p>
 
-        <h2 class="text-2xl neon-cyan mb-4">The Return of the Author</h2>
-        <p class="mb-4">It was almost too perfect. The man who coined the word <em>metaverse</em> thirty years earlier stepped out of fiction and into a press release.</p>
-        <p class="mb-8">June 2022: Neal Stephenson, Rebecca Barkin, and Peter Vessenes announced <strong>Lamina1</strong>. The pitch was crystalline: a Layer One blockchain for the open metaverse. Creator-first. Interoperable. A place where artists, coders, and storytellers could build worlds with permanence and provenance baked into the protocol.</p>
+            <h2 class="text-cyber-neon text-2xl md:text-3xl font-bold mb-2 mt-6" style="font-family: 'Syncopate', 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif;">The Branding</h2>
+            <p class="opacity-0 translate-y-4 mb-4">The branding cut through the noise. This wasn’t pitched as another disposable chain. Lamina1 was a <em>vision</em>: immersive <strong>Spaces</strong>, interoperable items, a creator economy that echoed Stephenson’s imagination. Satire was being re-sold as salvation.</p>
+            <p class="opacity-0 translate-y-4 mb-8">And the irony was thick. In <em>Snow Crash</em>, the metaverse was a parody of corporate feudalism. Now its author was at the head of a blockchain promising to empower creators. For many of us, this was feeling something like inevitability or destiny.</p>
+            <h2 class="text-cyber-neon text-2xl md:text-3xl font-bold mb-2 mt-6" style="font-family: 'Syncopate', 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif;">The Community</h2>
+            <p class="opacity-0 translate-y-4 mb-4">But in the moment, the community was electric. A Discord spun up like a neon carnival midway. Quests launched. XP points and badges handed out like tickets. NFTs minted. Digital clout gamified. Artists, coders, gamers, and speculators swirled together. For a while, everyone spoke about <em>the team</em> — as though we were co-builders of the same world.</p>
 
-        <div class="share-tech-mono">
-          <h2 class="text-2xl neon-green mb-4">The Timing</h2>
-          <p class="mb-4">The timing was uncanny. Crypto was on fire — not in the good way. Terra/Luna had collapsed, vaporizing billions. Ethereum gas fees still strangled experimentation. Avalanche, hungry for flagship projects, offered its subnets as an escape hatch: build your own chain on their rails. Lamina1 seized it. Instead of starting from scratch, it would launch as an Avalanche subnet, inheriting speed and scalability while borrowing credibility from Avalanche’s ecosystem.</p>
-
-          <h2 class="text-2xl neon-magenta mb-4">The Branding</h2>
-          <p class="mb-4">The branding cut through the noise. This wasn’t pitched as another disposable chain. Lamina1 was a <em>vision</em>: immersive <strong>Spaces</strong>, interoperable items, a creator economy that echoed Stephenson’s imagination. Satire was being re-sold as salvation.</p>
-          <p class="mb-8">And the irony was thick. In <em>Snow Crash</em>, the metaverse was a parody of corporate feudalism. Now its author was at the head of a blockchain promising to empower creators. Some saw destiny. Others saw betrayal.</p>
-
-          <h2 class="text-2xl neon-yellow mb-4">The Community</h2>
-          <p class="mb-4">But in the moment, the community was electric. A Discord spun up like a neon carnival midway. Quests launched. XP points and badges handed out like tickets. NFTs minted. Digital clout gamified. Artists, coders, gamers, and speculators swirled together. For a while, everyone spoke about <em>the team</em> — as though we were co-builders of the same world.</p>
-
-          <h2 class="text-2xl neon-cyan mb-4">The Purest Moment</h2>
-          <p class="mb-4">Looking back, it was the purest moment of optimism. The fiction had looped into reality. Stephenson wasn’t just the prophet of the metaverse anymore — he was its architect. Or at least, that’s how it felt.</p>
+            <h2 class="text-cyber-neon text-2xl md:text-3xl font-bold mb-2 mt-6" style="font-family: 'Syncopate', 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif;">The Purest Moment</h2>
+            <p class="opacity-0 translate-y-4 mb-4">Looking back, it was the purest moment of optimism. The fiction had looped into reality. Stephenson wasn’t just the prophet of the metaverse anymore — he was its architect. Or at least, that’s how it felt.</p>
+          </div>
         </div>
+        <!-- The Midway Video Inserted Below Content, Above Footer -->
+        <div class="w-full flex flex-col items-center justify-center my-8">
+          <video autoplay loop muted playsinline poster="/media/image/the-midway.mp4.jpg" class="rounded-lg shadow-lg max-w-2xl w-full border-4 border-cyber-neon">
+            <source src="/media/video/the-midway.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="text-cyber-neon text-center mt-2 text-sm"><strong>A Bot Finds the Lamina1 Midway</strong></div>
+        </div>
+        <footer class="w-full flex z-50 flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-t-2 border-cyber-neon shadow-neon-cyan rounded-b-md mt-8">
+          <nav class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 flex-shrink-0">
+              <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-xs sm:text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
+              <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+              <span class="mx-2 text-cyber-neon hidden sm:inline">/</span>
+              <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:text-cyber-green transition-all">Table of Contents</a>
+            </div>
+            <div class="flex flex-row items-center gap-2 ml-0 sm:ml-auto">
+              <a href="precursors-building-blocks-of-the-metaverse.html" title="Previous chapter" class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                <span class="text-cyber-neon neon-cyan">Back</span>
+              </a>
+              <a href="betanet-promise-and-play-2023.html" title="Next chapter" 
+              class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan 
+              font-semibold text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <span class="text-cyber-neon neon-cyan">Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </a>
+            </div>
+          </nav>
+        </footer>
       </div>
-    </div>
-    
-  </main>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+      function runVignetteReveal() {
+        const lines = document.querySelectorAll('#vignette p');
+        if (lines.length && window.anime) {
+          anime.timeline()
+            .add({
+              targets: lines,
+              opacity: [0,1],
+              translateY: [20,0],
+              easing: 'easeOutQuad',
+              duration: 800,
+              delay: anime.stagger(600)
+            });
+        }
+      }
+      if (window.anime) {
+        document.addEventListener('DOMContentLoaded', runVignetteReveal);
+      } else {
+        window.addEventListener('load', runVignetteReveal);
+      }
+    </script>
+    <script src="/js/header-laminastory-loader.js"></script>
 </body>
 </html>

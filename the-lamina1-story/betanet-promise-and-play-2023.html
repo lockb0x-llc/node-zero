@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Betanet — Promise and Play (2023) | Coming Soon</title>
+  <title>The Announcement — Lamina1 Enters the Scene (2022) | Coming Soon</title>
   <link href="/css/tailwind.generated.css" rel="stylesheet" />
   <link href="/css/styles.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    .share-tech-mono {
-      font-family: 'Share Tech Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
-    }
     body { font-family: 'Orbitron', 'Exo', 'Segoe UI', 'Arial', sans-serif; }
+    .share-tech-mono { font-family: 'Share Tech Mono', 'Menlo', 'Monaco', 'Consolas', monospace; }
     .coming-soon-panel {
       background: rgba(20, 24, 40, 0.97);
       color: #e3f6ff;
@@ -47,90 +45,104 @@
     }
   </style>
 </head>
-  <body class="cyberpunk-bg min-h-screen flex items-center justify-center relative">
-  
+<body class="cyberpunk-bg min-h-screen relative">
   <div class="royal-blue-border royal-blue-border-top"></div>
   <div class="royal-blue-border royal-blue-border-bottom"></div>
   <div class="royal-blue-border royal-blue-border-left"></div>
   <div class="royal-blue-border royal-blue-border-right"></div>
-  <main class="flex flex-col items-center justify-center min-h-screen pt-20 w-full">
-  <div class="cyberpunk-panel max-w-screen-md w-full mx-auto mb-12 flex flex-col text-white">
-  <header class="w-full flex items-center justify-between px-6 py-3 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan">
-    <div class="flex items-center gap-4">
-      <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
-      <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
-      <span class="mx-2 text-cyber-neon">/</span>
-      <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base 
-      hover:text-cyber-green transition-all">Table of Contents</a>
-    </div>
-    <nav class="mt-10 flex w-full max-w-lg justify-between items-center text-cyber-neon">
-      <a href="the-announcement-lamina1-enters-the-scene-2022.html" title="Previous chapter" class="flex items-center gap-1 cyberpunk-link text-base">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-        </svg>
-        <span>Back</span>
-      </a>&nbsp;&nbsp;
-      <a href="mainnet-airdrop-may-2024.html" title="Next chapter" class="flex items-center gap-1 cyberpunk-link text-base">
-        <span>Next</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-        </svg>
-      </a>
-    </nav>
-  </header>
-    <h1 class="text-4xl md:text-6xl font-bold text-center mb-10 glitch" style="color:#e3f6ff;">
-        Betanet — Promise and Play (2023)
-      </h1>
+  <section class="w-full flex flex-col items-center justify-center px-4 pt-20">
+    <div class="cyberpunk-panel max-w-3xl w-full mx-auto mb-6 flex flex-col relative">
+      <header class="w-full flex flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-b-2 border-cyber-neon shadow-neon-cyan rounded-t-md" style="margin-bottom: 1.5rem;">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 w-full">
+          <div class="flex items-center gap-2 md:gap-4">
+            <a href="/index.html" class="text-cyber-neon neon-cyan font-bold text-lg tracking-widest hover:text-cyber-green transition-all">⟵ NODE_ZERO</a>
+            <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+            <span class="mx-2 text-cyber-neon">/</span>
+            <a href="/the-lamina1-story/index.html" class="text-cyber-neon neon-cyan font-semibold text-base hover:text-cyber-green transition-all">Table of Contents</a>
+          </div>
+          <span id="back-next-icons" class="flex items-center gap-2">
+            <a href="#" title="Previous chapter">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </a>
+            <a href="#" title="Next chapter">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="w-5 h-5 text-cyber-neon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </a>
+          </span>
+          <div class="flex items-center">
+            <a href="#" class="cyberpunk-link text-base whitespace-nowrap ml-2 md:ml-6">Next ⟶</a>
+          </div>
+        </div>
+      </header>
+      <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 glitch mt-6" style="color:#e3f6ff;">The Announcement — Lamina1 Enters the Scene (2022)</h1>
+      <div id="chapter-content" class="chapter-content text-lg leading-relaxed flex flex-col">
+        <!-- BEGIN STORY CONTENT -->
+        <!-- The Carnival Opens -->
+        <section class="mb-12">
+          <h2 class="text-2xl neon-cyan mb-4">The Carnival Opens</h2>
+          <p class="mb-4">
+            Betanet didn’t arrive quietly. It landed like a traveling carnival, neon tents and flashing lights
+            pitched in the middle of the internet. The Discord never slept. Notifications fired like popcorn
+            in a hot pan — quest prompts, leaderboard updates, new badge announcements.
+          </p>
+          <p class="mb-6">
+            At any hour, you could scroll and see the same flood:
+          </p>
 
-      <!-- The Carnival Opens (default font) -->
-      <section class="mb-12">
-        <h2 class="text-2xl neon-cyan mb-4">The Carnival Opens</h2>
-        <p class="mb-4 text-white">
-          Betanet arrived like a digital carnival. The Discord swelled to tens of thousands,
-          its channels buzzing with quest prompts, badge claims, and countdowns. The pitch
-          was simple: complete tasks, earn XP, climb the leaderboard. For the first time,
-          participation felt like gameplay — not just chatter.
-        </p>
-        <p class="mb-4 text-white">
-          For creators, it was proof that Lamina1 could generate momentum. For speculators,
-          it was a way to farm digital clout before tokens existed. For everyone else, it
-          was a spectacle — noisy, chaotic, alive.
-        </p>
-      </section>
+          <!-- Stylized Discord-style chat log -->
+          <div class="bg-black/80 border border-cyber-neon rounded-lg shadow-neon-cyan p-4 font-mono text-sm space-y-2 mb-6">
+            <div><span class="text-cyber-green">[QuestBot]</span> New quest available: Verify your wallet → +50 XP</div>
+            <div><span class="text-cyber-magenta">[crypt0_hustlr]</span> ez XP, lol</div>
+            <div><span class="text-cyber-yellow">[gl1tch_babe]</span> 🏅 got the badge, gm gm</div>
+            <div><span class="text-cyber-cyan">[node_zero]</span> leaderboard climbing too fast… are these all real?</div>
+          </div>
 
-      <div class="share-tech-mono">
+          <p class="mb-4">
+            Screenshots poured in like trophies. Leaderboards became status symbols. For a moment, it felt like
+            a game that everyone was winning — or at least playing.
+          </p>
+
+          <!-- Placeholder for NFT or media embed -->
+          <div class="bg-black/60 border-2 border-cyber-magenta rounded-xl p-4 mt-6 text-center text-cyber-neon">
+            <p class="mb-2">[Archived Artifact Placeholder]</p>
+            <p class="text-sm text-cyber-green">
+              Future embed: screenshot of Betanet leaderboard or quest feed (minted as NFT on Lamina1)
+            </p>
+          </div>
+        </section>
+
         <!-- The First Spaces -->
         <section class="mb-12">
           <h2 class="text-2xl neon-magenta mb-4">The First Spaces</h2>
-          <p class="mb-4 text-white">
-            Then came the demos. <em>Space Lasers</em> — a neon browser shooter where you
-            could mint a “Custom Laser” NFT and fire it across the screen.
-            <em>Nyric</em> — a downloadable prototype showing how authentication might work
-            between Spaces. For the first time, Lamina1 users could log in through the Hub,
-            carry items with them, and watch blockchain assets stitched into live gameplay.
+          <p class="mb-4">
+            Then came the demos. <em>Space Lasers</em> — a neon browser shooter where you could mint a “Custom Laser” NFT
+            and fire it across the screen. <em>Nyric</em> — a downloadable prototype showing how authentication might work
+            between Spaces. For the first time, Lamina1 users could log in through the Hub, carry items with them, and watch
+            blockchain assets stitched into live gameplay.
           </p>
-          <p class="mb-4 text-white">
-            It wasn’t polished. It wasn’t even stable. But it was real. And that was enough.
-            For a moment, Betanet turned speculation into play — proof, however glitchy,
-            that the architecture could hold more than white papers and Discord threads.
+          <p class="mb-4">
+            It wasn’t polished. It wasn’t even stable. But it was real. And that was enough. For a moment, Betanet turned
+            speculation into play — proof, however glitchy, that the architecture could hold more than white papers and
+            Discord threads.
           </p>
         </section>
 
         <!-- The Glow and the Glitch -->
         <section class="mb-12">
           <h2 class="text-2xl neon-green mb-4">The Glow and the Glitch</h2>
-          <p class="mb-4 text-white">
-            On the surface, it worked. Quests completed, badges minted, screenshots posted
-            like trophies. The carnival lights dazzled, and the numbers soared.
-            Fifty thousand participants, the headlines said.
+          <p class="mb-4">
+            On the surface, it worked. Quests completed, badges minted, screenshots posted like trophies. The carnival lights
+            dazzled, and the numbers soared. Fifty thousand participants, the headlines said.
           </p>
-          <p class="mb-4 text-white">
-            But in the margins, something flickered. Quests completed at machine speed.
-            New accounts spawning faster than moderators could welcome them. Wallets with
-            nothing but XP and a trail of identical behavior. Some said it was just rapid
-            growth. Others whispered about scripts grinding through the system.
+          <p class="mb-4">
+            In the margins, something flickered. Quests completed at machine speed. New accounts spawning faster than
+            moderators could welcome them. Wallets with nothing but XP and a trail of identical behavior. Some said it was
+            just rapid growth. Others whispered about scripts grinding through the system.
           </p>
-          <p class="mb-4 animate-pulse-slow text-white">
+          <p class="mb-4 animate-pulse-slow">
             Nobody wanted to look too closely. Not yet.
           </p>
         </section>
@@ -138,24 +150,65 @@
         <!-- The Uneasy Promise -->
         <section class="mb-12">
           <h2 class="text-2xl neon-yellow mb-4">The Uneasy Promise</h2>
-          <p class="mb-4 text-white">
-            Betanet dazzled like a midway at night — loud, bright, and impossible to ignore.
+          <p class="mb-4">
+            Betanet dazzled like a midway at night — loud, bright, and impossible to ignore. 
             The demos inspired, the quests gamified the crowd, and on paper the promise was intact.
           </p>
-          <p class="mb-4 text-white">
-            But beneath the glow, the cracks were widening. Wallets with nothing but XP.
-            Accounts completing quests faster than any human could. Growth without people.
-            For the moment, the illusion held, and few wanted to look too closely.
+          <img src="/media/image/xp-quest.png" alt="Lamina1 Betanet Machine" class="w-full max-w-2xl mx-auto mb-4 rounded-lg shadow-lg border-4 border-cyber-neon">
+          <p class="mb-4">
+            But beneath the glow, the cracks were widening. Wallets with nothing but XP. Accounts completing quests faster
+            than any human could. Growth without people. For the moment, the illusion held, and few wanted to look too
+            closely.
           </p>
-          <p class="mb-4 text-white">
-            Mainnet would change that. The lights would come up, and whatever shadows had gathered in Betanet
-            would be impossible to ignore.
+          <p class="mb-4">
+            Mainnet would change that. The lights would come up, and whatever shadows had gathered in Betanet would be
+            impossible to ignore.
           </p>
         </section>
+        <!-- The Midway Video Inserted Below Content, Above Footer -->
+        <div class="w-full flex flex-col items-center justify-center my-8">
+          <video autoplay loop muted playsinline poster="/media/image/the-midway.mp4.jpg"
+            class="rounded-lg shadow-lg max-w-2xl w-full border-4 border-cyber-neon">
+            <source src="/media/video/quiet-midway.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="text-cyber-neon text-center mt-2 text-sm"><strong>Lamina1 Bot</strong></div>
+        </div>
+        <footer
+          class="w-full flex z-50 flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-t-2 border-cyber-neon shadow-neon-cyan rounded-b-md mt-8">
+          <nav class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 flex-shrink-0">
+              <a href="/index.html"
+                class="text-cyber-neon neon-cyan font-bold text-xs sm:text-lg tracking-widest hover:text-cyber-green transition-all">⟵
+                NODE_ZERO</a>
+              <span class="text-xs text-cyber-green font-mono tracking-wide">Back to Main</span>
+              <span class="mx-2 text-cyber-neon hidden sm:inline">/</span>
+              <a href="/the-lamina1-story/index.html"
+                class="text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:text-cyber-green transition-all">Table
+                of Contents</a>
+            </div>
+            <div class="flex flex-row items-center gap-2 ml-0 sm:ml-auto">
+              <a href="the-announcement-lamina1-enters-the-scene-2022.html" title="Previous chapter"
+                class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan font-semibold text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"
+                  class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                <span class="text-cyber-neon neon-cyan">Back</span>
+              </a>
+              <a href="mainnet-airdrop-may-2024.html" title="Next chapter" class="flex items-center gap-1 px-2 py-1 rounded text-cyber-neon neon-cyan 
+                      font-semibold text-xs sm:text-base hover:bg-cyber-neon/10 transition-all">
+                <span class="text-cyber-neon neon-cyan">Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"
+                  class="w-5 h-5 text-cyber-neon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </a>
+            </div>
+          </nav>
+        </footer>
       </div>
-
     </div>
-    
-  </main>
+  </section>
 </body>
 </html>
