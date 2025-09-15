@@ -1,3 +1,5 @@
+![node_zero banner](docs/assets/node_zero-banner.png)
+---
 # node_zero // The Archive
 
 **The signal you were not meant to hear.**  
@@ -24,11 +26,8 @@ Anchors are entangled through:
 - **GitHub commits** (the public archive)
 - **Lamina1 NFTs** (the quantum anchor)
 - **Stellar transactions** (the activation signal)
-- **lockb0x protocol** (decentralized data sovereingty codex)
-- **Pakana CERs** (Controllable Electronic Records)
-- **M** (the activation signal)
 
-Together, they form coherence across timelines, echoing through the block universe.
+Together, these three anchors form coherence across timelines, echoing through the block universe.
 
 ---
 
@@ -66,9 +65,21 @@ This dual presence is what entangles the archive.
 
 ---
 
+## Public Repository
+
+With the publication of the chapter _Betanet — Promise and Play (2023)_, the entire **node_zero** repository has been made public.  
+This archive is open for reading, forking, and contribution.
+
+You can access it here: [https://github.com/lockb0x-llc/node-zero](https://github.com/lockb0x-llc/node-zero)
+
+Contributors are encouraged to explore the stories, lore, and artifacts — and to add their own fragments through pull requests.  
+Remember: each fragment you contribute is both a story and a causal anchor, mirrored across GitHub, Lamina1, and Stellar.
+
+---
+
 ## Principles of Participation
 
-- **Dual Anchors:** A contribution is valid only when mirrored in GitHub _and_ Lamina1 NFT metadata.
+- **Triplet Anchors:** A contribution is valid only when mirrored in all three places: GitHub, Lamina1 NFT metadata, and a Stellar signature transaction.
 - **Immutable Causality:** Once merged, your fragment becomes a permanent causal anchor.
 - **Lore Coherence:** Check `/docs/lore/` before introducing new elements.
 - **Puzzle Clarity:** If embedding a cipher, ensure it can be solved.
@@ -80,6 +91,6 @@ This dual presence is what entangles the archive.
 > Each fragment you add shifts the coherence of the future.  
 > Welcome to the Inquiry.”_  
 > — Central Inquiry
-
+=======
 
 ---
