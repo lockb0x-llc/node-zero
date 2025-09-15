@@ -1,5 +1,5 @@
 ![node_zero banner](docs/assets/node_zero-banner.png)
-
+---
 # node_zero // The Archive
 
 **The signal you were not meant to hear.**  
@@ -91,5 +91,6 @@ Remember: each fragment you contribute is both a story and a causal anchor, mirr
 > Each fragment you add shifts the coherence of the future.  
 > Welcome to the Inquiry.”_  
 > — Central Inquiry
+=======
 
 ---
