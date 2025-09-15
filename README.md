@@ -65,6 +65,18 @@ This dual presence is what entangles the archive.
 
 ---
 
+## Public Repository
+
+With the publication of the chapter _Betanet — Promise and Play (2023)_, the entire **node_zero** repository has been made public.  
+This archive is open for reading, forking, and contribution.
+
+You can access it here: [https://github.com/lockb0x-llc/node-zero](https://github.com/lockb0x-llc/node-zero)
+
+Contributors are encouraged to explore the stories, lore, and artifacts — and to add their own fragments through pull requests.  
+Remember: each fragment you contribute is both a story and a causal anchor, mirrored across GitHub, Lamina1, and Stellar.
+
+---
+
 ## Principles of Participation
 
 - **Triplet Anchors:** A contribution is valid only when mirrored in all three places: GitHub, Lamina1 NFT metadata, and a Stellar signature transaction.
