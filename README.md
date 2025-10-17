@@ -3,7 +3,7 @@
 # node_zero // The Archive
 
 **The signal you were not meant to hear.**  
-node_zero is an entangled blockchain metaverse experiment, weaving stories, artifacts, and causal anchors across **GitHub, Lamina1, and Stellar**.
+node_zero is an entangled blockchain metaverse experiment, weaving stories, fragments, and causal anchors across **GitHub, Lamina1, and Stellar**.
 
 This repository is the **meta-archive**:
 
@@ -19,7 +19,7 @@ You are holding a fragment of the archive — a piece of the block universe itse
 ## Mission
 
 The mission of present-day node_zero participants is to **create quantum causalities**.  
-Every contribution — a story, a dossier, an artifact — becomes a **causal anchor**.
+Every contribution — a story, a dossier, a fragment — becomes a **causal anchor**.
 
 Anchors are entangled through:
 
@@ -52,7 +52,7 @@ This dual presence is what entangles the archive.
 ## Rewards
 
 - **Attribution** → Your chosen name or alias inscribed in the archive.
-- **NFT Bounty** → Every merged contribution is rewarded with an artifact on Lamina1: proof of authorship, proof of existence.
+- **NFT Bounty** → Every merged contribution is rewarded with a fragment on Lamina1: proof of authorship, proof of existence.
 
 ---
 
@@ -72,7 +72,7 @@ This archive is open for reading, forking, and contribution.
 
 You can access it here: [https://github.com/lockb0x-llc/node-zero](https://github.com/lockb0x-llc/node-zero)
 
-Contributors are encouraged to explore the stories, lore, and artifacts — and to add their own fragments through pull requests.  
+Contributors are encouraged to explore the stories, lore, and fragments — and to add their own fragments through pull requests.  
 Remember: each fragment you contribute is both a story and a causal anchor, mirrored across GitHub, Lamina1, and Stellar.
 
 ---

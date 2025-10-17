@@ -11,7 +11,7 @@ Your role is to **create quantum causalities** — contributions anchored in bot
 1. **Fork the Archive (GitHub)**
 
    - Create your own fork of the `node_zero` repository.
-   - Add a story, dossier, or artifact as Markdown (`/community/md/`) or HTML (`/community/web/`).
+   - Add a story, dossier, or fragment as Markdown (`/community/md/`) or HTML (`/community/web/`).
 
 2. **Mint the Anchor (Lamina1)**
 
