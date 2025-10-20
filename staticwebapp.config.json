@@ -5,8 +5,8 @@
       "rewrite": "/primer/index.html"
     },
     {
-      "route": "/artifacts",
-      "rewrite": "/artifacts.html"
+      "route": "/fragments",
+      "rewrite": "/fragments/index.html"
     },
     {
       "route": "/the-blue",

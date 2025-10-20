@@ -24,7 +24,7 @@ Markdown is the simplest way to anchor your story fragment. 1. Fork this repo. 2
 title: "The Signal in Static"
 author: "AgentAlias"
 date: "2025-09-11"
-type: "story" # options: story, dossier, artifact
+type: "story" # options: story, dossier, fragment
 reference: "REPLACE_WITH_YOUR_UNIQUE_CODE"
 
 ---
@@ -61,7 +61,7 @@ When minting your NFT on Lamina1 Hub, include metadata like this:
 }
 
     •	title → Same as your story title.
-    •	description → Short description of your story/artifact.
+    •	description → Short description of your story/fragment.
     •	author → The alias you want attributed.
     •	reference → A unique code of your choosing. Recommended: your Lamina1 Hub public key (or a variation of it).
     •	link → Optional: direct link to your file in GitHub once merged.

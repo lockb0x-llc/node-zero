@@ -107,7 +107,7 @@
 
           <!-- Placeholder for NFT or media embed -->
           <div class="bg-black/60 border-2 border-cyber-magenta rounded-xl p-4 mt-6 text-center text-cyber-neon">
-            <p class="mb-2">[Archived Artifact Placeholder]</p>
+            <p class="mb-2">[Archived Fragment Placeholder]</p>
             <p class="text-sm text-cyber-green">
               Future embed: screenshot of Betanet leaderboard or quest feed (minted as NFT on Lamina1)
             </p>
@@ -167,13 +167,20 @@
         </section>
         <!-- The Midway Video Inserted Below Content, Above Footer -->
         <div class="w-full flex flex-col items-center justify-center my-8">
-          <video autoplay loop muted playsinline poster="/media/image/the-midway.mp4.jpg"
+          <video id="midway-video" autoplay loop muted playsinline poster="/media/image/the-midway.mp4.jpg"
             class="rounded-lg shadow-lg max-w-2xl w-full border-4 border-cyber-neon">
             <source src="/media/video/quiet-midway.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <div class="text-cyber-neon text-center mt-2 text-sm"><strong>Lamina1 Bot</strong></div>
         </div>
+        <script>
+          // Set playback rate to 0.5x for the midway video
+          document.addEventListener('DOMContentLoaded', function () {
+            var vid = document.getElementById('midway-video');
+            if (vid) vid.playbackRate = 0.333;
+          });
+        </script>
         <footer
           class="w-full flex z-50 flex-col items-center justify-center px-4 pt-2 pb-2 bg-black/80 border-t-2 border-cyber-neon shadow-neon-cyan rounded-b-md mt-8">
           <nav class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
