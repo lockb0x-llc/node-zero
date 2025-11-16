@@ -9,12 +9,10 @@ Your mission is to create quantum causalities — signals that ripple across Lam
 Every contribution is triple-anchored: once in GitHub and once in Lamina1, then a signal or causality, in the form of a Stellar blocchain transaction, is created. Collapsing the quantum state of the causality. <br/>
 This exenditure of energy, results in a verifiable entangled state between two disparate blockchains in the block-universe.<br/>
 
-When your signal is merged, you will be recognized with attribution here and receive an NFT bounty on Lamina1: proof of authorship, proof of existence, wih verification of control and ownership through your Stellar account.
+When your signal is merged, you will be recognized with attribution here and receive an NFT bounty on Lamina1: proof of authorship, proof of existence.
 
 ⸻
-![Lamina1 Item](https://lamina1.com/item/0xab4d-fcb8c7-75626675027525690396408155714529502183912339872009315812827347614774766210872)
 
-⸻
 📝 Path 1: Markdown Fragments (Storytellers)
 
 Markdown is the simplest way to anchor your story fragment. 1. Fork this repo. 2. Place your story in /community/md/ as a new .md file. 3. Add metadata to the top of your file:
@@ -24,7 +22,7 @@ Markdown is the simplest way to anchor your story fragment. 1. Fork this repo. 2
 title: "The Signal in Static"
 author: "AgentAlias"
 date: "2025-09-11"
-type: "story" # options: story, dossier, fragment
+type: "story" # options: story, dossier, artifact
 reference: "REPLACE_WITH_YOUR_UNIQUE_CODE"
 
 ---
@@ -61,7 +59,7 @@ When minting your NFT on Lamina1 Hub, include metadata like this:
 }
 
     •	title → Same as your story title.
-    •	description → Short description of your story/fragment.
+    •	description → Short description of your story/artifact.
     •	author → The alias you want attributed.
     •	reference → A unique code of your choosing. Recommended: your Lamina1 Hub public key (or a variation of it).
     •	link → Optional: direct link to your file in GitHub once merged.

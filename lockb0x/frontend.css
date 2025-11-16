@@ -1,0 +1,128 @@
+/* Global page styling and animated background */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #03060f;
+    color: #00ffff;
+    font-family: "Share Tech Mono", monospace;
+    /* Hex-pattern layers */
+    background-image:
+        radial-gradient(circle at 0 0, #0e1d2b 2%, rgba(0, 0, 0, 0) 3%),
+        radial-gradient(circle at 10px 10px, #0e1d2b 2%, rgba(0, 0, 0, 0) 3%);
+    background-size: 20px 20px;
+    /* Animate the pattern positions for a “thinking” shimmer */
+    animation: moveBackground 20s linear infinite;
+}
+
+/* Keyframes for the drifting background */
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+
+    50% {
+        background-position: 20px 20px, 10px 10px;
+    }
+
+    100% {
+        background-position: 0 0, 0 0;
+    }
+}
+
+/* Container (control panel) styling */
+.container {
+    position: relative;
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: rgba(3, 6, 15, 0.7);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #00ffff;
+    overflow: hidden;
+}
+
+/* Pulsating neon border for the panel */
+.container::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 10px;
+    pointer-events: none;
+    animation: pulseBorder 4s infinite;
+}
+
+@keyframes pulseBorder {
+    0% {
+        box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 25px 6px rgba(0, 255, 255, 1);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.4);
+    }
+}
+
+/* Header styling */
+.header {
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00ffff;
+}
+
+/* NFT gallery styling */
+.nft-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.nft-gallery img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #00ffff;
+    border-radius: 6px;
+    background-color: #01121e;
+}
+
+/* Button styling */
+.button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #01121e;
+    color: #00ffff;
+    font-size: 1.1rem;
+    border: 2px solid #00ffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button:hover:not(:disabled) {
+    background-color: #002a40;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Status text styling */
+#status {
+    margin-top: 15px;
+    text-align: center;
+    min-height: 20px;
+    color: #00ffcc;
+}

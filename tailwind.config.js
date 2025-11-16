@@ -4,7 +4,7 @@ module.exports = {
     "./index.html",
     "./chapters/*.html",
     "./primer/*.html",
-    "./fragments/*.html",
+    "./artifacts/*.html",
     "./stories/*.html",
     "./the-blue/*.html",
     "./signals/*.html",
@@ -63,3 +63,4 @@ module.exports = {
 },
   plugins: [],
 }
+
