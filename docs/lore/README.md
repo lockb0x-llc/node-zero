@@ -3,7 +3,7 @@
 **Central Inquiry Briefing**  
 The following files form the **canonical backbone** of the node_zero metaverse.  
 Contributors should consult these before inscribing new fragments into the archive.  
-This ensures causal coherence across stories, timelines, and fragments.
+This ensures causal coherence across stories, timelines, and artifacts.
 
 ---
 
@@ -33,7 +33,7 @@ This ensures causal coherence across stories, timelines, and fragments.
   Story fragments should reference at least one established anchor — character, event, or technology — to ensure connectivity.
 
 - **New Additions**  
-  If you create a new character, event, or fragment, propose an update to the appropriate file in this directory as part of your Pull Request.
+  If you create a new character, event, or artifact, propose an update to the appropriate file in this directory as part of your Pull Request.
 
 ---
 

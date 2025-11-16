@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify lockb0x Key Ownership</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="frontend.css" />
+
+  <!-- Script -->
+  <script type="module" src="verify.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">Verify Your lockb0x Key</div>
+
+    <p>
+      If you own a lockb0x Key NFT in your wallet, a free verification transaction will be sent automatically.<br/>
+      Sign it to proceed.
+    </p>
+
+    <!-- NFT Gallery -->
+    <div class="asset-section">
+      <h3>Linea NFT Holdings</h3>
+      <ul id="lineaAssets"></ul>
+    </div>
+
+    <!-- Connect + Verify Button -->
+    <button id="verifyBtn" class="button">Connect &amp; Verify</button>
+
+    <!-- Result -->
+    <p id="result"></p>
+  </div>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +7,17 @@
     <link href="../css/tailwind.generated.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet">
     <!-- Bootstrap CSS for cards -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
         @keyframes neonPulse {
-
-            0%,
-            100% {
-                filter: drop-shadow(0 0 8px #00fff7) drop-shadow(0 0 16px #ffe600);
-                opacity: 1;
-            }
-
-            50% {
-                filter: drop-shadow(0 0 24px #00fff7) drop-shadow(0 0 32px #ffe600);
-                opacity: 0.85;
-            }
+            0%, 100% { filter: drop-shadow(0 0 8px #00fff7) drop-shadow(0 0 16px #ffe600); opacity: 1; }
+            50% { filter: drop-shadow(0 0 24px #00fff7) drop-shadow(0 0 32px #ffe600); opacity: 0.85; }
         }
-
         .neon-pulse {
             animation: neonPulse 2.5s infinite alternate;
         }
     </style>
 </head>
-
 <body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
     <div id="site-header"></div>
     <main class="flex flex-col items-center min-h-screen w-full pt-8 px-4 relative z-10">
@@ -39,92 +26,76 @@
                 style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">
                 Primer
             </h1>
-            <div
-                class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 w-full text-center">
+            <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 w-full text-center">
                 <h2 class="text-2xl neon-cyan mb-4">Welcome to the Primer</h2>
-                <p>
-                    You can fork the node_zero repo and contribute your own articles to the Primer section.
-                    Pull requests are welcome!<br />
-                    See the <a href="../CONTRIBUTING.md" class="cyberpunk-link">contributing guidelines</a> for details.
+                <p class="text-zinc-300 mb-6">
+                    This section provides foundational knowledge and context for the Node_Zero universe. Explore the concepts, technologies, and lore that underpin the stories and artifacts you'll encounter.
+                </p>
+                <p class="text-zinc-300 mb-6">
+                    Dive into topics such as cybernetics, AI ethics, digital consciousness, and the socio-political landscape of this cyberpunk world. Whether you're a newcomer or a seasoned explorer, the Primer is your gateway to understanding the intricate web of narratives and technologies that define Node_Zero.
+                </p>
+                <p class="text-zinc-300 mb-6">
+                    Stay tuned for updates as we expand this section with more detailed articles, glossaries, and reference materials to enhance your journey through Node_Zero.
                 </p>
             </div>
 
             <div id="primer-articles" class="mt-14 w-full max-w-2xl">
                 <div class="flex justify-center mb-10">
                     <div class="relative">
-                        <div
-                            class="absolute -inset-2 rounded-2xl border-4 border-cyber-neon shadow-neon-cyan animate-pulse-slow z-0">
-                        </div>
-                        <div
-                            class="absolute -inset-4 rounded-3xl border-4 border-cyber-yellow shadow-neon-yellow animate-pulse-slow z-0">
-                        </div>
+                        <div class="absolute -inset-2 rounded-2xl border-4 border-cyber-neon shadow-neon-cyan animate-pulse-slow z-0"></div>
+                        <div class="absolute -inset-4 rounded-3xl border-4 border-cyber-yellow shadow-neon-yellow animate-pulse-slow z-0"></div>
                         <h2 class="relative z-10 text-3xl md:text-4xl font-extrabold text-cyber-neon mb-0 font-orbitron tracking-widest neon-pulse"
                             style="font-family: 'Orbitron', 'monospace', sans-serif; letter-spacing: 0.13em; padding: 1rem 3rem; text-shadow: 0 0 128px #00fff7, 0 0 64px #ffe600;">
                             Articles
                         </h2>
                     </div>
                 </div>
-                <!-- Capstone Card: Lamina1 Story -->
-                <div class="w-100 mb-6">
-                    <a href="../the-lamina1-story/index.html" class="block no-underline">
-                        <div class="card mb-6 border-cyber-neon shadow-neon-cyan" style="min-width: 100%; max-width: 100%; border-width: 4px; border-radius: 2rem; 
-                                                            background: rgba(0, 180, 180, 0.8);">
-                            <div class="card-body text-center py-6">
-                                <h3 class="card-title text-3xl md:text-4xl font-extrabold"
-                                    style="font-family: 'Orbitron', monospace; letter-spacing: 0.13em; 
-                                                                    color: #fffbe6; text-shadow: 0 2px 12px #0ff, 0 0px 2px #000;">
-                                    Ghosts in the Metaverse:<br /> The Lamina1 Story</h3>
-                                <p class="card-text text-lg mb-2" style="color: #eafffa; 
-                                                                    text-shadow: 0 1px 6px #0ff, 0 0px 2px #000;">A
-                                    cyberpunk chronicle of the open metaverse, blockchain, and the future of digital
-                                    society.</p>
-                                <span class="btn btn-outline-info btn-lg mt-2">Read the Story</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex flex-wrap gap-4 shadow-neon-megenta justify-content-center">
-                    <div class="card bg-dark text-white border-cyber-yellow shadow-neon-yellow mb-4"
-                        style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                                <!-- Capstone Card: Lamina1 Story -->
+                                <div class="w-100 mb-6">
+                                                        <a href="../the-lamina1-story/index.html" class="block no-underline">
+                                                            <div class="card mb-6 border-cyber-neon shadow-neon-cyan" style="min-width: 100%; max-width: 100%; border-width: 4px; border-radius: 2rem; background: rgba(0, 180, 180, 0.8);">
+                                                                <div class="card-body text-center py-6">
+                                                                    <h3 class="card-title text-3xl md:text-4xl font-extrabold" style="font-family: 'Orbitron', monospace; letter-spacing: 0.13em; color: #fffbe6; text-shadow: 0 2px 12px #0ff, 0 0px 2px #000;">Ghosts in the Metaverse: The Lamina1 Story</h3>
+                                                                    <p class="card-text text-lg mb-2" style="color: #eafffa; text-shadow: 0 1px 6px #0ff, 0 0px 2px #000;">A cyberpunk chronicle of the open metaverse, blockchain, and the future of digital society.</p>
+                                                                    <span class="btn btn-outline-info btn-lg mt-2">Read the Story</span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                </div>
+                                <div class="d-flex flex-wrap gap-4 shadow-neon-megenta justify-content-center">
+                    <div class="card bg-dark text-white border-cyber-yellow shadow-neon-yellow mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
                         <div class="card-body">
                             <h5 class="card-title text-cyber-yellow">The Apophis Event</h5>
-                            <p class="card-text text-zinc-300">How a near-miss asteroid changed the Substrate and the
-                                world forever.</p>
+                            <p class="card-text text-zinc-300">How a near-miss asteroid changed the Substrate and the world forever.</p>
                             <a href="Apophis.html" class="btn btn-outline-warning">Read Article</a>
                         </div>
                     </div>
-                    <div class="card bg-dark text-white border-info shadow-neon-cyan mb-4"
-                        style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                    <div class="card bg-dark text-white border-info shadow-neon-cyan mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
                         <div class="card-body">
-                            <img src="https://www.programaudioseries.com/assets/img/program-audio-series-thumb.jpg" alt="The Program Audio Series" class="mb-3 rounded shadow" style="width:100%;max-width:180px;">
-                            <h5 class="card-title text-info">The Program Audio Series</h5>
-                            <p class="card-text text-zinc-300">A mind-bending sci-fi audio drama about AI, control, and the future. Listen to the series and explore the world of The Program.</p>
-                            <a href="https://www.programaudioseries.com/" target="_blank" rel="noopener" class="btn btn-outline-info">Visit Site</a>
+                                <h5 class="card-title text-info">Artifact: "Machinehood" (Book) by S. B. Divya</h5>
+                                <p class="card-text text-zinc-300">A piece of digital ephemera and an artifact in the Node_Zero canon.<br/>
+                                This novel explores themes and ideas that echo through the Node_Zero universe, but stands apart as its own story.</p>
+                                <a href="https://amzn.to/42mn0iz" target="_blank" rel="noopener" class="btn btn-outline-info">View on Amazon</a>
                         </div>
                     </div>
-                    <div class="card bg-dark text-white border-cyber-neon shadow-neon-cyan mb-4"
-                        style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
-                        <div class="card-body">
-                            <h5 class="card-title text-cyber-neon">Blockchain Scanners</h5>
-                            <p class="card-text text-zinc-300">How to look up and verify transactions and assets on a
-                                blockchain.</p>
-                            <a href="blockchain-scanners.html" class="btn btn-outline-info">Read Article</a>
-                        </div>
+                    <div class="card bg-dark text-white border-cyber-neon shadow-neon-cyan mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                    <div class="card-body">
+                      <h5 class="card-title text-cyber-neon">Blockchain Scanners</h5>
+                      <p class="card-text text-zinc-300">How to look up and verify transactions and assets on a blockchain.</p>
+                      <a href="blockchain-scanners.html" class="btn btn-outline-info">Read Article</a>
                     </div>
-                    <div class="card bg-dark text-white border-cyber-magenta shadow-neon-magenta mb-4"
-                        style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
-                        <div class="card-body">
-                            <h5 class="card-title text-cyber-yellow">Pakana</h5>
-                            <p class="card-text text-zinc-300">The decentralized gig-economy bridge for Node_Zero,
-                                Stellar, and Lamina1.</p>
-                            <a href="pakana.html" class="btn btn-outline-warning">Read Article</a>
-                        </div>
+                </div>
+                <div class="card bg-dark text-white border-cyber-magenta shadow-neon-magenta mb-4" style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
+                    <div class="card-body">
+                      <h5 class="card-title text-cyber-yellow">Pakana</h5>
+                      <p class="card-text text-zinc-300">The decentralized gig-economy bridge for Node_Zero, Stellar, and Lamina1.</p>
+                      <a href="pakana.html" class="btn btn-outline-warning">Read Article</a>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
     </main>
     <script src="../js/header-loader.js"></script>
 </body>
-
 </html>
