@@ -1,3 +1,12 @@
+# How to Participate
+
+You may contribute:
+- **Markdown Fragments (Storytellers):** Write in Markdown. Your contribution is converted into a published page.
+- **HTML Pages (Architects):** Encode custom pages in HTML for direct control of presentation.
+
+In both cases, you must also mint a Lamina1 NFT to represent your story. Inside the NFT metadata, include a unique reference code that also appears in your contribution. This dual presence is what entangles the archive.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/community-guide.md](./docs/community-guide.md) for detailed steps and conventions.
 ![node_zero banner](docs/assets/node_zero-banner.png)
 
 # node_zero // The Archive

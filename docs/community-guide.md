@@ -1,3 +1,20 @@
+# Contribution Types
+
+You may contribute:
+- **Markdown Fragments:** For `/community/` or `/stories/`, Markdown (`.md`) is encouraged for all story and content fragments.
+- **Custom HTML Pages:** For richer or interactive presentations, custom HTML is welcome.
+
+# NFT and Token Mechanics
+
+For human contributors: Mint a Lamina1 NFT for each contribution. Include your unique reference code in both the NFT metadata and the file, and a link to the NFT. This dual presence entangles the archive.
+
+# Lore Consistency
+
+Before submitting, check `/docs/lore/` for timeline, character, and glossary coherence. Update these files if introducing new canon elements.
+
+# Pull Requests
+
+Each PR should include both the new fragment and any necessary updates to `/docs/lore/`.
 # node_zero // Community Guide
 
 **Central Inquiry Handbook**  

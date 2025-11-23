@@ -2,42 +2,58 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Verify lockb0x Key Ownership</title>
+    <meta charset="UTF-8">
+    <title>Verify Lockb0x Key Symbol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap"
-    rel="stylesheet">
+    <!-- Node-Zero Aesthetic CSS -->
+    <link rel="stylesheet" href="frontend.css">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="frontend.css" />
+    <!-- Hologram overlay -->
+    <div class="holo-overlay"></div>
 
-  <!-- Script -->
-  <script type="module" src="verify.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">Verify Your lockb0x Key</div>
 
-    <p>
-      If you own a lockb0x Key NFT in your wallet, a free verification transaction will be sent automatically.<br/>
-      Sign it to proceed.
-    </p>
+    <div class="device-panel">
+        <div class="device-frame">
 
-    <!-- NFT Gallery -->
-    <div class="asset-section">
-      <h3>Linea NFT Holdings</h3>
-      <ul id="lineaAssets"></ul>
+            <div class="device-title">LOCKB0X SYMBOL VERIFIER</div>
+
+            <div class="section-title">Insert Key Symbol</div>
+
+            <div class="verify-slot">
+                Enter the Token ID of your Lockb0x Symbol NFT to begin verification.
+            </div>
+
+            <label for="tokenIdInput">Token ID</label>
+            <input type="number" id="tokenIdInput" placeholder="e.g. 1" style="margin-top:6px;">
+
+            <button id="verifyBtn" style="margin-top:14px;">Verify Token</button>
+
+            <div id="status" style="min-height:20px; margin-top:12px;"></div>
+
+            <div class="section-title">Metadata Output</div>
+            <div id="metadataOutput" class="verify-slot">
+                Metadata will appear here after verification.
+            </div>
+
+            <div class="section-title">Reconstructed SVG</div>
+            <div id="svgOutput" class="verify-slot" style="padding: 20px;">
+                <svg id="verifiedPreview" width="260" height="260"></svg>
+            </div>
+
+        </div>
     </div>
 
-    <!-- Connect + Verify Button -->
-    <button id="verifyBtn" class="button">Connect &amp; Verify</button>
+    <!-- JS Modules ---------------------------------------------------------->
+    <script type="module" src="verify.js"></script>
+    <script type="module" src="verify_cbor_decode.js"></script>
+    <script type="module" src="verify_svg_renderer.js"></script>
 
-    <!-- Result -->
-    <p id="result"></p>
-  </div>
 </body>
 
 </html>

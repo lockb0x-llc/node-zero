@@ -1,68 +1,109 @@
-/*
- * Front‑end script to verify ownership of a lockb0x Key NFT. The user
- * connects with MetaMask, the script checks the `balanceOf()` function on
- * the ERC‑721 contract, and if the user holds at least one token calls
- * `verifyOwnership()` to emit an event on chain. Replace
- * `CONTRACT_ADDRESS` with your deployed address after deployment.
- */
+// verify.js — Lockb0x NFT Verification Engine (ESM)
+// ---------------------------------------------------------------------------
+// This script:
+//   • Connects to Linea via ethers v6 BrowserProvider
+//   • Fetches tokenURI(tokenId)
+//   • Extracts Base64 CBOR from the data URI
+//   • Decodes CBOR using verify_cbor_decode.js
+//   • Reconstructs SVG using verify_svg_renderer.js
+//   • Displays the results in the verification panel
+// ---------------------------------------------------------------------------
 
-import { ethers } from './ethers.min.js';
+import { decodeCBOR } from "./verify_cbor_decode.js";
+import { renderVerifiedSVG } from "./verify_svg_renderer.js";
+import { fetchABI, fetchAddress, getEthers } from "./utils.js";
 
-const CONTRACT_ADDRESS = '0x1c6445eBcEe5b9B12cfA63AecA1fa3e90b06BFcC';
+const verifyBtn = document.getElementById("verifyBtn");
+const tokenInput = document.getElementById("tokenIdInput");
 
-const CONTRACT_ABI = [
-  'function balanceOf(address owner) view returns (uint256)',
-  'function verifyOwnership() external',
-];
+const statusEl = document.getElementById("status");
+const metadataEl = document.getElementById("metadataOutput");
+const svgEl = document.getElementById("verifiedPreview");
 
-async function verify() {
-  const resultEl = document.getElementById('result');
-  resultEl.textContent = '';
+// ---------------------------------------------------------------------------
+// Utility
+// ---------------------------------------------------------------------------
 
-  try {
-    if (!window.ethereum) {
-      resultEl.textContent = 'MetaMask is required.';
-      return;
-    }
-
-    // Request account access
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-
-    // Ensure network is Linea Sepolia (chain ID 59141)
-    const network = await provider.getNetwork();
-    const lineaSepoliaChainId = 59141n;
-    if (network.chainId !== lineaSepoliaChainId) {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0xe704' }],
-        });
-      } catch (switchError) {
-        resultEl.textContent = 'Please switch to the Linea Sepolia network.';
-        return;
-      }
-    }
-
-    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-    const user = await signer.getAddress();
-    const balance = await contract.balanceOf(user);
-
-    if (balance > 0n) {
-      resultEl.textContent = 'NFT detected — submitting verification…';
-      const tx = await contract.verifyOwnership();
-      resultEl.textContent = `Transaction submitted: ${tx.hash}`;
-      await tx.wait();
-      resultEl.textContent = 'Verification successful! Event emitted.';
-    } else {
-      resultEl.textContent = 'You do not own a lockb0x Key NFT.';
-    }
-  } catch (err) {
-    console.error(err);
-    resultEl.textContent = `Error: ${err.message ?? err}`;
-  }
+function showStatus(msg, color = "#35eaff") {
+    statusEl.innerHTML = `<span style="color:${color};">${msg}</span>`;
 }
 
-document.getElementById('verifyBtn').onclick = verify;
+function showMetadata(obj) {
+    let html = "<pre style='text-align:left; font-size:13px;'>";
+    html += JSON.stringify(obj, null, 2);
+    html += "</pre>";
+    metadataEl.innerHTML = html;
+}
+
+// ---------------------------------------------------------------------------
+// Main Verification Handler
+// ---------------------------------------------------------------------------
+
+verifyBtn.addEventListener("click", async () => {
+    try {
+        const tokenId = parseInt(tokenInput.value.trim());
+        if (isNaN(tokenId) || tokenId < 1) {
+            showStatus("Invalid Token ID.", "#ff4b62");
+            return;
+        }
+
+        showStatus("Connecting to network...");
+
+        const { ethers } = await getEthers();
+        const provider = new ethers.BrowserProvider(window.ethereum);
+
+        const abi = await fetchABI();
+        const address = await fetchAddress();
+
+        const contract = new ethers.Contract(address, abi, provider);
+
+        showStatus("Retrieving tokenURI...");
+
+        let uri;
+        try {
+            uri = await contract.tokenURI(tokenId);
+        } catch {
+            showStatus("Token does not exist.", "#ff4b62");
+            return;
+        }
+
+        if (!uri.startsWith("data:application/cbor;base64,")) {
+            showStatus("Token URI format invalid or unsupported.", "#ff4b62");
+            return;
+        }
+
+        // Extract Base64 payload
+        const base64 = uri.split("base64,")[1];
+        const rawBytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+        showStatus("Decoding CBOR...");
+
+        let metadata;
+        try {
+            metadata = decodeCBOR(rawBytes);
+        } catch (err) {
+            console.error("CBOR decode error:", err);
+            showStatus("Failed to parse CBOR metadata.", "#ff4b62");
+            return;
+        }
+
+        showMetadata(metadata);
+
+        // -------------------------------------------------------------------
+        // Reconstruct SVG deterministically
+        // -------------------------------------------------------------------
+
+        showStatus("Reconstructing SVG...");
+
+        svgEl.innerHTML = ""; // clear old preview
+
+        const svg = renderVerifiedSVG(metadata);
+        svgEl.appendChild(svg);
+
+        showStatus("Verification complete.", "#5bffb5");
+
+    } catch (err) {
+        console.error(err);
+        showStatus("Unexpected verification error.", "#ff4b62");
+    }
+});

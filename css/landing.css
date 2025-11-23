@@ -1,0 +1,132 @@
+
+/* Pulsating rainbow neon for intro rings and container */
+@keyframes rainbow-pulse {
+    0% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+
+    20% {
+        box-shadow: 0 0 16px 4px #ff00ea, 0 0 32px 8px #00ff99, 0 0 64px 16px #ff00ea;
+        border-color: #ff00ea;
+    }
+
+    40% {
+        box-shadow: 0 0 16px 4px #00ff99, 0 0 32px 8px #ffe600, 0 0 64px 16px #00ff99;
+        border-color: #00ff99;
+    }
+
+    60% {
+        box-shadow: 0 0 16px 4px #ffe600, 0 0 32px 8px #00fff7, 0 0 64px 16px #ffe600;
+        border-color: #ffe600;
+    }
+
+    80% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+
+    100% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+}
+
+.rainbow-pulse {
+    animation: rainbow-pulse 2.5s infinite alternate cubic-bezier(.4, 0, .2, 1);
+}
+
+
+
+/* Cyberpunk POH Button Enhancement */
+#pohBtn {
+    font-size: 1.25em;
+    padding: 1.25em 2.25em;
+    border-radius: 1.2em;
+    background: linear-gradient(90deg, #00fff7 0%, #ff00ea 100%);
+    color: #0a0a0a;
+    font-family: 'Share Tech Mono', 'Orbitron', monospace;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 8px #00fff7, 0 0 2px #ff00ea;
+    box-shadow: 0 0 0 2px #00fff7, 0 0 16px 4px #ff00ea, 0 0 32px 8px #00fff7;
+    position: relative;
+    transition: transform 0.08s cubic-bezier(.4, 0, .2, 1), box-shadow 0.18s, background 0.18s;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    margin-bottom: 0.5em;
+}
+
+#pohBtn:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.2em;
+    background: linear-gradient(90deg, rgba(0, 255, 247, 0.18) 0%, rgba(255, 0, 234, 0.18) 100%);
+    z-index: -1;
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+#pohBtn:active {
+    transform: scale(0.96) translateY(2px);
+    box-shadow: 0 0 0 2px #ff00ea, 0 0 24px 8px #00fff7, 0 0 48px 16px #ff00ea;
+    background: linear-gradient(90deg, #ff00ea 0%, #00fff7 100%);
+}
+
+#pohBtn:focus {
+    outline: 2px solid #ffe600;
+    outline-offset: 2px;
+}
+
+</style>
+
+/* Pulsating rainbow neon for intro rings */
+@keyframes rainbow-pulse {
+    0% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+
+    20% {
+        box-shadow: 0 0 16px 4px #ff00ea, 0 0 32px 8px #00ff99, 0 0 64px 16px #ff00ea;
+        border-color: #ff00ea;
+    }
+
+    40% {
+        box-shadow: 0 0 16px 4px #00ff99, 0 0 32px 8px #ffe600, 0 0 64px 16px #00ff99;
+        border-color: #00ff99;
+    }
+
+    60% {
+        box-shadow: 0 0 16px 4px #ffe600, 0 0 32px 8px #00fff7, 0 0 64px 16px #ffe600;
+        border-color: #ffe600;
+    }
+
+    80% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+
+    100% {
+        box-shadow: 0 0 16px 4px #00fff7, 0 0 32px 8px #ff00ea, 0 0 64px 16px #00fff7;
+        border-color: #00fff7;
+    }
+}
+
+.rainbow-pulse {
+    animation: rainbow-pulse 2.5s infinite alternate cubic-bezier(.4, 0, .2, 1);
+}
+
+.intro-container-clickable {
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    box-shadow: 0 0 0 0 #00fff7;
+}
+
+.intro-container-clickable:active {
+    box-shadow: 0 0 24px 8px #ff00ea;
+}
+

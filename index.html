@@ -19,6 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://node-zero.xyz/" />
 <link rel="icon" type="image/png" href="media/favicon.png">
+<link rel="stylesheet" href="css/landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,9 +55,8 @@
       <!-- HERO IMAGE -->
       <div class="relative z-20 flex flex-col items-center justify-center mb-8">
         <div class="relative flex items-center justify-center mx-auto overflow-visible" style="min-width:0; min-height:0;">
-          <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
           <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
-            <video id="hero-video" src="media/video/node_zero_you_are_here.mp4" alt="Node_Zero: Entry point into the distributed cyberpunk metaverse." 
+            <video id="hero-video" src="media/video/node_zero_you_are_here.mp4" alt="Node_Zero: Entry point." 
             class="relative z-10 rounded-xl bg-zinc-900/80 shadow-lg" autoplay loop muted playsinline></video>
         </div>
         <h1 class="font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl mt-8">
@@ -64,79 +64,56 @@
             <span class="relative z-[2] block select-none">NODE_ZERO</span>
           </span>
         </h1>
-        <div class="mt-4 mb-2 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
+        <div id="carrier_detection" class="mt-4 mb-2 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
           <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
           Carrier detected
         </div>
       </div>
 
       <!-- INTRO TEXT BOX -->
-      <div id="intro-text" class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
-        <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
-        <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
-        <div class="relative z-10 w-full flex flex-col items-center">
+      <div id="intro-container" class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
+        <div id="intro-middle-ring" class="absolute inset-0 rounded-2xl border-4 border-cyber-neon pointer-events-none rainbow-pulse"></div>
+        <div id="intro-inner-ring" class="absolute inset-2 rounded-xl border-4 border-cyber-magenta pointer-events-none rainbow-pulse"></div>
+        <div id="web3-intro" class="relative z-10 w-full flex flex-col items-center">
           <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
-          <p class="text-zinc-300">
-            Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
-            It is not a single plot or platform, but an inception point of decentralized threads in the fabric of time and space rendered across cyberspace.<br/>
-            Encounter experiences in any order.<br/>
-            Engagement is rewarded.<br/>
-            Dissemination is celebrated.
-          </p>
+          
           <h2 class="mt-6 mb-2 text-cyber-neon neon-cyan w-full flex justify-center text-center">How to Read This Place</h2>
+          <div class="mt-8 w-full flex flex-col items-center gap-3">
+            <button id="pohBtn"
+              class="px-6 py-3 border border-magenta-400 rounded-lg bg-zinc-900/60 hover:bg-zinc-900/90 text-cyan-200 text-xs sm:text-sm tracking-wide uppercase poh" >
+              Connect &amp; Verify Humanity (Linea)
+            </button>
+            <p id="poh-status" class="text-xs text-zinc-400 text-center min-h-[1.5rem]"></p>
+          
+            <div id="poh-required" class="hidden text-xs text-zinc-400 text-center">
+              <p class="mb-2">
+                No Proof of Humanity attestation detected for this wallet.
+              </p>
+              <a href="https://linea.build/poh" target="_blank" rel="noopener"
+                class="underline text-cyan-300 hover:text-cyan-200">
+                Complete Proof of Humanity on Linea.build, then return here and try again.
+              </a>
+            </div>
+            </div>
           <p class="text-zinc-300">
-            Think of this site as a catalog to a distributed archive. node_zero is a trans-media 
-            experience existing across the digital landscape, 
-            hidden in plain-sight, deployed off-label.
-          </p>
-          <p class="mt-6 text-cyber-green font-medium w-full flex justify-center text-center">
-            Start; Anywhere. Wander. Contribute.<br/>
-            Unlock Rewarding Experiences.</p>
+            Node_Zero is a Web3 decentralized experience woven throughout public networks and open platforms.
+            <br/>
+            <br/>
+            Your adventures, rewards, and contributions are logged and distributed with your Linea Account Wallet.
+            <br/>
+            <br/>
+            You must prove your Humanity with your Linea Account Wallet to access certain areas and participate in this decentralized experience.<br/>
+            <br/>
+            Once you have proven you are human, you can access the Lockb0x Forge and mint your free personal Lockb0x Sigil NFT.
+            <br/><br/>
+            Having the Lockb0x Sigil NFT in your Linea Account Wallet opens the portal to Node_Zero and makes you eligible for LBX rewards.
+            <br/><br/>
+
+            <h3>Humanity's descendants thank you for your support.</h3>
+            </p>
+            
         </div>
       </div>
-
-      <!-- ENTRY POINTS -->
-      <div class="relative z-10 w-full max-w-5xl px-6">
-        <h2 class="text-left">Entry Points</h2>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          <!-- Entry: Vignette (Keya) -->
-          <a href="keya/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Keya</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Meet Keya and discover node_zero.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Experience Keya →</div>
-          </a>
-          <!-- Entry: Universe Primer -->
-          <a href="primer/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Universe Primer</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">A gentle orientation to the meta-web and its moving parts.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Read overview →</div>
-          </a>
-          <!-- Entry: Artifacts Index -->
-          <a href="artefacts/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Artefacts Index</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Neal S. Stephenson created the <em>Metaverse</em> in Snowcrash, in 1992.<br/>
-              Thirty years later, the technology has nearly caught up, Artefact is an inception point for a new kind of trans-media experience.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Browse Artefact →</div>
-          </a>
-          <!-- Entry: Stories Hub -->
-          <a href="stories/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Stories Hub</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Short fiction and serials from multiple points of view.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Enter stories →</div>
-          </a>
-          <!-- Entry: The Blue (metaspace) -->
-          <a href="the-blue/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">The Blue</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">A metaspace where instances spin up, do their work, and fade.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Visit the edge →</div>
-          </a>
-          <!-- Entry: Ledgers & Signals -->
-          <a href="signals/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Ledgers &amp; Signals</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">On-chain traces, off-chain echoes, and how to verify them.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Trace signals →</div>
-          </a>
-        </div>
         <!-- Footer tags -->
         <div class="mt-8 text-xs text-zinc-500 text-left">
           #NodeZero #CentralInquiry #BeforeTheInquiry #FragmentsOfTheCollapse #QuantumBlockchain #nft #blockchain #ai #metaverse #scifi #booksky
@@ -162,6 +139,85 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/header-loader.js"></script>
+  <script type="module">
+    import {
+      isMetaMaskInstalled,
+      isMetaMaskConnected,
+      isPohVerified,
+      checkPohAndPersist
+    } from './lockb0x/utils.js';
+
+    function setPohStatus(message) {
+      const el = document.getElementById('poh-status');
+      if (el) el.textContent = message;
+    }
+
+    // Show or hide the web3-intro div based on connection and PoH status
+    async function updateWeb3IntroVisibility() {
+      const web3Intro = document.getElementById('web3-intro');
+      const introContainer = document.getElementById('intro-container');
+      if (!web3Intro || !introContainer) return;
+      const connected = await isMetaMaskConnected();
+      const poh = isPohVerified();
+      if (connected && poh) {
+        web3Intro.style.display = 'none';
+        introContainer.classList.add('intro-container-clickable', 'rainbow-pulse');
+      } else {
+        web3Intro.style.display = '';
+        introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
+      }
+    }
+    // Make intro-container clickable if user is connected and has PoH
+    document.addEventListener('DOMContentLoaded', () => {
+      const introContainer = document.getElementById('intro-container');
+      const web3Intro = document.getElementById('web3-intro');
+      if (introContainer) {
+        introContainer.addEventListener('click', async (evt) => {
+          const connected = await isMetaMaskConnected();
+          const poh = isPohVerified();
+          if (connected && poh && web3Intro && web3Intro.style.display === 'none') {
+            window.location.href = './lockb0x/index.html';
+          }
+        });
+      }
+    });
+
+    // PoH check and persist using utils.js
+    async function checkPoh() {
+      const result = await checkPohAndPersist();
+      if (result.status) {
+        setPohStatus('Proof of Humanity verified.');
+      } else {
+        setPohStatus(result.error || 'Proof of Humanity check failed.');
+        if (result.error && result.error.includes('No Proof of Humanity')) {
+          const warn = document.getElementById('poh-required');
+          if (warn) warn.classList.remove('hidden');
+        }
+      }
+      await updateWeb3IntroVisibility();
+    }
+
+    // Attach handler to the button if present
+    const pohBtn = document.getElementById('pohBtn');
+    if (pohBtn) {
+      pohBtn.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+        await checkPoh();
+      });
+    }
+
+    // On page load, update web3-intro visibility
+    document.addEventListener('DOMContentLoaded', updateWeb3IntroVisibility);
+
+    // Listen for account/network changes to update UI
+    if (window.ethereum) {
+      window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3IntroVisibility);
+      window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3IntroVisibility);
+    }
+
+    // Also update on PoH verification from localStorage (e.g., after reload)
+    updateWeb3IntroVisibility();
+  </script>
 
   <script type="application/ld+json">
 {

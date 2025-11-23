@@ -2,30 +2,137 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mint lockb0x Key</title>
+    <meta charset="UTF-8" />
+    <title>Lockb0x Sigi – Designer & Mint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Futuristic fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap"
-    rel="stylesheet">
-  <!-- External stylesheet -->
-  <link rel="stylesheet" href="frontend.css" />
-  <!-- Import the mint script -->
-  <script type="module" src="mint.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <!-- Node-Zero Aesthetic CSS -->
+    <link rel="stylesheet" href="./frontend.css">
+
+    <!-- PoH Gating: All gating logic is now centralized in utils.js -->
+
+    <!-- Load config first so window.APP_CONFIG is available globally -->
+    <script src="./config.js"></script>
+    <!-- Load Ethers UMD first so window.ethers exists before modules -->
+    <script src="./ethers.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">Mint your lockb0x Key</div>
-    <div class="nft-gallery">
-      <img src="c7c14c5c-17e8-4961-84f1-c558eadd89b9.png" alt="lockb0x1234 NFT" title="lockb0x1234 NFT Profile">
-      <img src="e68fd7fd-b564-4f2e-81f1-5d3f7b59b5a9.png" alt="Keya NFT" title="Keya's NFT Profile">
-      <img src="8dac5dd5-4f94-442b-a49c-239080e3d46d.png" alt="CIA NFT" title="Central Inquiry Agent's NFT Profile">
-    </div>
-    <button id="mintBtn" class="button">Connect &amp; Mint</button>
-    <p id="status"></p>
-  </div>
-</body>
+    <!-- Global holographic overlay -->
+    <div class="holo-overlay"></div>
+    <div class="device-panel" id="device-panel">
+        <div id="web3-info" class="web3-info" style="display:none;text-align:center;margin-bottom:18px;"></div>
+        <div class="device-frame">
 
-</html>
+            <div class="device-title">
+                LOCKB0X SIGIL GENERATOR
+            </div>
+
+            <!-- Tier Selection --------------------------------------------------->
+            <div class="section-title">Tier Selection</div>
+
+            <div id="tier-wrapper" class="tier-panel standard">
+                <label for="tierSelect">Minting Tier</label>
+                <select id="tierSelect">
+                    <option value="standard" selected>Standard Tier (.01 Linea)</option>
+                    <option value="intermediate">Intermediate Tier (Requires Secret Code)</option>
+                    <option value="premium">Premium Tier (.05 Linea)</option>
+                </select>
+
+                <div id="secretCodeWrapper" style="display:none; margin-top:12px;">
+                    <label for="secretCode">Enter Secret Code</label>
+                    <input type="text" id="secretCode" placeholder="•••••••">
+                </div>
+
+                <div id="tierPrice" style="margin-top:10px; opacity:0.85;">
+                    Price: <strong>0.01 LINEA</strong>
+                </div>
+            </div>
+
+            <!-- SVG Designer Panel --------------------------------------------->
+            <div class="section-title">Design Your Sigil</div>
+
+            <label for="variantSelect">Variant</label>
+            <select id="variantSelect">
+                <option id="variant1" value="1">Variant 1 – Ocular</option>
+                <option id="variant2" value="2">Variant 2 – Node Alignment</option>
+                <option id="variant3" value="3">Variant 3 – Eye of Osiris</option>
+                <option style="display: none;" id="variant4" value="4">Variant 4 – Trap</option>
+                <option style="display: none;" id="variant5" value="5">Variant 5 – Radial</option>
+                <option style="display: none;" id="variant6" value="6">Variant 6 – Corona</option>
+                <option style="display: none;" id="variant7" value="7">Variant 7 – Flare</option>
+                <option style="display: none;" id="variant8" value="8">Variant 8 – Dome</option>
+                <option style="display: none;" id="variant9" value="9">Variant 9 – Double Aught</option>
+            </select>
+
+            <label for="bgHue">Background Hue</label>
+            <input id="bgHue" type="range" min="0" max="359" value="210">
+
+            <label for="primaryHue">Primary Hue</label>
+            <input id="primaryHue" type="range" min="0" max="359" value="180">
+
+            <label for="secondaryHue">Secondary Hue</label>
+            <input id="secondaryHue" type="range" min="0" max="359" value="280">
+
+            <label for="tilt">Tilt (°)</label>
+            <input id="tilt" type="range" min="-18" max="18" value="0">
+
+            <label for="stroke">Stroke Width</label>
+            <input id="stroke" type="range" min="10" max="40" value="20">
+
+            <label for="glow">Glow Intensity (%)</label>
+            <input id="glow" type="range" min="20" max="90" value="40">
+
+            <div id="preview-container">
+                <svg id="preview"></svg>
+            </div>
+
+            <!-- Wallet Actions -->
+            <div class="section-title">Wallet & Mint</div>
+
+            <button id="mintBtn" style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
+            <div id="mintStatus" style="margin-top:14px; min-height:20px; font-size:14px;"></div>
+
+        </div>
+    </div>
+
+
+    <!-- Strict PoH gating: block UI if not verified -->
+    <script type="module">
+        import { getTokenGatingState } from './utils.js';
+
+        // On page load, check PoH signature and update UI accordingly
+        async function updateWeb3InfoAndGating() {
+            const panel = document.getElementById('device-panel');
+            const web3Info = document.getElementById('web3-info');
+            const state = await getTokenGatingState();
+            const pohSignature = localStorage.getItem(`poh_signature_${state.wallet?.toLowerCase?.()}`);
+            if (!state.connected || !pohSignature) {
+                if (panel) panel.style.display = 'none';
+                if (web3Info) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Proof of Humanity required. Please verify on the main page.';
+                }
+                return;
+            }
+            // User is connected and PoH verified
+            if (panel) panel.style.display = '';
+                if (web3Info) {
+                    web3Info.style.display = 'none';
+                    web3Info.textContent = '';
+                }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateWeb3InfoAndGating);
+        // Optionally, listen for wallet/account/chain changes if needed
+        window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3InfoAndGating);
+        window.ethereum && window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3InfoAndGating);
+    </script>
+
+            <!-- Restore minting and preview scripts -->
+            <script type="module" src="preview.js"></script>
+            <script type="module" src="cbor.js"></script>
+            <script type="module" src="mint.js"></script>
