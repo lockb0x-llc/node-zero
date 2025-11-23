@@ -21,118 +21,174 @@
 </head>
 
 <body>
-    <!-- Global holographic overlay -->
-    <div class="holo-overlay"></div>
-    <div class="device-panel" id="device-panel">
-        <div id="web3-info" class="web3-info" style="display:none;text-align:center;margin-bottom:18px;"></div>
-        <div class="device-frame">
+    <main>
+        <div class="device-panel" id="device-panel">
+            <div id="web3-info" class="web3-info" style="display:none;text-align:center;margin-bottom:18px;"></div>
+            <div class="device-frame">
 
-            <div class="device-title">
-                LOCKB0X SIGIL GENERATOR
-            </div>
+                <div class="device-title">
+                    LOCKB0X SIGIL GENERATOR
+                </div>
 
-            <!-- Tier Selection --------------------------------------------------->
-            <div class="section-title">Tier Selection</div>
+                <!-- Tier Selection --------------------------------------------------->
+                <div class="section-title">Tier Selection</div>
 
-            <div id="tier-wrapper" class="tier-panel standard">
-                <label for="tierSelect">Minting Tier</label>
-                <select id="tierSelect">
-                    <option value="standard" selected>Standard Tier (.01 Linea)</option>
-                    <option value="intermediate">Intermediate Tier (Requires Secret Code)</option>
-                    <option value="premium">Premium Tier (.05 Linea)</option>
+                <div id="tier-wrapper" class="tier-panel standard">
+                    <label for="tierSelect">Minting Tier</label>
+                    <select id="tierSelect">
+                        <option value="standard" selected>Standard Tier (.01 Linea)</option>
+                        <option value="intermediate">Intermediate Tier (Requires Secret Code)</option>
+                        <option value="premium">Premium Tier (.05 Linea)</option>
+                    </select>
+
+                    <div id="secretCodeWrapper" style="display:none; margin-top:12px;">
+                        <label for="secretCode">Enter Secret Code</label>
+                        <input type="text" id="secretCode" placeholder="•••••••">
+                    </div>
+
+                    <div id="tierPrice" style="margin-top:10px; opacity:0.85;">
+                        Price: <strong>0.01 LINEA</strong>
+                    </div>
+                </div>
+
+                <!-- SVG Designer Panel --------------------------------------------->
+                <div class="section-title">Design Your Sigil</div>
+
+                <label for="variantSelect">Variant</label>
+                <select id="variantSelect">
+                    <option id="variant1" value="1">Variant 1 – Ocular</option>
+                    <option id="variant2" value="2">Variant 2 – Node Alignment</option>
+                    <option id="variant3" value="3">Variant 3 – Eye of Osiris</option>
+                    <option style="display: none;" id="variant4" value="4">Variant 4 – Trap</option>
+                    <option style="display: none;" id="variant5" value="5">Variant 5 – Radial</option>
+                    <option style="display: none;" id="variant6" value="6">Variant 6 – Corona</option>
+                    <option style="display: none;" id="variant7" value="7">Variant 7 – Flare</option>
+                    <option style="display: none;" id="variant8" value="8">Variant 8 – Dome</option>
+                    <option style="display: none;" id="variant9" value="9">Variant 9 – Double Aught</option>
                 </select>
 
-                <div id="secretCodeWrapper" style="display:none; margin-top:12px;">
-                    <label for="secretCode">Enter Secret Code</label>
-                    <input type="text" id="secretCode" placeholder="•••••••">
+                <label for="bgHue">Background Hue</label>
+                <input id="bgHue" type="range" min="0" max="359" value="210">
+
+                <label for="primaryHue">Primary Hue</label>
+                <input id="primaryHue" type="range" min="0" max="359" value="180">
+
+                <label for="secondaryHue">Secondary Hue</label>
+                <input id="secondaryHue" type="range" min="0" max="359" value="280">
+
+                <label for="tilt">Tilt (°)</label>
+                <input id="tilt" type="range" min="-18" max="18" value="0">
+
+                <label for="stroke">Stroke Width</label>
+                <input id="stroke" type="range" min="10" max="40" value="20">
+
+                <label for="glow">Glow Intensity (%)</label>
+                <input id="glow" type="range" min="20" max="90" value="40">
+
+                <div id="preview-container">
+                    <svg id="preview"></svg>
                 </div>
 
-                <div id="tierPrice" style="margin-top:10px; opacity:0.85;">
-                    Price: <strong>0.01 LINEA</strong>
-                </div>
+                <!-- Wallet Actions -->
+                <div class="section-title">Wallet & Mint</div>
+
+                <button id="mintBtn" style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
+                <div id="mintStatus" style="margin-top:14px; min-height:20px; font-size:14px;"></div>
+
             </div>
-
-            <!-- SVG Designer Panel --------------------------------------------->
-            <div class="section-title">Design Your Sigil</div>
-
-            <label for="variantSelect">Variant</label>
-            <select id="variantSelect">
-                <option id="variant1" value="1">Variant 1 – Ocular</option>
-                <option id="variant2" value="2">Variant 2 – Node Alignment</option>
-                <option id="variant3" value="3">Variant 3 – Eye of Osiris</option>
-                <option style="display: none;" id="variant4" value="4">Variant 4 – Trap</option>
-                <option style="display: none;" id="variant5" value="5">Variant 5 – Radial</option>
-                <option style="display: none;" id="variant6" value="6">Variant 6 – Corona</option>
-                <option style="display: none;" id="variant7" value="7">Variant 7 – Flare</option>
-                <option style="display: none;" id="variant8" value="8">Variant 8 – Dome</option>
-                <option style="display: none;" id="variant9" value="9">Variant 9 – Double Aught</option>
-            </select>
-
-            <label for="bgHue">Background Hue</label>
-            <input id="bgHue" type="range" min="0" max="359" value="210">
-
-            <label for="primaryHue">Primary Hue</label>
-            <input id="primaryHue" type="range" min="0" max="359" value="180">
-
-            <label for="secondaryHue">Secondary Hue</label>
-            <input id="secondaryHue" type="range" min="0" max="359" value="280">
-
-            <label for="tilt">Tilt (°)</label>
-            <input id="tilt" type="range" min="-18" max="18" value="0">
-
-            <label for="stroke">Stroke Width</label>
-            <input id="stroke" type="range" min="10" max="40" value="20">
-
-            <label for="glow">Glow Intensity (%)</label>
-            <input id="glow" type="range" min="20" max="90" value="40">
-
-            <div id="preview-container">
-                <svg id="preview"></svg>
-            </div>
-
-            <!-- Wallet Actions -->
-            <div class="section-title">Wallet & Mint</div>
-
-            <button id="mintBtn" style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
-            <div id="mintStatus" style="margin-top:14px; min-height:20px; font-size:14px;"></div>
-
         </div>
-    </div>
+    </main>
 
+    <script type="module" src="preview.js"></script>
+    <script type="module" src="cbor.js"></script>
+    <script type="module" src="mint.js"></script>
 
-    <!-- Strict PoH gating: block UI if not verified -->
+    <!-- Wallet/PoH check and redirect logic (UI always visible) -->
     <script type="module">
-        import { getTokenGatingState } from './utils.js';
+        import { isMetaMaskConnected, getCurrentWalletAddress, getProvider } from './utils.js';
 
-        // On page load, check PoH signature and update UI accordingly
-        async function updateWeb3InfoAndGating() {
-            const panel = document.getElementById('device-panel');
+        async function ensureWalletAndPoh() {
+            const mintBtn = document.getElementById('mintBtn');
+            const mintStatus = document.getElementById('mintStatus');
             const web3Info = document.getElementById('web3-info');
-            const state = await getTokenGatingState();
-            const pohSignature = localStorage.getItem(`poh_signature_${state.wallet?.toLowerCase?.()}`);
-            if (!state.connected || !pohSignature) {
-                if (panel) panel.style.display = 'none';
-                if (web3Info) {
-                    web3Info.style.display = '';
-                    web3Info.textContent = 'Proof of Humanity required. Please verify on the main page.';
-                }
+
+            // 1. Check MetaMask connection
+            const connected = await isMetaMaskConnected();
+            if (!connected) {
+                window.location.replace('/index.html');
                 return;
             }
-            // User is connected and PoH verified
-            if (panel) panel.style.display = '';
-                if (web3Info) {
-                    web3Info.style.display = 'none';
-                    web3Info.textContent = '';
+
+            // 2. Get wallet address
+            let address = await getCurrentWalletAddress();
+            if (!address) {
+                window.location.replace('/index.html');
+                return;
+            }
+
+            // 3. Attempt to switch to Linea Sepolia (chainId 0xe708 = 59141)
+            let provider;
+            try {
+                provider = getProvider();
+                let network = await provider.getNetwork();
+                if (network.chainId !== 59141n) {
+                    // Try to switch network
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: '0xe708' }],
+                        });
+                        // Re-instantiate provider after network switch
+                        provider = getProvider();
+                        network = await provider.getNetwork();
+                        if (network.chainId !== 59141n) {
+                            mintBtn.disabled = true;
+                            mintBtn.style.opacity = '0.5';
+                            if (web3Info) {
+                                web3Info.style.display = '';
+                                web3Info.textContent = 'Please switch to Linea Sepolia network in MetaMask.';
+                            }
+                            mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
+                            return;
+                        }
+                    } catch (err) {
+                        mintBtn.disabled = true;
+                        mintBtn.style.opacity = '0.5';
+                        if (web3Info) {
+                            web3Info.style.display = '';
+                            web3Info.textContent = 'Please switch to Linea Sepolia network in MetaMask.';
+                        }
+                        mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
+                        return;
+                    }
                 }
+            } catch (err) {
+                mintBtn.disabled = true;
+                mintBtn.style.opacity = '0.5';
+                if (web3Info) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'MetaMask or network error.';
+                }
+                mintStatus.textContent = 'MetaMask or network error.';
+                return;
+            }
+
+            
+            // All checks passed, enable mint
+            mintBtn.disabled = false;
+            mintBtn.style.opacity = '1';
+            if (web3Info) {
+                web3Info.style.display = 'none';
+                web3Info.textContent = '';
+            }
+            mintStatus.textContent = '';
         }
 
-        document.addEventListener('DOMContentLoaded', updateWeb3InfoAndGating);
-        // Optionally, listen for wallet/account/chain changes if needed
-        window.ethereum && window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3InfoAndGating);
-        window.ethereum && window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3InfoAndGating);
+        document.addEventListener('DOMContentLoaded', ensureWalletAndPoh);
+        if (window.ethereum && window.ethereum.on) {
+            window.ethereum.on('accountsChanged', ensureWalletAndPoh);
+            window.ethereum.on('chainChanged', ensureWalletAndPoh);
+        }
     </script>
-
-            <!-- Restore minting and preview scripts -->
-            <script type="module" src="preview.js"></script>
-            <script type="module" src="cbor.js"></script>
-            <script type="module" src="mint.js"></script>
+</body>
+</html>
