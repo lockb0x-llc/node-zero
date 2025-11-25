@@ -59,14 +59,13 @@ export async function getTokenGatingState() {
     logDebug('Gating state:', { connected, wallet, poh, error });
     return { connected, wallet, poh, error };
 }
-const LOCAL_POH_KEY = 'nodezero_poh_v1';
-const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v1';
-// Set wallet connection state in localStorage
+export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v1';
+export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase()}`;
+
+// Set wallet connection state in localStorage (lowercase)
 export function setWalletConnected(address) {
     if (address) {
         localStorage.setItem(LOCAL_WALLET_KEY, address.toLowerCase());
-    } else {
-        localStorage.removeItem(LOCAL_WALLET_KEY);
     }
 }
 
@@ -75,11 +74,17 @@ export function getWalletConnected() {
     return localStorage.getItem(LOCAL_WALLET_KEY) || null;
 }
 
-// Clear both wallet and PoH flags
-export function clearWalletAndPohFlags() {
-    localStorage.removeItem(LOCAL_WALLET_KEY);
-    localStorage.removeItem(LOCAL_POH_KEY);
-    logDebug('Cleared wallet and PoH flags');
+// Set PoH verified for address (lowercase)
+export function setPohVerified(address) {
+    if (address) {
+        localStorage.setItem(LOCAL_POH_KEY(address), 'true');
+    }
+}
+
+// Check PoH verified for address (lowercase)
+export function isPohVerifiedForAddress(address) {
+    if (!address) return false;
+    return localStorage.getItem(LOCAL_POH_KEY(address)) === 'true';
 }
 const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
 
@@ -116,32 +121,11 @@ export async function getCurrentWalletAddress() {
  */
 export async function isPohVerified() {
     try {
-        const raw = localStorage.getItem(LOCAL_POH_KEY);
-        const wallet = localStorage.getItem(LOCAL_WALLET_KEY);
-        if (!raw || !wallet) return false;
-        const payload = JSON.parse(raw);
-        if (!payload || !payload.address) return false;
-        const currentAddress = await getCurrentWalletAddress();
-        if (!currentAddress || currentAddress.toLowerCase() !== payload.address.toLowerCase() || currentAddress.toLowerCase() !== wallet) {
-            // Address mismatch, clear both
-            clearWalletAndPohFlags();
-            return false;
-        }
-        // Double-check with API
-        const resp = await fetch(`${POH_API_BASE}${currentAddress}`);
-        if (!resp.ok) {
-            clearWalletAndPohFlags();
-            return false;
-        }
-        const text = (await resp.text()).trim();
-        if (text === 'true') {
-            return true;
-        } else {
-            clearWalletAndPohFlags();
-            return false;
-        }
+        const wallet = getWalletConnected();
+        if (!wallet) return false;
+        // Only check localStorage for PoH flag for this address
+        return isPohVerifiedForAddress(wallet);
     } catch (e) {
-        clearWalletAndPohFlags();
         if (_globalGatingErrorHandler) _globalGatingErrorHandler(e?.message || String(e));
         return false;
     }
@@ -150,14 +134,13 @@ export async function isPohVerified() {
  * Registers wallet/account/chain change event handlers. Callback is called after flags are cleared.
  * @param {Function} callback
  */
+// Register wallet event handlers (no clearing of PoH or wallet)
 export function registerWalletEventHandlers(callback) {
     if (window.ethereum) {
         window.ethereum.on && window.ethereum.on('accountsChanged', () => {
-            clearWalletAndPohFlags();
             if (typeof callback === 'function') callback();
         });
         window.ethereum.on && window.ethereum.on('chainChanged', () => {
-            clearWalletAndPohFlags();
             if (typeof callback === 'function') callback();
         });
     }
@@ -195,48 +178,40 @@ export async function checkPohAndPersist(address, pohVerifyFn) {
                 resolvedAddress = accounts[0];
             }
         } catch (e) {
-            clearWalletAndPohFlags();
             return { status: false, address: null, signature: null, error: 'Wallet connection rejected.' };
         }
     }
     if (!resolvedAddress) {
-        clearWalletAndPohFlags();
         return { status: false, address: null, signature: null, error: 'No address provided.' };
     }
-    // 1. Check for existing signature
-    let signature = getPohSignature(resolvedAddress);
-    if (signature) {
-        return { status: true, address: resolvedAddress, signature, error: null };
+    // 1. Check for existing PoH flag
+    if (isPohVerifiedForAddress(resolvedAddress)) {
+        return { status: true, address: resolvedAddress, signature: null, error: null };
     }
     // 2. Perform PoH verification (default: API check, or custom function)
     try {
-        let resultSignature;
+        let verified = false;
         if (typeof pohVerifyFn === 'function') {
-            resultSignature = await pohVerifyFn(resolvedAddress);
+            verified = await pohVerifyFn(resolvedAddress);
         } else {
-            // Default: check API, and use a dummy signature if verified
+            // Default: check API
             const resp = await fetch(`${POH_API_BASE}${resolvedAddress}`);
             if (!resp.ok) {
-                clearWalletAndPohFlags();
                 return { status: false, address: resolvedAddress, signature: null, error: 'Unable to contact Linea PoH service. Please try again later.' };
             }
             const text = (await resp.text()).trim();
             if (text === 'true') {
-                // In a real implementation, obtain the actual signature from the PoH service
-                resultSignature = `dummy_signature_for_${resolvedAddress}`;
+                verified = true;
             } else {
-                clearWalletAndPohFlags();
                 return { status: false, address: resolvedAddress, signature: null, error: 'No Proof of Humanity found for this wallet.' };
             }
         }
-        if (!resultSignature) {
-            clearWalletAndPohFlags();
+        if (!verified) {
             return { status: false, address: resolvedAddress, signature: null, error: 'PoH verification failed.' };
         }
-        setPohSignature(resolvedAddress, resultSignature);
-        return { status: true, address: resolvedAddress, signature: resultSignature, error: null };
+        setPohVerified(resolvedAddress);
+        return { status: true, address: resolvedAddress, signature: null, error: null };
     } catch (err) {
-        clearWalletAndPohFlags();
         return { status: false, address: resolvedAddress, signature: null, error: err?.message || String(err) };
     }
 }

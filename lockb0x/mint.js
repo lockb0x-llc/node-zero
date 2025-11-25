@@ -11,7 +11,8 @@ import {
     getTokenGatingState,
     registerWalletEventHandlers,
     setDebugMode,
-    setGatingErrorHandler
+    setGatingErrorHandler,
+    getPohSignature
 } from "./utils.js";
 // Enable debug mode for development (set to false in production)
 setDebugMode(true);
@@ -94,9 +95,8 @@ mintBtn.addEventListener("click", async () => {
         mintStatus.textContent = "Preparing mint…";
         mintStatus.style.color = "#ccc";
 
-        // Retrieve PoH signature from localStorage, keyed by wallet address
-        // This must be set after successful PoH verification elsewhere in the app
-        const pohSignature = localStorage.getItem(`pohSig:${wallet}`);
+        // Retrieve PoH signature using utils.js helper
+        const pohSignature = getPohSignature(wallet);
         if (!pohSignature) {
             mintStatus.textContent = "PoH signature missing. Please re-verify your humanity.";
             mintStatus.style.color = "#f66";
@@ -128,8 +128,7 @@ mintBtn.addEventListener("click", async () => {
 
         if (tier === "standard") {
             console.log("Calling mintStandard", params);
-            // Pass PoH signature as required by contract
-            tx = await contract.mintStandard(params, pohSignature, { value: priceWei });
+            tx = await contract.mintStandard(params, { value: priceWei });
         }
         else if (tier === "intermediate") {
             const code = document.getElementById("secretCode").value.trim();
@@ -142,13 +141,11 @@ mintBtn.addEventListener("click", async () => {
                 window.ethers.toUtf8Bytes(code)
             );
             console.log("Calling mintIntermediate", { params, codeHash });
-            tx = await contract.mintIntermediate(params, codeHash, pohSignature, {
-                value: priceWei
-            });
+            tx = await contract.mintIntermediate(params, codeHash, { value: priceWei });
         }
         else if (tier === "premium") {
             console.log("Calling mintPremium", params);
-            tx = await contract.mintPremium(params, pohSignature, { value: priceWei });
+            tx = await contract.mintPremium(params, { value: priceWei });
         }
 
         if (!tx) {

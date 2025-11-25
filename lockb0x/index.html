@@ -105,7 +105,7 @@
 
     <!-- Wallet/PoH check and redirect logic (UI always visible) -->
     <script type="module">
-        import { isMetaMaskConnected, getCurrentWalletAddress, getProvider } from './utils.js';
+        import { isMetaMaskConnected, getWalletConnected, isPohVerified, getProvider } from './utils.js';
 
         async function ensureWalletAndPoh() {
             const mintBtn = document.getElementById('mintBtn');
@@ -119,14 +119,21 @@
                 return;
             }
 
-            // 2. Get wallet address
-            let address = await getCurrentWalletAddress();
+            // 2. Get wallet address from localStorage
+            let address = getWalletConnected();
             if (!address) {
                 window.location.replace('/index.html');
                 return;
             }
 
-            // 3. Attempt to switch to Linea Sepolia (chainId 0xe708 = 59141)
+            // 3. Check PoH flag for this address
+            const poh = await isPohVerified();
+            if (!poh) {
+                window.location.replace('/index.html');
+                return;
+            }
+
+            // 4. Attempt to switch to Linea Sepolia (chainId 0xe708 = 59141)
             let provider;
             try {
                 provider = getProvider();
@@ -173,7 +180,6 @@
                 return;
             }
 
-            
             // All checks passed, enable mint
             mintBtn.disabled = false;
             mintBtn.style.opacity = '1';
