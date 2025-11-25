@@ -12,7 +12,8 @@ import {
     registerWalletEventHandlers,
     setDebugMode,
     setGatingErrorHandler,
-    getPohSignature
+    getPohSignature,
+    isWalletConnectionExpired
 } from "./utils.js";
 // Enable debug mode for development (set to false in production)
 setDebugMode(true);
@@ -85,8 +86,12 @@ mintBtn.addEventListener("click", async () => {
     try {
         // Centralized gating check
         const { connected, wallet, poh, error } = await getTokenGatingState();
-        if (!connected || !wallet || !poh) {
-            mintStatus.textContent = error ? `Mint blocked: ${error}` : "Mint blocked: PoH verification and wallet connection required.";
+        if (!connected || !wallet || !poh || isWalletConnectionExpired()) {
+            let msg = error ? `Mint blocked: ${error}` : "Mint blocked: PoH verification and wallet connection required.";
+            if (isWalletConnectionExpired()) {
+                msg = "Mint blocked: Wallet connection expired. Please reconnect your wallet.";
+            }
+            mintStatus.textContent = msg;
             mintStatus.style.color = "#f66";
             mintBtn.disabled = false;
             mintBtn.style.opacity = "1";

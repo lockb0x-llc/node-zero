@@ -59,29 +59,58 @@ export async function getTokenGatingState() {
     logDebug('Gating state:', { connected, wallet, poh, error });
     return { connected, wallet, poh, error };
 }
-export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v1';
+export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v2'; // v2: stores JSON with timestamp
 export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase()}`;
 
-// Set wallet connection state in localStorage (lowercase)
+
+// Set wallet connection state in localStorage (lowercase, with timestamp, 24h expiry)
 export function setWalletConnected(address) {
-    if (address) {
-        localStorage.setItem(LOCAL_WALLET_KEY, address.toLowerCase());
+    if (!address) return;
+    const data = {
+        address: address.toLowerCase(),
+        connectedAt: Date.now()
+    };
+    localStorage.setItem(LOCAL_WALLET_KEY, JSON.stringify(data));
+}
+
+// Get wallet connection state from localStorage (returns address if not expired, else null)
+export function getWalletConnected() {
+    const data = localStorage.getItem(LOCAL_WALLET_KEY);
+    if (!data) return null;
+    try {
+        const parsed = JSON.parse(data);
+        // 24h = 86400000 ms
+        if (Date.now() - parsed.connectedAt > 86400000) {
+            localStorage.removeItem(LOCAL_WALLET_KEY);
+            return null;
+        }
+        return parsed.address;
+    } catch (e) {
+        localStorage.removeItem(LOCAL_WALLET_KEY);
+        return null;
     }
 }
 
-// Get wallet connection state from localStorage
-export function getWalletConnected() {
-    return localStorage.getItem(LOCAL_WALLET_KEY) || null;
+// Check if wallet connection is expired (returns true if expired, false if valid)
+export function isWalletConnectionExpired() {
+    const data = localStorage.getItem(LOCAL_WALLET_KEY);
+    if (!data) return true;
+    try {
+        const parsed = JSON.parse(data);
+        return (Date.now() - parsed.connectedAt > 86400000);
+    } catch (e) {
+        return true;
+    }
 }
 
-// Set PoH verified for address (lowercase)
+// Set PoH verified for address (permanent, never expires)
 export function setPohVerified(address) {
     if (address) {
         localStorage.setItem(LOCAL_POH_KEY(address), 'true');
     }
 }
 
-// Check PoH verified for address (lowercase)
+// Check PoH verified for address (permanent)
 export function isPohVerifiedForAddress(address) {
     if (!address) return false;
     return localStorage.getItem(LOCAL_POH_KEY(address)) === 'true';

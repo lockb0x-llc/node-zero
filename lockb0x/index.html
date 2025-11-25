@@ -106,6 +106,7 @@
     <!-- Wallet/PoH check and redirect logic (UI always visible) -->
     <script type="module">
         import { isMetaMaskConnected, getWalletConnected, isPohVerified, getProvider } from './utils.js';
+        import { isMetaMaskConnected, getWalletConnected, isPohVerified, getProvider, isWalletConnectionExpired } from './utils.js';
 
         async function ensureWalletAndPoh() {
             const mintBtn = document.getElementById('mintBtn');
@@ -121,7 +122,7 @@
 
             // 2. Get wallet address from localStorage
             let address = getWalletConnected();
-            if (!address) {
+            if (!address || isWalletConnectionExpired()) {
                 window.location.replace('/index.html');
                 return;
             }
