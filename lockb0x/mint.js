@@ -18,6 +18,15 @@ import {
 // Enable debug mode for development (set to false in production)
 setDebugMode(true);
 
+const mintBtn = document.getElementById("mintBtn");
+const tierSelect = document.getElementById("tierSelect");
+const tierPrice = document.getElementById("tierPrice");
+const secretCodeWrapper = document.getElementById("secretCodeWrapper");
+const mintStatus = document.getElementById("mintStatus");
+const variantSelect = document.getElementById("variantSelect");
+
+
+
 // Global error handler for gating failures
 setGatingErrorHandler((err) => {
     mintStatus.textContent = 'Token-gating error: ' + err;
@@ -33,24 +42,17 @@ registerWalletEventHandlers(() => {
     mintBtn.style.opacity = "1";
 });
 
-const mintBtn = document.getElementById("mintBtn");
-const tierSelect = document.getElementById("tierSelect");
-const tierPrice = document.getElementById("tierPrice");
-const secretCodeWrapper = document.getElementById("secretCodeWrapper");
-const mintStatus = document.getElementById("mintStatus");
-const variantSelect = document.getElementById("variantSelect");
-
 // Wallet connection is now handled centrally via utils.js and index.html gating logic.
 
 // ---------------------------------------------------------------------
-// 2. TIER UI logic
+// TIER UI logic
 // ---------------------------------------------------------------------
 
 tierSelect.addEventListener("change", () => {
     const tier = tierSelect.value;
     secretCodeWrapper.style.display = tier === "intermediate" ? "block" : "none";
     if(tier === "intermediate") {
-        tierPrice.innerText = `Price: .01 ETH + secret code`;
+        tierPrice.innerText = `Price: .01 LineaETH + secret code`;
         variant4.style.display = "block";
         variant5.style.display = "block";
         variant6.style.display = "block";
@@ -66,10 +68,10 @@ tierSelect.addEventListener("change", () => {
         variant8.style.display = "none";
         variant9.style.display = "none";
         
-        tierPrice.innerText = `Price: .01 ETH`;
+        tierPrice.innerText = `Price: .01 LineaETH`;
     }
     else if(tier === "premium") {
-        tierPrice.innerText = `Price: .05 ETH`;
+        tierPrice.innerText = `Price: .05 LineaETH`;
         variant4.style.display = "block";
         variant5.style.display = "block";
         variant6.style.display = "block";
@@ -195,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     variant9.style.display = "none";
     
     // Set price display
-    tierPrice.innerText = `Price: .01 ETH`;
+    tierPrice.innerText = `Price: .01 LineaETH`;
     // Hide secret code input
     secretCodeWrapper.style.display = "none";
 });

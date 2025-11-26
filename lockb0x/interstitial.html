@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lockb0x Sigil Check</title>
+  <link rel="stylesheet" href="./frontend.css" />
+  <style>
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a0e1a; color: #fff; font-family: 'Share Tech Mono', monospace; }
+    .panel { background: #101624; border-radius: 1.2rem; box-shadow: 0 0 32px #00fff7, 0 0 8px #ffe600; padding: 2.5rem 2rem; max-width: 420px; width: 100%; text-align: center; }
+    .status { margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+    .btn { margin-top: 1.5rem; padding: 0.7rem 1.5rem; border-radius: 0.5rem; border: none; background: #00fff7; color: #101624; font-weight: bold; font-size: 1rem; cursor: pointer; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>Checking Your Lockb0x Sigil</h2>
+    <div id="status" class="status">Initializing…</div>
+    <button id="switchBtn" class="btn" style="display:none;">Switch to Linea Sepolia</button>
+    <div id="explain" style="margin-top:1.2rem; color:#b5eaff; font-size:0.98rem;">
+      This step checks if you already have a Lockb0x Sigil NFT on the Linea Sepolia test network. No real funds are at risk—this is for access and rewards only.
+    </div>
+  </div>
+  <script type="module">
+    import { isMetaMaskConnected, getWalletConnected, hasLockb0xSigilNFT, ensureLineaSepolia, registerWalletEventHandlers } from './utils.js';
+
+    const statusEl = document.getElementById('status');
+    const switchBtn = document.getElementById('switchBtn');
+    let lastCheckedAddress = null;
+    let lastCheckedChainId = null;
+    let checking = false;
+
+    async function checkAll() {
+      if (checking) return;
+      checking = true;
+      statusEl.textContent = 'Checking MetaMask connection…';
+      const connected = await isMetaMaskConnected();
+      if (!connected) {
+        statusEl.textContent = 'MetaMask not connected. Redirecting…';
+        setTimeout(() => window.location.replace('/index.html'), 1200);
+        checking = false;
+        return;
+      }
+      const address = getWalletConnected();
+      if (!address) {
+        statusEl.textContent = 'No wallet address found. Redirecting…';
+        setTimeout(() => window.location.replace('/index.html'), 1200);
+        checking = false;
+        return;
+      }
+      lastCheckedAddress = address;
+      // Try to switch to Linea Sepolia
+      statusEl.textContent = 'Switching to Linea Sepolia…';
+      let switched = false;
+      try {
+        await ensureLineaSepolia();
+        switched = true;
+      } catch (err) {
+        switched = false;
+      }
+      if (!switched) {
+        statusEl.textContent = 'Please switch MetaMask to the Linea Sepolia test network.';
+        switchBtn.style.display = '';
+        switchBtn.disabled = false;
+        switchBtn.onclick = async () => {
+          statusEl.textContent = 'Attempting network switch…';
+          try {
+            await ensureLineaSepolia();
+            switchBtn.disabled = true;
+            statusEl.textContent = 'Network switched! Checking NFT…';
+            setTimeout(checkForNFT, 600);
+          } catch (e) {
+            statusEl.textContent = 'Network switch failed. Please switch manually in MetaMask.';
+          }
+        };
+        checking = false;
+        return;
+      }
+      switchBtn.style.display = 'none';
+      // If switched, check for NFT
+      checkForNFT();
+    }
+
+    async function checkForNFT() {
+      statusEl.textContent = 'Checking for Lockb0x Sigil NFT…';
+      const address = getWalletConnected();
+      lastCheckedAddress = address;
+      try {
+        const hasSigil = await hasLockb0xSigilNFT(address);
+        if (hasSigil) {
+          statusEl.textContent = 'NFT found! Redirecting…';
+          setTimeout(() => window.location.replace('/index.html'), 1000);
+        } else {
+          statusEl.textContent = 'No NFT found. Redirecting to mint…';
+          setTimeout(() => window.location.replace('/lockb0x/index.html'), 1200);
+        }
+      } catch (e) {
+        statusEl.textContent = 'Error checking NFT. Please try again.';
+      } finally {
+        checking = false;
+      }
+    }
+
+    // React to account/network changes robustly
+    function setupEventHandlers() {
+      if (window.ethereum && window.ethereum.on) {
+        window.ethereum.on('accountsChanged', () => {
+          checkAll();
+        });
+        window.ethereum.on('chainChanged', () => {
+          checkAll();
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAll();
+      setupEventHandlers();
+    });
+  </script>
+</body>
+</html>

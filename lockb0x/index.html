@@ -92,7 +92,7 @@
                 <!-- Wallet Actions -->
                 <div class="section-title">Wallet & Mint</div>
 
-                <button id="mintBtn" style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
+                <button id="mintBtn" class="button" disabled style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
                 <div id="mintStatus" style="margin-top:14px; min-height:20px; font-size:14px;"></div>
 
             </div>
@@ -105,13 +105,39 @@
 
     <!-- Wallet/PoH check and redirect logic (UI always visible) -->
     <script type="module">
-        import { isMetaMaskConnected, getWalletConnected, isPohVerified, getProvider } from './utils.js';
-        import { isMetaMaskConnected, getWalletConnected, isPohVerified, getProvider, isWalletConnectionExpired } from './utils.js';
+        import {
+            isMetaMaskInstalled,
+            isMetaMaskConnected,
+            getWalletConnected,
+            isWalletConnectionExpired,
+            isPohVerified,
+            getProvider,
+            registerWalletEventHandlers
+        } from './utils.js';
 
         async function ensureWalletAndPoh() {
             const mintBtn = document.getElementById('mintBtn');
             const mintStatus = document.getElementById('mintStatus');
             const web3Info = document.getElementById('web3-info');
+
+            // Always disable mint button at start
+            if (mintBtn) {
+                mintBtn.disabled = true;
+                mintBtn.style.opacity = '0.5';
+            }
+            if (web3Info) {
+                web3Info.style.display = 'none';
+                web3Info.textContent = '';
+            }
+            if (mintStatus) {
+                mintStatus.textContent = '';
+            }
+
+            // 0. Check MetaMask installed
+            if (!isMetaMaskInstalled()) {
+                window.location.replace('/index.html');
+                return;
+            }
 
             // 1. Check MetaMask connection
             const connected = await isMetaMaskConnected();
@@ -149,53 +175,68 @@
                         // Re-instantiate provider after network switch
                         provider = getProvider();
                         network = await provider.getNetwork();
-                        if (network.chainId !== 59141n) {
-                            mintBtn.disabled = true;
-                            mintBtn.style.opacity = '0.5';
-                            if (web3Info) {
-                                web3Info.style.display = '';
-                                web3Info.textContent = 'Please switch to Linea Sepolia network in MetaMask.';
-                            }
-                            mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
-                            return;
-                        }
                     } catch (err) {
-                        mintBtn.disabled = true;
-                        mintBtn.style.opacity = '0.5';
                         if (web3Info) {
                             web3Info.style.display = '';
-                            web3Info.textContent = 'Please switch to Linea Sepolia network in MetaMask.';
+                            web3Info.textContent = 'Please switch to the Linea Sepolia network in MetaMask to continue.';
                         }
-                        mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
+                        if (mintStatus) {
+                            mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
+                        }
+                        if (mintBtn) {
+                            mintBtn.disabled = true;
+                            mintBtn.style.opacity = '0.5';
+                        }
                         return;
                     }
                 }
+                // After switch, check again
+                if (network.chainId !== 59141n) {
+                    if (web3Info) {
+                        web3Info.style.display = '';
+                        web3Info.textContent = 'Please switch to the Linea Sepolia network in MetaMask to continue.';
+                    }
+                    if (mintStatus) {
+                        mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
+                    }
+                    if (mintBtn) {
+                        mintBtn.disabled = true;
+                        mintBtn.style.opacity = '0.5';
+                    }
+                    return;
+                }
             } catch (err) {
-                mintBtn.disabled = true;
-                mintBtn.style.opacity = '0.5';
                 if (web3Info) {
                     web3Info.style.display = '';
                     web3Info.textContent = 'MetaMask or network error.';
                 }
-                mintStatus.textContent = 'MetaMask or network error.';
+                if (mintStatus) {
+                    mintStatus.textContent = 'MetaMask or network error.';
+                }
+                if (mintBtn) {
+                    mintBtn.disabled = true;
+                    mintBtn.style.opacity = '0.5';
+                }
                 return;
             }
 
             // All checks passed, enable mint
-            mintBtn.disabled = false;
-            mintBtn.style.opacity = '1';
+            if (mintBtn) {
+                mintBtn.disabled = false;
+                mintBtn.style.opacity = '1';
+            }
             if (web3Info) {
                 web3Info.style.display = 'none';
                 web3Info.textContent = '';
             }
-            mintStatus.textContent = '';
+            if (mintStatus) {
+                mintStatus.textContent = '';
+            }
         }
 
         document.addEventListener('DOMContentLoaded', ensureWalletAndPoh);
-        if (window.ethereum && window.ethereum.on) {
-            window.ethereum.on('accountsChanged', ensureWalletAndPoh);
-            window.ethereum.on('chainChanged', ensureWalletAndPoh);
-        }
+        // Use registerWalletEventHandlers for robust event handling
+        registerWalletEventHandlers(ensureWalletAndPoh);
     </script>
 </body>
 </html>
