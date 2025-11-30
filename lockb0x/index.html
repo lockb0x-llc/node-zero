@@ -9,7 +9,11 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    <!-- Node-Zero Aesthetic CSS -->
+
+    <!-- Node-Zero Aesthetic CSS: Match root site -->
+    <link href="../css/tailwind.generated.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/landing.css">
     <link rel="stylesheet" href="./frontend.css">
 
     <!-- PoH Gating: All gating logic is now centralized in utils.js -->
@@ -21,7 +25,14 @@
 </head>
 
 <body>
+        <div id="site-header"></div>
     <main>
+        <div id="connect-metamask-container" style="display:none; margin: 32px auto 18px auto; max-width: 420px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="background:rgba(16,24,32,0.96); border-radius:1.25rem; box-shadow:0 0 16px #00fff755, 0 0 4px #00fff7cc, 0 0 0 2px #222 inset; padding: 1.5rem 2rem; text-align:center; width: 100%; max-width: 340px;">
+                <button id="connectMetaMaskBtn" class="button" style="font-size:1.1rem;padding:0.7em 2em; background:#00fff7; color:#181824; border-radius:0.5em; font-weight:bold; box-shadow:0 0 8px #00fff7,0 0 16px #ff00ea; border:none; cursor:pointer; width:100%; max-width:320px;">Connect MetaMask</button>
+            </div>
+        </div>
+        
         <div class="device-panel" id="device-panel">
             <div id="web3-info" class="web3-info" style="display:none;text-align:center;margin-bottom:18px;"></div>
             <div class="device-frame">
@@ -37,7 +48,7 @@
                     <label for="tierSelect">Minting Tier</label>
                     <select id="tierSelect">
                         <option value="standard" selected>Standard Tier (.01 Linea)</option>
-                        <option value="intermediate">Intermediate Tier (Requires Secret Code)</option>
+                        <option value="vip">VIP Tier (Requires Secret Code)</option>
                         <option value="premium">Premium Tier (.05 Linea)</option>
                     </select>
 
@@ -99,144 +110,177 @@
         </div>
     </main>
 
+
     <script type="module" src="preview.js"></script>
     <script type="module" src="cbor.js"></script>
     <script type="module" src="mint.js"></script>
+    <script src="/js/header-loader.js"></script>
 
-    <!-- Wallet/PoH check and redirect logic (UI always visible) -->
+
+
+    <!-- Wallet/PoH check and dynamic minting logic (UI always visible) -->
     <script type="module">
         import {
             isMetaMaskInstalled,
             isMetaMaskConnected,
             getWalletConnected,
             isWalletConnectionExpired,
-            isPohVerified,
+            isPohVerifiedForAddress,
             getProvider,
             registerWalletEventHandlers
         } from './utils.js';
 
-        async function ensureWalletAndPoh() {
+
+        let pohStatus = false;
+        let walletAddress = null;
+
+        async function updateMintUI() {
             const mintBtn = document.getElementById('mintBtn');
             const mintStatus = document.getElementById('mintStatus');
             const web3Info = document.getElementById('web3-info');
+            const tierSelect = document.getElementById('tierSelect');
+            const tierPrice = document.getElementById('tierPrice');
+            const connectContainer = document.getElementById('connect-metamask-container');
+            const connectBtn = document.getElementById('connectMetaMaskBtn');
 
-            // Always disable mint button at start
-            if (mintBtn) {
-                mintBtn.disabled = true;
-                mintBtn.style.opacity = '0.5';
-            }
-            if (web3Info) {
-                web3Info.style.display = 'none';
-                web3Info.textContent = '';
-            }
-            if (mintStatus) {
-                mintStatus.textContent = '';
+            // Check wallet and PoH status
+            pohStatus = false;
+            walletAddress = null;
+            let connected = false;
+            if (isMetaMaskInstalled()) {
+                connected = await isMetaMaskConnected();
+                if (connected) {
+                    walletAddress = getWalletConnected();
+                    if (walletAddress && !isWalletConnectionExpired()) {
+                        pohStatus = await isPohVerifiedForAddress(walletAddress);
+                    }
+                }
             }
 
-            // 0. Check MetaMask installed
+            // Show/hide Connect MetaMask button
             if (!isMetaMaskInstalled()) {
-                window.location.replace('/index.html');
-                return;
+                if (connectContainer) connectContainer.style.display = 'none';
+            } else if (!connected) {
+                if (connectContainer) connectContainer.style.display = '';
+            } else {
+                if (connectContainer) connectContainer.style.display = 'none';
             }
 
-            // 1. Check MetaMask connection
-            const connected = await isMetaMaskConnected();
-            if (!connected) {
-                window.location.replace('/index.html');
-                return;
+            // Always enable mint button if wallet is connected and on correct network
+            let provider, network;
+            let onLinea = false;
+            if (connected) {
+                try {
+                    provider = getProvider();
+                    network = await provider.getNetwork();
+                    onLinea = (network.chainId === 59141n);
+                } catch {}
             }
 
-            // 2. Get wallet address from localStorage
-            let address = getWalletConnected();
-            if (!address || isWalletConnectionExpired()) {
-                window.location.replace('/index.html');
-                return;
+            // Update price display based on tier and PoH
+            let tier = tierSelect ? tierSelect.value : 'standard';
+            let priceText = '';
+            if (tier === 'standard') {
+                priceText = pohStatus ? 'Free Mint! (gas required)' : '0.01 LineaETH';
+            } else if (tier === 'vip') {
+                priceText = pohStatus ? 'Free w/ secret code' : '0.01 LINEA + secret code';
+            } else if (tier === 'premium') {
+                priceText = '0.05 LINEA';
             }
+            if (tierPrice) tierPrice.innerHTML = `Price: <strong>${priceText}</strong>`;
 
-            // 3. Check PoH flag for this address
-            const poh = await isPohVerified();
-            if (!poh) {
-                window.location.replace('/index.html');
-                return;
-            }
-
-            // 4. Attempt to switch to Linea Sepolia (chainId 0xe708 = 59141)
-            let provider;
-            try {
-                provider = getProvider();
-                let network = await provider.getNetwork();
-                if (network.chainId !== 59141n) {
-                    // Try to switch network
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0xe708' }],
-                        });
-                        // Re-instantiate provider after network switch
-                        provider = getProvider();
-                        network = await provider.getNetwork();
-                    } catch (err) {
-                        if (web3Info) {
-                            web3Info.style.display = '';
-                            web3Info.textContent = 'Please switch to the Linea Sepolia network in MetaMask to continue.';
-                        }
-                        if (mintStatus) {
-                            mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
-                        }
-                        if (mintBtn) {
-                            mintBtn.disabled = true;
-                            mintBtn.style.opacity = '0.5';
-                        }
-                        return;
-                    }
-                }
-                // After switch, check again
-                if (network.chainId !== 59141n) {
-                    if (web3Info) {
-                        web3Info.style.display = '';
-                        web3Info.textContent = 'Please switch to the Linea Sepolia network in MetaMask to continue.';
-                    }
-                    if (mintStatus) {
-                        mintStatus.textContent = 'Switch to Linea Sepolia network to mint.';
-                    }
-                    if (mintBtn) {
-                        mintBtn.disabled = true;
-                        mintBtn.style.opacity = '0.5';
-                    }
-                    return;
-                }
-            } catch (err) {
-                if (web3Info) {
-                    web3Info.style.display = '';
-                    web3Info.textContent = 'MetaMask or network error.';
-                }
-                if (mintStatus) {
-                    mintStatus.textContent = 'MetaMask or network error.';
-                }
-                if (mintBtn) {
+            // Enable/disable mint button
+            if (mintBtn) {
+                if (connected && onLinea) {
+                    mintBtn.disabled = false;
+                    mintBtn.style.opacity = '1';
+                } else {
                     mintBtn.disabled = true;
                     mintBtn.style.opacity = '0.5';
                 }
-                return;
             }
 
-            // All checks passed, enable mint
-            if (mintBtn) {
-                mintBtn.disabled = false;
-                mintBtn.style.opacity = '1';
-            }
+            // Show wallet/network info if needed
             if (web3Info) {
-                web3Info.style.display = 'none';
-                web3Info.textContent = '';
+                if (!isMetaMaskInstalled()) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Please install MetaMask to mint.';
+                } else if (!connected) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Connect MetaMask to mint.';
+                } else if (!onLinea) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
+                } else {
+                    web3Info.style.display = 'none';
+                    web3Info.textContent = '';
+                }
             }
-            if (mintStatus) {
-                mintStatus.textContent = '';
-            }
+            if (mintStatus) mintStatus.textContent = '';
         }
 
-        document.addEventListener('DOMContentLoaded', ensureWalletAndPoh);
-        // Use registerWalletEventHandlers for robust event handling
-        registerWalletEventHandlers(ensureWalletAndPoh);
+        // Connect MetaMask button logic
+        document.getElementById('connectMetaMaskBtn').addEventListener('click', async (evt) => {
+            evt.preventDefault();
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                } catch (err) {}
+            }
+            await updateMintUI();
+        });
+
+        // Listen for tier changes to update price
+        document.getElementById('tierSelect').addEventListener('change', updateMintUI);
+
+        // Wallet/network/PoH event handlers
+        document.addEventListener('DOMContentLoaded', updateMintUI);
+        registerWalletEventHandlers(updateMintUI);
+
+        // Mint button logic
+        document.getElementById('mintBtn').addEventListener('click', async (evt) => {
+            evt.preventDefault();
+            const mintStatus = document.getElementById('mintStatus');
+            const tierSelect = document.getElementById('tierSelect');
+            const tier = tierSelect ? tierSelect.value : 'standard';
+            // Check wallet and PoH again
+            let connected = isMetaMaskInstalled() && await isMetaMaskConnected();
+            let provider, network, onLinea = false;
+            if (connected) {
+                try {
+                    provider = getProvider();
+                    network = await provider.getNetwork();
+                    onLinea = (network.chainId === 59141n);
+                } catch {}
+            }
+            if (!connected) {
+                mintStatus.textContent = 'Please connect MetaMask.';
+                return;
+            }
+            if (!onLinea) {
+                mintStatus.textContent = 'Please switch to Linea Sepolia network.';
+                return;
+            }
+            // Enforce minting rules
+            if (tier === 'standard' && !pohStatus) {
+                // Not PoH, must pay
+                // (Assume mint.js enforces payment, but show error if user tries to mint without payment)
+                // Here, just allow mint.js to handle payment, but show error if user tries to bypass
+                // Optionally, you could check for payment input here if UI allows
+            }
+            if (tier === 'vip') {
+                // Require secret code
+                const code = document.getElementById('secretCode').value.trim();
+                if (!code) {
+                    mintStatus.textContent = 'Secret code required for VIP tier.';
+                    return;
+                }
+            }
+            // Call mint.js logic (assumed to handle payment, PoH, etc.)
+            mintStatus.textContent = 'Processing mint...';
+            // The actual minting logic is in mint.js, which should enforce payment and PoH as needed
+        });
     </script>
+    <script src="/js/header-loader.js"></script>
 </body>
 </html>

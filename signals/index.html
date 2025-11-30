@@ -80,5 +80,42 @@
     </div>
   </main>
   <script src="../js/header-loader.js"></script>
+  <script type="module">
+    import { isMetaMaskInstalled, isMetaMaskConnected, getWalletConnected } from '../lockb0x/utils.js';
+
+    async function fetchContractInfo() {
+      const [addressRes, abiRes] = await Promise.all([
+        fetch('../lockb0x/contract-address.json'),
+        fetch('../lockb0x/abi.json')
+      ]);
+      const contractInfo = await addressRes.json();
+      const abi = await abiRes.json();
+      return { contractInfo, abi };
+    }
+
+    async function hasLockb0xSigilNFT(address, contractInfo, abi) {
+      if (!window.ethers || !address) return false;
+      try {
+        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+        const contract = new window.ethers.Contract(contractInfo.address, abi, provider);
+        const balance = await contract.balanceOf(address);
+        return balance && balance.toString() !== '0';
+      } catch (e) { return false; }
+    }
+
+    async function enforceTokenGate() {
+      if (!isMetaMaskInstalled() || !(await isMetaMaskConnected())) {
+        window.location.href = '../index.html';
+        return;
+      }
+      const address = getWalletConnected();
+      const { contractInfo, abi } = await fetchContractInfo();
+      if (!address || !(await hasLockb0xSigilNFT(address, contractInfo, abi))) {
+        window.location.href = '../index.html';
+        return;
+      }
+    }
+    enforceTokenGate();
+  </script>
 </body>
 </html>

@@ -1,19 +1,20 @@
+
 // mint.js — FINAL CLEAN VERSION
 // ---------------------------------------------------------------------
-
 import {
     connectWallet,
     getSigner,
     getContract,
     readParams,
-    checkOwnership,
-    TIER_PRICE,
+    getMintEligibility,
     getTokenGatingState,
     registerWalletEventHandlers,
     setDebugMode,
     setGatingErrorHandler,
+    isWalletConnectionExpired,
+    isPohVerifiedForAddress,
     getPohSignature,
-    isWalletConnectionExpired
+    checkPohAndPersist
 } from "./utils.js";
 // Enable debug mode for development (set to false in production)
 setDebugMode(true);
@@ -27,177 +28,210 @@ const variantSelect = document.getElementById("variantSelect");
 
 
 
-// Global error handler for gating failures
-setGatingErrorHandler((err) => {
-    mintStatus.textContent = 'Token-gating error: ' + err;
-    mintStatus.style.color = '#f66';
-    console.error('[TokenGating] Error:', err);
-});
 
-// Register wallet/account/chain event handlers to always update UI (optional for mint page)
-registerWalletEventHandlers(() => {
-    mintStatus.textContent = 'Wallet/account changed. Please verify again.';
-    mintStatus.style.color = '#f66';
-    mintBtn.disabled = false;
-    mintBtn.style.opacity = "1";
-});
-
-// Wallet connection is now handled centrally via utils.js and index.html gating logic.
-
-// ---------------------------------------------------------------------
-// TIER UI logic
-// ---------------------------------------------------------------------
-
-tierSelect.addEventListener("change", () => {
+async function updateTierUI() {
     const tier = tierSelect.value;
-    secretCodeWrapper.style.display = tier === "intermediate" ? "block" : "none";
-    if(tier === "intermediate") {
-        tierPrice.innerText = `Price: .01 LineaETH + secret code`;
-        variant4.style.display = "block";
-        variant5.style.display = "block";
-        variant6.style.display = "block";
-        variant7.style.display = "block";
-        variant8.style.display = "block";
-        variant9.style.display = "block";
-        
-    } else if(tier === "standard") {
-        variant4.style.display = "none";
-        variant5.style.display = "none";
-        variant6.style.display = "none";
-        variant7.style.display = "none";
-        variant8.style.display = "none";
-        variant9.style.display = "none";
-        
-        tierPrice.innerText = `Price: .01 LineaETH`;
-    }
-    else if(tier === "premium") {
-        tierPrice.innerText = `Price: .05 LineaETH`;
-        variant4.style.display = "block";
-        variant5.style.display = "block";
-        variant6.style.display = "block";
-        variant7.style.display = "block";
-        variant8.style.display = "block";
-        variant9.style.display = "block";
+    // Ensure all variant option elements are available
+    const variant4 = document.getElementById("variant4");
+    const variant5 = document.getElementById("variant5");
+    const variant6 = document.getElementById("variant6");
+    const variant7 = document.getElementById("variant7");
+    const variant8 = document.getElementById("variant8");
+    const variant9 = document.getElementById("variant9");
+    // Secret code wrapper
+    secretCodeWrapper.style.display = tier === "vip" ? "block" : "none";
+    if (tier === "vip") {
+        if (variant4) variant4.style.display = "block";
+        if (variant5) variant5.style.display = "block";
+        if (variant6) variant6.style.display = "block";
+        if (variant7) variant7.style.display = "block";
+        if (variant8) variant8.style.display = "block";
+        if (variant9) variant9.style.display = "block";
+    } else if (tier === "standard") {
+        if (variant4) variant4.style.display = "none";
+        if (variant5) variant5.style.display = "none";
+        if (variant6) variant6.style.display = "none";
+        if (variant7) variant7.style.display = "none";
+        if (variant8) variant8.style.display = "none";
+        if (variant9) variant9.style.display = "none";
+    } else if (tier === "premium") {
+        if (variant4) variant4.style.display = "block";
+        if (variant5) variant5.style.display = "block";
+        if (variant6) variant6.style.display = "block";
+        if (variant7) variant7.style.display = "block";
+        if (variant8) variant8.style.display = "block";
+        if (variant9) variant9.style.display = "block";
     }
 
-});
+    // Show eligibility and price
+    const { connected, wallet } = await getTokenGatingState();
+    const hasSecretCode = tier === "vip" && document.getElementById("secretCode").value.trim().length > 0;
+    if (!connected || !wallet) {
+        tierPrice.innerText = `Connect your wallet to see price and eligibility.`;
+        mintBtn.disabled = true;
+        return;
+    }
+    const eligibility = await getMintEligibility(wallet, tier, hasSecretCode);
+    if (!eligibility.eligible) {
+        tierPrice.innerText = eligibility.reason || "Not eligible to mint.";
+        mintBtn.disabled = true;
+    } else {
+        if (eligibility.free) {
+            tierPrice.innerText = `Free mint! (gas required)`;
+        } else {
+            if (tier === "vip" && hasSecretCode) {
+                tierPrice.innerText = `Free with secret code! (gas required)`;
+            } else {
+                tierPrice.innerText = `Price: ${(tier === "premium") ? ".05" : ".01"} LineaETH${tier === "vip" ? " + secret code" : ""}`;
+            }
+        
+        mintBtn.disabled = false;
+    }
+}
+}
+
+tierSelect.addEventListener("change", updateTierUI);
+if (document.getElementById("secretCode")) {
+    document.getElementById("secretCode").addEventListener("input", updateTierUI);
+}
+registerWalletEventHandlers(updateTierUI);
+document.addEventListener("DOMContentLoaded", updateTierUI);
 // 3. MINT NFT
 // ---------------------------------------------------------------------
 
 mintBtn.addEventListener("click", async () => {
-    try {
-        // Centralized gating check
-        const { connected, wallet, poh, error } = await getTokenGatingState();
-        if (!connected || !wallet || !poh || isWalletConnectionExpired()) {
-            let msg = error ? `Mint blocked: ${error}` : "Mint blocked: PoH verification and wallet connection required.";
-            if (isWalletConnectionExpired()) {
-                msg = "Mint blocked: Wallet connection expired. Please reconnect your wallet.";
-            }
-            mintStatus.textContent = msg;
-            mintStatus.style.color = "#f66";
-            mintBtn.disabled = false;
-            mintBtn.style.opacity = "1";
-            return;
-        }
-        mintStatus.textContent = "Preparing mint…";
+    async function performMint() {
+        try {
+        mintStatus.textContent = "Preparing mint...";
         mintStatus.style.color = "#ccc";
-
-        // Retrieve PoH signature using utils.js helper
-        const pohSignature = getPohSignature(wallet);
-        if (!pohSignature) {
-            mintStatus.textContent = "PoH signature missing. Please re-verify your humanity.";
-            mintStatus.style.color = "#f66";
-            return;
-        }
-
-        // Make sure wallet is connected (throws if not)
-        const signer = await getSigner();
-
-        // Check for existing NFT again (safety)
-        const already = await checkOwnership();
-        if (already) {
-            mintStatus.textContent = "You already minted this NFT.";
-            mintStatus.style.color = "#f66";
-            mintBtn.disabled = true;
-            return;
-        }
-
-        const tier = tierSelect.value;
-        const params = readParams(tier);     // safe validation included
-        const contract = await getContract();
-        const priceWei = TIER_PRICE[tier];
-
-        // Log parameters for debugging
-        console.log("Mint parameters:", { tier, params, priceWei, wallet });
-
-        let tx;
-        let codeHash = null;
-
-        if (tier === "standard") {
-            console.log("Calling mintStandard", params);
-            tx = await contract.mintStandard(params, { value: priceWei });
-        }
-        else if (tier === "intermediate") {
-            const code = document.getElementById("secretCode").value.trim();
-            if (!code) {
-                mintStatus.textContent = "Secret code required.";
+        try {
+            // Centralized gating check
+            const { connected, wallet, error } = await getTokenGatingState();
+            if (!connected || !wallet || isWalletConnectionExpired()) {
+                let msg = error ? `Mint blocked: ${error}` : "Mint blocked: Wallet connection required.";
+                if (isWalletConnectionExpired()) {
+                    msg = "Mint blocked: Wallet connection expired. Please reconnect your wallet.";
+                }
+                mintStatus.textContent = msg;
                 mintStatus.style.color = "#f66";
+                mintBtn.disabled = false;
+                mintBtn.style.opacity = "1";
                 return;
             }
-            codeHash = window.ethers.keccak256(
-                window.ethers.toUtf8Bytes(code)
-            );
-            console.log("Calling mintIntermediate", { params, codeHash });
-            tx = await contract.mintIntermediate(params, codeHash, { value: priceWei });
+
+            const tier = tierSelect.value;
+            const hasSecretCode = tier === "vip" && document.getElementById("secretCode").value.trim().length > 0;
+            // Use centralized eligibility logic
+            const eligibility = await getMintEligibility(wallet, tier, hasSecretCode);
+            if (!eligibility.eligible) {
+                mintStatus.textContent = eligibility.reason || "You are not eligible to mint.";
+                mintStatus.style.color = "#f66";
+                mintBtn.disabled = true;
+                return;
+            }
+
+            // Make sure wallet is connected (throws if not)
+            const signer = await getSigner();
+            const params = readParams(tier); // safe validation included
+            const contract = await getContract();
+            const priceWei = eligibility.priceWei;
+
+            // Log parameters for debugging
+            console.log("Mint parameters:", { tier, params, priceWei, wallet, eligibility });
+
+            let tx;
+            let codeHash = null;
+
+            if (tier === "standard" && isPohVerifiedForAddress(wallet)) {
+                let pohSignature = getPohSignature(wallet);
+                let pohPayload = localStorage.getItem(`poh_payload_${wallet.toLowerCase()}`);
+                // Validate PoH payload/signature
+                if (!pohSignature || !pohPayload) {
+                    // Auto-trigger PoH verification
+                    mintStatus.textContent = "Verifying Proof of Humanity...";
+                    const pohResult = await checkPohAndPersist(wallet);
+                    if (!pohResult.status || !pohResult.signature) {
+                        mintStatus.textContent = "PoH verification failed. Cannot mint for free.";
+                        mintStatus.style.color = "#f66";
+                        return;
+                    }
+                    pohSignature = pohResult.signature;
+                    pohPayload = localStorage.getItem(`poh_payload_${wallet.toLowerCase()}`);
+                    if (!pohPayload) {
+                        mintStatus.textContent = "PoH payload missing after verification.";
+                        mintStatus.style.color = "#f66";
+                        return;
+                    }
+                }
+                tx = await contract.mintPoHFree(params, pohPayload, pohSignature);
+            } else if (tier === "standard") {
+                tx = await contract.mintStandard(params, { value: priceWei });
+            } else if (tier === "vip") {
+                const code = document.getElementById("secretCode").value.trim();
+                if (!hasSecretCode) {
+                    mintStatus.textContent = "Secret code required.";
+                    mintStatus.style.color = "#f66";
+                    return;
+                }
+                codeHash = window.ethers.keccak256(
+                    window.ethers.toUtf8Bytes(code)
+                );
+                tx = await contract.mintVIP(params, codeHash, { value: priceWei });
+            } else if (tier === "premium") {
+                tx = await contract.mintPremium(params, { value: priceWei });
+            }
+
+            if (!tx) {
+                throw new Error("Transaction creation failed.");
+            }
+
+            // Wait for transaction and handle errors
+            try {
+                const receipt = await tx.wait();
+                mintStatus.textContent = "Mint successful!";
+                mintStatus.style.color = "#0f0";
+            } catch (err) {
+                let errorMsg = "Mint failed. ";
+                if (err?.reason) {
+                    errorMsg += err.reason;
+                } else if (err?.error?.message) {
+                    errorMsg += err.error.message;
+                } else if (err?.data) {
+                    errorMsg += `Error data: ${err.data}`;
+                } else if (err?.message) {
+                    errorMsg += err.message;
+                } else {
+                    errorMsg += JSON.stringify(err);
+                }
+                mintStatus.textContent = errorMsg;
+                mintStatus.style.color = "#f66";
+                console.error("Mint error:", err);
+            }
+        } catch (err) {
+            // Enhanced error reporting for outer errors
+            console.error("Mint error:", err);
+            let details = err?.message || "Mint failed. Check console.";
+            if (err?.reason) details += `\nReason: ${err.reason}`;
+            if (err?.code) details += `\nCode: ${err.code}`;
+            if (err?.data) details += `\nData: ${JSON.stringify(err.data)}`;
+            if (err?.transaction) details += `\nTx: ${JSON.stringify(err.transaction)}`;
+            mintStatus.textContent = `Mint failed.\n${details}`;
+            mintStatus.style.color = "#f66";
         }
-        else if (tier === "premium") {
-            console.log("Calling mintPremium", params);
-            tx = await contract.mintPremium(params, { value: priceWei });
+        } catch (err) {
+            // Enhanced error reporting for outer errors
+            console.error("Mint error:", err);
+            let details = err?.message || "Mint failed. Check console.";
+            if (err?.reason) details += `\nReason: ${err.reason}`;
+            if (err?.code) details += `\nCode: ${err.code}`;
+            if (err?.data) details += `\nData: ${JSON.stringify(err.data)}`;
+            if (err?.transaction) details += `\nTx: ${JSON.stringify(err.transaction)}`;
+            mintStatus.textContent = `Mint failed.\n${details}`;
+            mintStatus.style.color = "#f66";
         }
-
-        if (!tx) {
-            throw new Error("Transaction creation failed.");
-        }
-
-        mintStatus.textContent = "Minting… awaiting confirmation.";
-        mintStatus.style.color = "#fff";
-
-        const receipt = await tx.wait();
-
-        mintStatus.textContent = `Mint successful! Tx: ${receipt.hash}`;
-        mintStatus.style.color = "#8f8";
     }
-    catch (err) {
-        // Enhanced error reporting
-        console.error("Mint error:", err);
-        let details = err?.message || "Mint failed. Check console.";
-        if (err?.reason) details += `\nReason: ${err.reason}`;
-        if (err?.code) details += `\nCode: ${err.code}`;
-        if (err?.data) details += `\nData: ${JSON.stringify(err.data)}`;
-        if (err?.transaction) details += `\nTx: ${JSON.stringify(err.transaction)}`;
-        mintStatus.textContent = `Mint failed.\n${details}`;
-        mintStatus.style.color = "#f66";
-    }
-// Documentation:
-// - PoH signature is stored in localStorage after successful verification, keyed as `pohSig:<walletAddress>`
-// - This signature is required for all minting contract calls and is passed as a bytes argument
-// - If the signature is missing, the user is prompted to re-verify their humanity
-// - All other UI and blockchain logic is preserved
+    performMint();
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Set initial tier selection
-    tierSelect.value = "standard";
-    // Show only variants 1-3, hide 4-6
-    variant4.style.display = "none";
-    variant5.style.display = "none";
-    variant6.style.display = "none";
-    variant7.style.display = "none";
-    variant8.style.display = "none";
-    variant9.style.display = "none";
-    
-    // Set price display
-    tierPrice.innerText = `Price: .01 LineaETH`;
-    // Hide secret code input
-    secretCodeWrapper.style.display = "none";
-});
+// ---------------------------------------------------------------------
+// END OF FILE
+// ---------------------------------------------------------------------

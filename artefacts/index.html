@@ -52,10 +52,56 @@
           </a>
         </div>
 
+        <!-- Artefact Lamina1 Profile Card -->
+        <div
+          class="w-full max-w-2xl bg-gradient-to-r from-cyber-magenta/30 via-black/80 to-cyber-neon/30 border-2 border-cyber-magenta rounded-xl shadow-lg px-6 py-6 flex gap-6 items-center hover:shadow-neon-cyan hover:border-cyber-neon group transition">
+          <a href="https://vimeo.com/1133941819?fl=pl&fe=sh" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img src="https://vimeo.com/1133941819?fl=pl&fe=sh" alt="Artefact"
+              class="w-24 h-24 rounded-lg border-2 border-cyber-neon shadow-cyber-neon/30 object-cover bg-black"
+              onerror="this.style.display='none'">
+          </a>
+        </div>
         
       </div>
     </div>
   </main>
   <script src="../js/header-loader.js"></script>
+  <script type="module">
+    import { isMetaMaskInstalled, isMetaMaskConnected, getWalletConnected } from '../lockb0x/utils.js';
+
+    async function fetchContractInfo() {
+      const [addressRes, abiRes] = await Promise.all([
+        fetch('../lockb0x/contract-address.json'),
+        fetch('../lockb0x/abi.json')
+      ]);
+      const contractInfo = await addressRes.json();
+      const abi = await abiRes.json();
+      return { contractInfo, abi };
+    }
+
+    async function hasLockb0xSigilNFT(address, contractInfo, abi) {
+      if (!window.ethers || !address) return false;
+      try {
+        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+        const contract = new window.ethers.Contract(contractInfo.address, abi, provider);
+        const balance = await contract.balanceOf(address);
+        return balance && balance.toString() !== '0';
+      } catch (e) { return false; }
+    }
+
+    async function enforceTokenGate() {
+      if (!isMetaMaskInstalled() || !(await isMetaMaskConnected())) {
+        window.location.href = '../index.html';
+        return;
+      }
+      const address = getWalletConnected();
+      const { contractInfo, abi } = await fetchContractInfo();
+      if (!address || !(await hasLockb0xSigilNFT(address, contractInfo, abi))) {
+        window.location.href = '../index.html';
+        return;
+      }
+    }
+    enforceTokenGate();
+  </script>
 </body>
 </html>

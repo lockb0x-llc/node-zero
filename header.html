@@ -7,25 +7,26 @@
   </div>
 
   <nav id="nav-header" class="w-full max-w-full overflow-x-auto px-4 md:px-6 py-4 flex items-center justify-between mt-1">
-    <a href="/" class="font-bold tracking-wide text-zinc-100">NODE_ZERO</a>
-    <div class="flex gap-4 text-sm text-zinc-300">&nbsp;|&nbsp;
-      <a href="/primer/index.html">Primer</a>&nbsp;|&nbsp;
-      <a href="/artefacts/index.html">Artefacts</a>&nbsp;|&nbsp;
-      <a href="/stories/index.html">Stories</a>&nbsp;|&nbsp;
-      <a href="/the-blue/index.html">The Blue</a>&nbsp;|&nbsp; 
-      <a href="/signals/index.html">Signals</a>&nbsp;|&nbsp;
-      <a href="/dev/index.html">dev</a>&nbsp;|&nbsp;
-      <li><div id="carrier_detection"
-        class="mt-4 mb-2 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
-        <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        Carrier detected
-      </div>
+    <a href="/" class="site-title font-bold tracking-wide text-zinc-100">NODE_ZERO</a>
+    <ul class="nav-links flex gap-4 text-sm text-zinc-300 items-center" style="list-style:none; margin:0; padding:0;">
+      <li><a href="/primer/index.html">Primer</a></li>
+      <li><a href="/artefacts/index.html">Artefacts</a></li>
+      <li><a href="/stories/index.html">Stories</a></li>
+      <li><a href="/the-blue/index.html">The Blue</a></li>
+      <li><a href="/signals/index.html">Signals</a></li>
+      <li><a href="/dev/index.html">dev</a></li>
+      <li>
+        <div id="carrier_detection"
+          class="inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
+          <span id="carrier_status_light" class="h-2 w-2 rounded-full animate-pulse"></span>
+          <span id="carrier_status_label">Carrier detected</span>
+        </div>
       </li>
-    </div>  
+    </ul>
   </nav>
  
  
-  <!-- Clarity & Cookie Consent Logic -->
+  <!-- Clarity, Cookie Consent, and Carrier Detection Logic -->
   <script>
     // Show banner if consent not given
     function hasConsent() {
@@ -47,7 +48,25 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "t77geqkdbb");
     }
+
+    // Carrier detection indicator logic
+    function updateCarrierIndicator() {
+      var light = document.getElementById('carrier_status_light');
+      var label = document.getElementById('carrier_status_label');
+      if (!light || !label) return;
+      if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+        light.style.backgroundColor = '#34d399'; // Tailwind emerald-400
+        light.style.boxShadow = '0 0 8px 2px #34d399';
+        label.textContent = 'Carrier detected';
+      } else {
+        light.style.backgroundColor = '#ef4444'; // Tailwind red-500
+        light.style.boxShadow = '0 0 8px 2px #ef4444';
+        label.textContent = 'Carrier Not Detected';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
+      // Cookie consent logic
       if (!hasConsent() && !hasDeclined()) {
         showBanner();
       } else if (hasConsent()) {
@@ -62,6 +81,9 @@
         localStorage.setItem('clarityConsent', 'declined');
         hideBanner();
       };
+
+      // Carrier detection
+      updateCarrierIndicator();
     });
   </script>
 </header>

@@ -19,12 +19,11 @@
         }
     </style>
 </head>
-<body class="text-white font-mono min-h-screen relative overflow-x-hidden  ">
+<body class="cyberpunk-bg cyberpunk-body text-white font-mono min-h-screen relative overflow-x-hidden">
     <!-- HERO IMAGE -->
     <div class="relative z-20 flex flex-col items-center justify-center mb-8">
-    
-        
-    <div id="site-header"></div>
+        <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+        <div id="site-header"></div>
     <main class="flex flex-col items-center min-h-screen w-full pt-8 px-4 relative z-10">
         <div class="max-w-3xl w-full mx-auto flex flex-col items-center">
             <h1 class="text-4xl md:text-5xl font-extrabold neon-cyan mb-4" style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">
@@ -101,6 +100,43 @@
             </div>
         </div>
     </main>
-    <script src="../js/header-loader.js"></script>
+        <script src="../js/header-loader.js"></script>
+        <script type="module">
+            import { isMetaMaskInstalled, isMetaMaskConnected, getWalletConnected } from '../lockb0x/utils.js';
+
+            async function fetchContractInfo() {
+                const [addressRes, abiRes] = await Promise.all([
+                    fetch('../lockb0x/contract-address.json'),
+                    fetch('../lockb0x/abi.json')
+                ]);
+                const contractInfo = await addressRes.json();
+                const abi = await abiRes.json();
+                return { contractInfo, abi };
+            }
+
+            async function hasLockb0xSigilNFT(address, contractInfo, abi) {
+                if (!window.ethers || !address) return false;
+                try {
+                    const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+                    const contract = new window.ethers.Contract(contractInfo.address, abi, provider);
+                    const balance = await contract.balanceOf(address);
+                    return balance && balance.toString() !== '0';
+                } catch (e) { return false; }
+            }
+
+            async function enforceTokenGate() {
+                if (!isMetaMaskInstalled() || !(await isMetaMaskConnected())) {
+                    window.location.href = '../index.html';
+                    return;
+                }
+                const address = getWalletConnected();
+                const { contractInfo, abi } = await fetchContractInfo();
+                if (!address || !(await hasLockb0xSigilNFT(address, contractInfo, abi))) {
+                    window.location.href = '../index.html';
+                    return;
+                }
+            }
+            enforceTokenGate();
+        </script>
 </body>
 </html>

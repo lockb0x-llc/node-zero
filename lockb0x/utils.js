@@ -1,3 +1,89 @@
+/**
+ * Centralized eligibility logic for minting.
+ * @param {string} address - Wallet address (required)
+ * @param {string} tier - 'standard' | 'vip' | 'premium'
+ * @param {boolean} hasSecretCode - Only for VIP tier
+ * @returns {Promise<{eligible: boolean, reason: string|null, free: boolean, priceWei: bigint}>>}
+ * Rules:
+ *  - Only one mint per address (enforced via checkOwnership)
+ *  - PoH users: Standard is free, VIP is free with secret code, Premium is paid
+ *  - Non-PoH users: All tiers require payment
+ */
+export async function getMintEligibility(address, tier, hasSecretCode = false) {
+    if (!address) return { eligible: false, reason: 'No wallet address.', free: false, priceWei: 0n };
+    // 1. Already minted?
+    let alreadyMinted = false;
+    try {
+        alreadyMinted = await checkOwnershipForAddress(address);
+    } catch (e) {
+        return { eligible: false, reason: 'Unable to check mint status.', free: false, priceWei: 0n };
+    }
+    if (alreadyMinted) {
+        return { eligible: false, reason: 'You have already minted a Lockb0x Sigil NFT.', free: false, priceWei: 0n };
+    }
+    // 2. PoH status
+    const poh = isPohVerifiedForAddress(address);
+    // 3. Tier logic
+    let free = false;
+    let priceWei = 0n;
+    if (poh) {
+        if (tier === 'standard') {
+            free = true;
+            priceWei = 0n;
+        } else if (tier === 'vip') {
+            if (hasSecretCode) {
+                free = true;
+                priceWei = 0n;
+            } else {
+                free = false;
+                priceWei = getTierPrice('vip');
+            }
+        } else if (tier === 'premium') {
+            free = false;
+            priceWei = getTierPrice('premium');
+        } else {
+            return { eligible: false, reason: 'Unknown tier.', free: false, priceWei: 0n };
+        }
+    } else {
+        // Not PoH: all tiers require payment
+        if (tier === 'standard' || tier === 'vip') {
+            free = false;
+            priceWei = getTierPrice(tier);
+        } else if (tier === 'premium') {
+            free = false;
+            priceWei = getTierPrice('premium');
+        } else {
+            return { eligible: false, reason: 'Unknown tier.', free: false, priceWei: 0n };
+        }
+    }
+    return { eligible: true, reason: null, free, priceWei };
+}
+
+/**
+ * Checks if the given address already owns a Lockb0x Sigil NFT (one mint per user).
+ * Used by getMintEligibility. Defensive: does not throw, returns false on error.
+ * @param {string} address
+ * @returns {Promise<boolean>}
+ */
+export async function checkOwnershipForAddress(address) {
+    try {
+        // Use ethers.js directly to ensure correct provider/network
+        if (!window.ethereum || !address) return false;
+        // Use the same contract address and ABI as minting logic
+        const contractAddress = (await import('./contract-address.json', { assert: { type: 'json' } })).default.address;
+        const abi = (await import('./abi.json', { assert: { type: 'json' } })).default;
+        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+        const network = await provider.getNetwork();
+        // Only check on Linea Sepolia (59141)
+        if (network.chainId !== 59141n) return false;
+        const contract = new window.ethers.Contract(contractAddress, abi, provider);
+        if (typeof contract.balanceOf !== 'function') return false;
+        const balance = await contract.balanceOf(address);
+        return (typeof balance === 'bigint' ? balance : BigInt(balance)) > 0n;
+    } catch {
+        return false;
+    }
+}
 // --- PoH Signature Storage & Retrieval Helpers ---
 // These helpers store and retrieve the PoH signature for a given address in localStorage.
 // The signature is public and permanent for each address, and is reused for all future operations.
@@ -177,10 +263,11 @@ export function registerWalletEventHandlers(callback) {
 
 // Alias for compatibility with import { isPoHVerified }
 export const isPoHVerified = isPohVerified;
+
 // Export TIER_PRICE for compatibility with import { TIER_PRICE }
 export const TIER_PRICE = {
     standard: window.ethers?.parseEther ? window.ethers.parseEther("0.01") : "0.01",
-    intermediate: window.ethers?.parseEther ? window.ethers.parseEther("0.01") : "0.01",
+    vip: window.ethers?.parseEther ? window.ethers.parseEther("0.01") : "0.01",
     premium: window.ethers?.parseEther ? window.ethers.parseEther("0.05") : "0.05"
 };
 
@@ -219,27 +306,18 @@ export async function checkPohAndPersist(address, pohVerifyFn) {
     }
     // 2. Perform PoH verification (default: API check, or custom function)
     try {
-        let verified = false;
-        if (typeof pohVerifyFn === 'function') {
-            verified = await pohVerifyFn(resolvedAddress);
+        // Default: check API
+        const resp = await fetch(`${POH_API_BASE}${resolvedAddress}`);
+        if (!resp.ok) {
+            return { status: false, address: resolvedAddress, signature: null, error: 'Unable to contact Linea PoH service. Please try again later.' };
+        }
+        const text = (await resp.text()).trim();
+        if (text === 'true') {
+            setPohVerified(resolvedAddress);
+            return { status: true, address: resolvedAddress, signature: null, error: null };
         } else {
-            // Default: check API
-            const resp = await fetch(`${POH_API_BASE}${resolvedAddress}`);
-            if (!resp.ok) {
-                return { status: false, address: resolvedAddress, signature: null, error: 'Unable to contact Linea PoH service. Please try again later.' };
-            }
-            const text = (await resp.text()).trim();
-            if (text === 'true') {
-                verified = true;
-            } else {
-                return { status: false, address: resolvedAddress, signature: null, error: 'No Proof of Humanity found for this wallet.' };
-            }
+            return { status: false, address: resolvedAddress, signature: null, error: 'No Proof of Humanity found for this account.' };
         }
-        if (!verified) {
-            return { status: false, address: resolvedAddress, signature: null, error: 'PoH verification failed.' };
-        }
-        setPohVerified(resolvedAddress);
-        return { status: true, address: resolvedAddress, signature: null, error: null };
     } catch (err) {
         return { status: false, address: resolvedAddress, signature: null, error: err?.message || String(err) };
     }
@@ -409,23 +487,6 @@ export async function connectWallet() {
     return await provider.getSigner();
 }
 
-export async function checkOwnership() {
-    const contract = await getContract();
-    const signer = await getSigner();
-    const address = await signer.getAddress();
-    // Defensive: ensure contract has balanceOf method
-    if (typeof contract.balanceOf !== "function") {
-        throw new Error("Contract does not support balanceOf");
-    }
-    let balance;
-    try {
-        balance = await contract.balanceOf(address);
-    } catch (err) {
-        throw new Error("Failed to check ownership: " + (err?.message || err));
-    }
-    // ethers.js v6 returns BigInt
-    return (typeof balance === "bigint" ? balance : BigInt(balance)) > 0n;
-}
 
 
 // Price table ---------------------------------------------------------------
@@ -436,7 +497,7 @@ export function getTierPrice(tier) {
     }
     switch (tier) {
         case "standard":
-        case "intermediate":
+        case "vip":
             return window.ethers.parseEther("0.01");
         case "premium":
             return window.ethers.parseEther("0.05");

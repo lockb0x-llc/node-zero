@@ -1,14 +1,3 @@
-# How to Participate
-
-You may contribute:
-- **Markdown Fragments (Storytellers):** Write in Markdown. Your contribution is converted into a published page.
-- **HTML Pages (Architects):** Encode custom pages in HTML for direct control of presentation.
-
-In both cases, you must also mint a Lamina1 NFT to represent your story. Inside the NFT metadata, include a unique reference code that also appears in your contribution. This dual presence is what entangles the archive.
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/community-guide.md](./docs/community-guide.md) for detailed steps and conventions.
-![node_zero banner](docs/assets/node_zero-banner.png)
-
 # node_zero // The Archive
 
 **The signal you were not meant to hear.**  
@@ -27,23 +16,20 @@ You are holding a fragment of the archive — a piece of the block universe itse
 
 ## Mission
 
-The mission of present-day node_zero participants is to **create quantum causalities**.  
-Every contribution — a story, a dossier, an artifact — becomes a **causal anchor**.
+The first mission is to enter the [Node_Zero](https://node-zero.xyz) portal equipped with:
 
-Anchors are entangled through:
+- The MetaMask wallet extension or app installed. 
+-- On mobile, use the MetaMask App's browser.
+- A Linea account on MetaMask with a verified Linea Proof of Humanity account. 
 
-- **GitHub commits** (the public archive)
-- **Lamina1 NFTs** (the quantum anchor)
-- **Stellar transactions** (the activation signal)
-- **lockb0x protocol** (decentralized data sovereingty codex)
-- **Pakana CERs** (Controllable Electronic Records)
-- **M** (the activation signal)
 
-Together, they form coherence across timelines, echoing through the block universe.
 
 ---
 
 ## How to Participate
+
+Play the games, start with Keya. gather intel, fragments, and rewards.
+You will need to "gear-up". See below.
 
 There are two ways to contribute fragments:
 
@@ -63,8 +49,12 @@ This dual presence is what entangles the archive.
 
 ## Rewards
 
+- **Proof of Humanity** → Verify your Humanity by connecting your Linea Account to the <a href="https://linea.build/hub" target="_blank" rel="noopener"> Linea Hub</a>.<br/>
+Then complete the SumSub Proof of Humanity attestation using the same account that you will connect to Node_Zero with on Linea.<br/>
+This is only for bot and farming reduction puposes. Node_Zero has no access to your SumSub data. Node_Zero only queries if the connected account completed teh Proof of Humanit check. 
 - **Attribution** → Your chosen name or alias inscribed in the archive.
-- **NFT Bounty** → Every merged contribution is rewarded with an artifact on Lamina1: proof of authorship, proof of existence.
+- **NFT Bounty** → Every merged contribution is rewarded with an artifact and attribution, sometimes more.
+
 
 ---
 
