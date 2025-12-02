@@ -1,0 +1,173 @@
+// Carrier detection indicator logic with PoH and NFT badges
+    async function updateCarrierIndicator() {
+      if (!light || !label || !tooltip || !carrierDiv || !connectBtn || !pohBadge || !nftBadge) return;
+      let isMetaMask = (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask);
+      let isConnected = false;
+      let account = null;
+      let pohVerified = false;
+      let hasSigil = false;
+      if (isMetaMask) {
+        try {
+          let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+          isConnected = Array.isArray(accounts) && accounts.length > 0;
+          account = isConnected ? accounts[0] : null;
+        } catch (e) { isConnected = false; }
+      }
+      if (isMetaMask && isConnected && account) {
+        // Check PoH and NFT status using utils.js if available
+        if (window.lockb0x && window.lockb0x.isPohVerifiedForAddress) {
+          try {
+            pohVerified = window.lockb0x.isPohVerifiedForAddress(account);
+          } catch {}
+        }
+        if (window.lockb0x && window.lockb0x.checkOwnershipForAddress) {
+          try {
+            hasSigil = await window.lockb0x.checkOwnershipForAddress(account);
+          } catch {}
+        }
+      }
+
+      // Update carrier indicator
+      if (isMetaMask && isConnected) {
+        light.classList.remove('bg-red-500');
+        light.classList.add('bg-emerald-400');
+        light.style.boxShadow = '0 0 8px 2px #34d399';
+        label.textContent = 'Carrier Detected';
+        tooltip.textContent = '';
+        tooltip.style.display = 'none';
+        tooltip.style.opacity = 0;
+        connectBtn.classList.add('hidden');
+      } else {
+        light.classList.remove('bg-emerald-400');
+        light.classList.add('bg-red-500');
+        light.style.boxShadow = '0 0 8px 2px #ef4444';
+        label.textContent = 'No Carrier Detected';
+        tooltip.textContent = isMetaMask ? 'MetaMask not Connected' : 'MetaMask not Installed';
+        tooltip.style.display = 'block';
+        tooltip.style.opacity = 0;
+        connectBtn.classList.toggle('hidden', !isMetaMask);
+      }
+
+      // Update PoH badge
+      if (isMetaMask && isConnected && pohVerified) {
+        pohBadge.classList.remove('hidden');
+        pohBadge.title = 'Proof of Humanity Verified';
+      } else {
+        pohBadge.classList.add('hidden');
+        pohBadge.title = '';
+      }
+
+      // Update NFT badge
+      if (isMetaMask && isConnected && hasSigil) {
+        nftBadge.classList.remove('hidden');
+        nftBadge.title = 'Lockb0x Sigil NFT Owned';
+      } else {
+        nftBadge.classList.add('hidden');
+        nftBadge.title = '';
+      }
+
+      // Connect button logic (set only once)
+      if (!connectBtn._handlerSet) {
+        connectBtn.addEventListener('click', async function(e) {
+          e.preventDefault();
+          if (isMetaMask && !isConnected) {
+            try {
+              await window.ethereum.request({ method: 'eth_requestAccounts' });
+              setTimeout(updateCarrierIndicator, 500);
+            } catch (err) {
+              // User rejected or error
+            }
+          }
+        });
+        connectBtn._handlerSet = true;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cookie consent logic
+      if (!hasConsent() && !hasDeclined()) {
+        showBanner();
+      } else if (hasConsent()) {
+        loadClarity();
+      }
+      document.getElementById('accept-cookies').onclick = function() {
+        localStorage.setItem('clarityConsent', 'accepted');
+        hideBanner();
+        loadClarity();
+      };
+      document.getElementById('decline-cookies').onclick = function() {
+        localStorage.setItem('clarityConsent', 'declined');
+        hideBanner();
+      };
+
+      // Wait for lockb0x utils to be loaded and available
+      // Set tooltip hover logic ONCE
+      if (carrierDiv && tooltip) {
+        carrierDiv.addEventListener('mouseenter', function(e) {
+          // Always show tooltip instantly on hover
+          var rect = carrierDiv.getBoundingClientRect();
+          tooltip.style.display = 'block';
+          tooltip.style.left = (rect.left + rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
+          tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
+          tooltip.style.opacity = 1;
+
+          updateCarrierIndicator();
+          
+          // Set default text, then update asynchronously
+          tooltip.textContent = label.textContent;
+          if (isConnected) {
+                tooltip.textContent = 'MetaMask is Connected';
+                tooltip.style.display = 'block';
+                tooltip.style.opacity = 1;
+              }
+            });
+          
+        };
+        carrierDiv.addEventListener('mouseleave', function() {
+          tooltip.style.opacity = 0;
+          tooltip.style.display = 'none';
+        });
+      });
+
+
+
+
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWorkSeries",
+  "name": "Node Zero Saga",
+  "alternateName": "Fragments of the Collapse",
+  "author": {
+    "@type": "Person",
+    "name": "Steven B. Tomlinson AKA O G Paka",
+    "url": "https://steventomlinson.dev"
+  },
+  "description": "A serialized cyberpunk metaverse saga where Node Zero, an orphaned AGI strategist, reveals fragments of the Collapse through entangled blockchain artifacts.",
+  "genre": ["Science Fiction", "Cyberpunk", "Metaverse Fiction"],
+  "keywords": "Node Zero, Keya, cyberpunk metaverse, Collapse, Central Inquiry, Lamina1, blockchain storytelling, AI narrative",
+  "url": "https://node-zero.xyz",
+  "hasPart": [
+    {
+      "@type": "Chapter",
+      "name": "Keya — Chapter 1",
+      "url": "https://node-zero.xyz/keya/chapter1-1.html",
+      "description": "Keya stumbles upon cryptic ciphers hidden in Discord language channels — the beginning of her journey into Node Zero’s metaverse.",
+      "position": 1
+    },
+    {
+      "@type": "WebPage",
+      "name": "Lamina1",
+      "url": "https://lamina1.com",
+      "description": "Lamina1 is a Layer One blockchain for the open metaverse, co-founded by Neal Stephenson. It is a major element in the Node_Zero universe."
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "lockb0x LLC",
+    "url": "https://node-zero.xyz"
+  }
+}
+
+</script>

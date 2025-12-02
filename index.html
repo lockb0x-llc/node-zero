@@ -41,54 +41,59 @@
     ]
   }
   </script>
-</head>
-<body
-  class="cyberpunk-bg cyberpunk-body text-zinc-200 font-mono min-h-screen tracking-wide leading-relaxed bg-zinc-950">
-  
-  <div id="site-header"></div>
-  <!-- Animated scanlines overlay -->
-  <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+
+<body class="bg-zinc-950">
+  <div class="bg-zinc-950" id="site-header"></div>
   <main>
+    <div id="hero-banner" class="relative z-20 flex flex-col items-center justify-center mb-8 bg-zinc-950 pt-12 pb-6 px-4 rounded-b-3xl shadow-neon-cyan border-4 border-cyber-neon max-w-3xl mx-auto">
+    
+      <!-- <div class="relative flex items-center justify-center mx-auto overflow-visible" style="min-width:0; min-height:0;">
+            <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
+              <video id="hero-video" src="media/video/node_zero_you_are_here.mp4" alt="Node_Zero: Entry point." 
+              class="relative z-10 rounded-xl bg-zinc-900/80 shadow-lg" autoplay loop muted playsinline></video>
+          </div> 
+             -->
+      <h1 class="text-zinc-100">NODE_ZERO</h1>
+      
+      
+    </div>
+
     <section
-      class="relative min-h-[92vh] px-4 sm:px-8 lg:px-16 xl:px-24 max-w-[1600px] mx-auto flex flex-col items-center justify-start bg-zinc-950 text-zinc-100 overflow-hidden pt-10">
-    <!-- ambient field -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 [background:radial-gradient(1100px_520px_at_70%_20%,rgba(59,130,246,.10),transparent_60%),radial-gradient(760px_360px_at_18%_82%,rgba(168,85,247,.10),transparent_60%)]"></div>
-      <div aria-hidden="true" class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.22)_1px,transparent_1px)]; [background-size:32px_32px]"></div>
-
-      <!-- HERO IMAGE -->
-      <div class="relative z-20 flex flex-col items-center justify-center mb-8">
-        <h1 class="text-center font-extrabold tracking-wider animate-cyber-glow">
-          <span class="block text-5xl sm:text-6xl md:text-7xl text-cyan-300 drop-shadow-lg">NODE_ZERO</span>
-             
-        </h1>
-      </div>
-
-      <!-- NEW INTRO & CTA -->
-      <div id="intro-container" class="cyberpunk-panel relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
-        <div id="intro-middle-ring" class="absolute inset-0 rounded-2xl border-4 border-cyber-neon pointer-events-none rainbow-pulse"></div>
-        <div id="intro-inner-ring" class="absolute inset-2 rounded-xl border-4 border-cyber-magenta pointer-events-none rainbow-pulse"></div>
-        <div class="relative z-10 w-full flex flex-col items-center">
-          <h2 class="mb-2 text-cyber-neon neon-cyan">Choose Your Entry to Node_Zero</h2>
-          <p class="text-zinc-300 text-center mb-4">
-            Node_Zero is a decentralized, cyberpunk metaverse experiment. To participate, you must mint a Lockb0x Sigil NFT.<br>
-            <span class="text-cyan-300">There are two ways to enter:</span>
+      class="relative min-h-[92vh] flex flex-col items-center justify-start bg-zinc-950 text-zinc-100 overflow-hidden pt-10">
+      <div id="glitch-bg" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></div>
+      <div id="intro-container"
+        class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
+        <div id="intro-middle-ring"
+          class="absolute inset-0 rounded-2xl border-4 border-cyber-neon pointer-events-none rainbow-pulse"></div>
+        <div id="intro-inner-ring"
+          class="absolute inset-2 rounded-xl border-4 border-cyber-magenta pointer-events-none rainbow-pulse"></div>
+        <div id="web3-intro" class="relative z-10 w-full flex flex-col items-center">
+          <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
+          
+        
+          <p>
+            Lockb0x Sigil NFTs are your gateway to the Node_Zero metaverse and its experiences.<br/>
+           <span class="text-cyan-300 content-center">There are two ways to obtain one</span>
           </p>
           <div class="flex flex-col sm:flex-row gap-6 w-full justify-center items-center mb-6">
             <div class="flex-1 flex flex-col items-center">
               <h2>
-              <a href="poh-gate.html" target="_self" rel="noopener" class="cyberpunk-link px-6 py-3 border border-cyan-400 rounded-lg bg-zinc-900/70 hover:bg-cyan-900/80 text-cyan-200 text-sm tracking-wide uppercase font-bold shadow-lg transition">
+              <a href="poh-gate.html" target="_self" rel="nofollow" class="cyberpunk-link px-6 py-3 border border-cyan-400 rounded-lg bg-zinc-900/70 hover:bg-cyan-900/80 text-cyan-200 text-sm tracking-wide uppercase transition">
                 Verify Proof of Humanity
               </a>
             </h2>
-              <span class="text-xs text-cyan-300 mt-2 text-center block max-w-xs">
+              <span class="text-sm text-cyan-300 mt-2 text-center block max-w-xs">
                 Prove your humanity via Linea.Build Hub.<br>PoH-verified users can mint from the Standard tier for free, VIP tier for free (with secret code), and are eligible for the <span class="text-magenta-400">Linea Exponent rewards pool</span>.</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
-              <a href="lockb0x/index.html" class="cyberpunk-link-magenta px-6 py-3 border border-magenta-400 rounded-lg bg-zinc-900/70 hover:bg-magenta-900/80 text-magenta-200 text-sm tracking-wide uppercase font-bold shadow-lg transition">
+              <h2>
+              <a href="lockb0x/index.html" target="_self" rel="nofollow" class="cyberpunk-link-magenta px-6 py-3 border border-cyan-400 rounded-lg bg-zinc-900/70 hover:bg-cyan-900/80 text-magenta-200 text-sm tracking-wide uppercase transition">
                 Mint Lockb0x Sigil NFT
               </a>
-              <span class="text-xs text-magenta-300 mt-2 text-center block max-w-xs">Skip PoH and mint directly.<br>Anyone can mint from any tier by paying the required amount.<br/>
+            </h2>
+              <span class="text-sm text-magenta-300 mt-2 text-center block max-w-xs">Skip PoH and mint directly.<br>Anyone can mint from any tier by paying the required amount.<br/>
               <span class="text-zinc-400">(PoH is required for Exponent Participation.)</span></span>
+
             </div>
           </div>
           <div class="w-full mt-4 mb-4">
@@ -127,8 +132,41 @@
             <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
               <summary class="font-bold text-cyan-300 cursor-pointer">What is Proof of Humanity (PoH) and why does it matter?</summary>
               <div class="mt-2">
-                <p><span class="text-cyan-300">Proof of Humanity (PoH)</span> is a blockchain-based verification that proves you are a unique human, not a bot or farmed account. PoH-verified users help keep Node_Zero fair and are eligible for special rewards, including the Linea Exponent competition pool. <br><br>To get PoH, follow the verification process at the <a href="https://linea.build/poh" target="_blank" rel="noopener" class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.</p>
+        <!-- Removed duplicate #site-header divs from content -->
                 <p class="mt-2"><span class="text-magenta-300">Not interested in PoH?</span> You can still mint a Lockb0x Sigil NFT by paying the required amount, but you won't be eligible for the rewards pool.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="font-bold text-cyan-300 cursor-pointer">What is the Exponent Participation Rewards Pool?</summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300">Lines Exponent Rewards</span> is an engagement rewards competition being conducted by the Linea blockshain. By participating in the Node_Zero Exponent Rewards Pool and regularly engaging with Node_Zero, you will share in any rewards that are earned by Node_Zero through January 31, 2026.<br/>
+                To be eligible for the Exponent Rewards Pool, you must be PoH-verified when you mint your Lockb0x Sigil NFT. <br><br>To get PoH, follow the verification process at the <a href="https://linea.build/poh" target="_blank" rel="noopener" class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.
+                </p>
+                <p class="mt-2"><span class="text-magenta-300">Not interested in PoH?</span> You can still mint a Lockb0x Sigil
+                  NFT by paying the required amount, but you won't be eligible for the rewards pool.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="font-bold text-cyan-300 cursor-pointer">How do I get a Secret Code???</summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300"><a href="https://lamina1.com" target="_blank" rel="noopener"
+                  class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Lamina1</a> Community Members are eligible for a free Lockb0x Sigil NFT</span>. 
+                  <ul>
+                    <li>Create a free Lamina1 Profile on the website, then join the Lamina1 Discord.</li>
+                    <li>Say "hello" to @og_paka in the Lamina1 Discord General channel and ask for one!</li>
+                    <li>To get PoH (optional but required for rewards), follow the verification process at the <a
+                        href="https://linea.build/poh" target="_blank" rel="noopener"
+                        class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.</li>
+                  </ul>
+                  
+                </p>
+                
               </div>
             </details>
           </div>
@@ -152,135 +190,92 @@
       </div>
     </section>
   </main>
-  <!-- Scripts -->
+  
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/header-loader.js"></script>
-  <script type="module">
+  <script src="lockb0x/contract-config.js"></script>
+  <script type="module" src="lockb0x-utils-global.js"></script>
+<script type="module">
+// Simple, robust Sigil NFT gating (like poh-gate.html but for Sigil)
+async function updateWeb3IntroVisibility() {
+  const web3Intro = document.getElementById('web3-intro');
+  const introContainer = document.getElementById('intro-container');
+  if (!web3Intro || !introContainer) return;
 
-    import {
-      isMetaMaskInstalled,
-      isMetaMaskConnected,
-      isPohVerified,
-      checkPohAndPersist,
-      setWalletConnected,
-      setPohVerified,
-      getWalletConnected
-    } from './lockb0x/utils.js';
+  // Wait for dependencies
+  if (
+    !window.lockb0xUtils ||
+    typeof window.lockb0xUtils.checkOwnershipForAddress !== 'function' ||
+    !window.ethereum
+  ) {
+    setTimeout(updateWeb3IntroVisibility, 150);
+    return;
+  }
 
-    function setPohStatus(message) {
-      const el = document.getElementById('poh-status');
-      if (el) el.textContent = message;
+  let address = null;
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    if (Array.isArray(accounts) && accounts.length > 0) {
+      address = accounts[0];
     }
+  } catch {}
 
-    // Show or hide the web3-intro div based on connection and PoH status
-    async function updateWeb3IntroVisibility() {
-      const web3Intro = document.getElementById('web3-intro');
-      const introContainer = document.getElementById('intro-container');
-      if (!web3Intro || !introContainer) return;
-      const connected = await isMetaMaskConnected();
-      const poh = await isPohVerified(); // FIX: await async PoH check
-      if (connected && poh) {
-        web3Intro.style.display = 'none';
-        introContainer.classList.add('intro-container-clickable', 'rainbow-pulse');
-      } else {
-        web3Intro.style.display = '';
-        introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
-      }
+  if (!address) {
+    web3Intro.style.display = '';
+    introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
+    return;
+  }
+
+  try {
+    const hasSigil = await window.lockb0xUtils.checkOwnershipForAddress(address);
+    if (hasSigil) {
+      web3Intro.style.display = 'none';
+      introContainer.classList.add('intro-container-clickable', 'rainbow-pulse');
+      introContainer.onclick = () => {
+        window.location.href = 'primer/index.html';
+      };
+    } else {
+      web3Intro.style.display = '';
+      introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
     }
-
-    // Make intro-container clickable if user is connected and has PoH
-    document.addEventListener('DOMContentLoaded', () => {
-      const introContainer = document.getElementById('intro-container');
-      const web3Intro = document.getElementById('web3-intro');
-      if (introContainer) {
-        introContainer.addEventListener('click', async (evt) => {
-          const connected = await isMetaMaskConnected();
-          const poh = await isPohVerified(); // FIX: await async PoH check
-          if (connected && poh && web3Intro && web3Intro.style.display === 'none') {
-            window.location.href = './lockb0x/index.html';
-          }
-        });
-      }
-    });
-
-
-    // PoH check and persist using utils.js
-    async function checkPoh() {
-      const result = await checkPohAndPersist();
-      if (result.status && result.address) {
-        setWalletConnected(result.address);
-        setPohVerified(result.address);
-        setPohStatus('Proof of Humanity verified.');
-      } else {
-        setPohStatus(result.error || 'Proof of Humanity check failed.');
-        if (result.error && result.error.includes('No Proof of Humanity')) {
-          const warn = document.getElementById('poh-required');
-          if (warn) warn.classList.remove('hidden');
-        }
-      }
-      await updateWeb3IntroVisibility();
-    }
-
-    // Attach handler to the button if present
-    const pohBtn = document.getElementById('pohBtn');
-    if (pohBtn) {
-      pohBtn.addEventListener('click', async (evt) => {
-        evt.preventDefault();
-        await checkPoh();
-      });
-    }
-
-    // On page load, update web3-intro visibility
-    document.addEventListener('DOMContentLoaded', updateWeb3IntroVisibility);
-
-    // Listen for account/network changes to update UI only (never clear POH)
-    if (window.ethereum) {
-      window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3IntroVisibility);
-      window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3IntroVisibility);
-    }
-
-    // Also update on PoH verification from localStorage (e.g., after reload)
-    updateWeb3IntroVisibility();
-  </script>
-
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWorkSeries",
-  "name": "Node Zero Saga",
-  "alternateName": "Fragments of the Collapse",
-  "author": {
-    "@type": "Person",
-    "name": "Steven B. Tomlinson AKA O G Paka",
-    "url": "https://steventomlinson.dev"
-  },
-  "description": "A serialized cyberpunk metaverse saga where Node Zero, an orphaned AGI strategist, reveals fragments of the Collapse through entangled blockchain artifacts.",
-  "genre": ["Science Fiction", "Cyberpunk", "Metaverse Fiction"],
-  "keywords": "Node Zero, Keya, cyberpunk metaverse, Collapse, Central Inquiry, Lamina1, blockchain storytelling, AI narrative",
-  "url": "https://node-zero.xyz",
-  "hasPart": [
-    {
-      "@type": "Chapter",
-      "name": "Keya — Chapter 1",
-      "url": "https://node-zero.xyz/keya/chapter1-1.html",
-      "description": "Keya stumbles upon cryptic ciphers hidden in Discord language channels — the beginning of her journey into Node Zero’s metaverse.",
-      "position": 1
-    },
-    {
-      "@type": "WebPage",
-      "name": "Lamina1",
-      "url": "https://lamina1.com",
-      "description": "Lamina1 is a Layer One blockchain for the open metaverse, co-founded by Neal Stephenson. It is a major element in the Node_Zero universe."
-    }
-  ],
-  "publisher": {
-    "@type": "Organization",
-    "name": "lockb0x LLC",
-    "url": "https://node-zero.xyz"
+  } catch {
+    web3Intro.style.display = '';
+    introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
   }
 }
-</script>
 
+document.addEventListener('DOMContentLoaded', updateWeb3IntroVisibility);
+if (window.ethereum) {
+  window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3IntroVisibility);
+  window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3IntroVisibility);
+}
+</script>
+</main>
+
+<!-- MS Clarity Cookie Consent Banner and Logic -->
+<div id="cookie-consent-banner" style="position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:1em;z-index:9999;display:none;justify-content:center;align-items:center;gap:1em;">
+  <span>This site only uses cookies for internal analytics (Microsoft Clarity) and others for some cool features, never for marketing. Do you accept?</span>
+  <button id="accept-cookies" style="background:#4caf50;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Accept</button>
+  <button id="decline-cookies" style="background:#f44336;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Decline</button>
+</div>
+
+
+<script type="module" src="lockb0x-utils-global.js"></script>
+
+<script>
+  // Backward compatibility: set window.lockb0x = window.lockb0xUtils if available
+  window.addEventListener('DOMContentLoaded', function () {
+    if (window.lockb0xUtils) {
+      window.lockb0x = window.lockb0xUtils;
+    }
+    if (typeof window.waitForUtilsAndInit === 'function') {
+      window.waitForUtilsAndInit();
+    }
+
+  });
+
+  </script>
 </body>
 </html>

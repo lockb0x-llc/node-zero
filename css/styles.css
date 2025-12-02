@@ -163,36 +163,7 @@ body::after {
   90% { filter: brightness(1.3) drop-shadow(0 0 32px #ff00e0); }
   100% { filter: brightness(1) drop-shadow(0 0 8px #ff00e0); }
 }
-/* === Tooltip Styles === */
-.tooltip {
-  position: relative;
-  cursor: pointer;
-}
-.tooltip .tooltip-text {
-  visibility: hidden;
-  opacity: 0;
-  width: max-content;
-  max-width: 260px;
-  background: #111827ee;
-  color: #00fff7;
-  text-align: center;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  z-index: 20;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 16px #00fff7cc, 0 0 8px #ff00e0cc;
-  font-size: 0.95rem;
-  transition: opacity 0.2s, visibility 0.2s;
-  pointer-events: none;
-}
-.tooltip:hover .tooltip-text,
-.tooltip:focus .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
+
 /* === Cyberpunk Text Glow Styles === */
 .text-glow-cyan {
   text-shadow: 0 0 8px #00fff7, 0 0 16px #00fff7, 0 0 32px #00fff7;

@@ -67,20 +67,38 @@ export async function getMintEligibility(address, tier, hasSecretCode = false) {
  */
 export async function checkOwnershipForAddress(address) {
     try {
-        // Use ethers.js directly to ensure correct provider/network
-        if (!window.ethereum || !address) return false;
-        // Use the same contract address and ABI as minting logic
-        const contractAddress = (await import('./contract-address.json', { assert: { type: 'json' } })).default.address;
-        const abi = (await import('./abi.json', { assert: { type: 'json' } })).default;
+        if (!window.ethereum || !address) {
+            console.warn("checkOwnershipForAddress: window.ethereum or address missing", { ethereum: window.ethereum, address });
+            return false;
+        }
+        if (!window.SIGIL_CONTRACT_ADDRESS || !window.SIGIL_CONTRACT_ABI) {
+            console.error("checkOwnershipForAddress: SIGIL_CONTRACT_ADDRESS or SIGIL_CONTRACT_ABI missing", {
+                SIGIL_CONTRACT_ADDRESS: window.SIGIL_CONTRACT_ADDRESS,
+                SIGIL_CONTRACT_ABI: window.SIGIL_CONTRACT_ABI
+            });
+            return false;
+        }
+        if (!window.ethers) {
+            console.error("checkOwnershipForAddress: window.ethers missing");
+            return false;
+        }
         const provider = new window.ethers.providers.Web3Provider(window.ethereum);
         const network = await provider.getNetwork();
         // Only check on Linea Sepolia (59141)
-        if (network.chainId !== 59141n) return false;
-        const contract = new window.ethers.Contract(contractAddress, abi, provider);
-        if (typeof contract.balanceOf !== 'function') return false;
+        if (network.chainId !== 59141) {
+            console.warn("checkOwnershipForAddress: Not on Linea Sepolia (59141)", { chainId: network.chainId });
+            return false;
+        }
+        const contract = new window.ethers.Contract(window.SIGIL_CONTRACT_ADDRESS, window.SIGIL_CONTRACT_ABI, provider);
+        if (typeof contract.balanceOf !== 'function') {
+            console.error("checkOwnershipForAddress: contract.balanceOf is not a function");
+            return false;
+        }
         const balance = await contract.balanceOf(address);
+        console.log("checkOwnershipForAddress: balanceOf result", { address, balance });
         return (typeof balance === 'bigint' ? balance : BigInt(balance)) > 0n;
-    } catch {
+    } catch (err) {
+        console.error("checkOwnershipForAddress: error", err);
         return false;
     }
 }
@@ -380,23 +398,15 @@ export async function getSigner() {
 // Address + ABI loading ------------------------------------------------------
 
 export async function fetchAddress() {
-    const res = await fetch("./contract-address.json");
-    const json = await res.json();
-
-    if (!json.address)
-        throw new Error("contract-address.json missing 'address' field");
-
-    return json.address;
+    if (!window.SIGIL_CONTRACT_ADDRESS)
+        throw new Error("SIGIL_CONTRACT_ADDRESS not set");
+    return window.SIGIL_CONTRACT_ADDRESS;
 }
 
 export async function fetchAbi() {
-    const res = await fetch("./abi.json");
-    const json = await res.json();
-
-    if (!Array.isArray(json))
-        throw new Error("ABI file malformed");
-
-    return json;
+    if (!window.SIGIL_CONTRACT_ABI)
+        throw new Error("SIGIL_CONTRACT_ABI not set");
+    return window.SIGIL_CONTRACT_ABI;
 }
 
 // Contract factory -----------------------------------------------------------

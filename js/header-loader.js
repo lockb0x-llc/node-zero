@@ -14,8 +14,7 @@ fetch('/header.html')
       document.head.appendChild(script);
     } else {
       document.getElementById('site-header').innerHTML = html;
-      underlineCurrentPage();
-    }
+      underlineCurrentPage();}
 
     function underlineCurrentPage() {
       const path = window.location.pathname.replace(/\/$/, '');
