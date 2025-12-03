@@ -141,98 +141,103 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/header-loader.js"></script>
-  <script type="module">
-
-    import {
-      isMetaMaskInstalled,
-      isMetaMaskConnected,
-      isPohVerified,
-      checkPohAndPersist,
-      setWalletConnected,
-      setPohVerified,
-      getWalletConnected
-    } from './lockb0x/utils.js';
-
-    // --- POH is permanent per address: NEVER clear POH for any reason. ---
-    // If POH is missing for the connected address, redirect to root for re-verification.
+  <script>
+    // Wait for lockb0xUtils to be available before running any PoH logic
+    function waitForLockb0xUtils(maxRetries = 20, interval = 100) {
+      return new Promise((resolve) => {
+        let tries = 0;
+        function check() {
+          if (window.lockb0xUtils) {
+            resolve(window.lockb0xUtils);
+          } else if (tries < maxRetries) {
+            tries++;
+            setTimeout(check, interval);
+          } else {
+            resolve(null);
+          }
+        }
+        check();
+      });
+    }
 
     function setPohStatus(message) {
       const el = document.getElementById('poh-status');
       if (el) el.textContent = message;
     }
 
-    // Show or hide the web3-intro div based on connection and PoH status
+    async function checkPohAndUpdateUI() {
+      const lockb0xUtils = await waitForLockb0xUtils();
+      if (!lockb0xUtils) {
+        setPohStatus('PoH tools not loaded.');
+        return;
+      }
+      setPohStatus('Checking Proof of Humanity...');
+      const result = await lockb0xUtils.checkPohAndPersist();
+      if (result.status && result.address) {
+        lockb0xUtils.setWalletConnected(result.address);
+        lockb0xUtils.setPohVerified(result.address);
+        setPohStatus('Proof of Humanity verified.');
+      } else {
+        setPohStatus(result.error || 'Proof of Humanity check failed.');
+        const warn = document.getElementById('poh-required');
+        if (result.error && result.error.includes('No Proof of Humanity') && warn) {
+          warn.classList.remove('hidden');
+        } else if (warn) {
+          warn.classList.add('hidden');
+        }
+      }
+      await updateWeb3IntroVisibility();
+    }
+
     async function updateWeb3IntroVisibility() {
+      const lockb0xUtils = await waitForLockb0xUtils();
       const web3Intro = document.getElementById('web3-intro');
       const introContainer = document.getElementById('intro-container');
-      if (!web3Intro || !introContainer) return;
-      const connected = await isMetaMaskConnected();
-      const poh = await isPohVerified(); // FIX: await async PoH check
+      if (!web3Intro || !introContainer || !lockb0xUtils) return;
+
+      const connected = await lockb0xUtils.isMetaMaskConnected();
+      let address = null;
+      if (connected) {
+        address = lockb0xUtils.getWalletConnected();
+      }
+      let poh = false;
+      if (address) {
+        poh = lockb0xUtils.isPohVerifiedForAddress(address);
+        if (poh) lockb0xUtils.setPohVerified(address);
+      }
       if (connected && poh) {
         web3Intro.style.display = 'none';
         introContainer.classList.add('intro-container-clickable', 'rainbow-pulse');
       } else {
         web3Intro.style.display = '';
         introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
+        const warn = document.getElementById('poh-required');
+        if (connected && !poh && warn) warn.classList.remove('hidden');
+        else if (warn) warn.classList.add('hidden');
       }
     }
 
-    // Make intro-container clickable if user is connected and has PoH
-    document.addEventListener('DOMContentLoaded', () => {
-      const introContainer = document.getElementById('intro-container');
-      const web3Intro = document.getElementById('web3-intro');
-      if (introContainer) {
-        introContainer.addEventListener('click', async (evt) => {
-          const connected = await isMetaMaskConnected();
-          const poh = await isPohVerified(); // FIX: await async PoH check
-          if (connected && poh && web3Intro && web3Intro.style.display === 'none') {
-            window.location.href = './lockb0x/index.html';
-          }
+    document.addEventListener('DOMContentLoaded', async () => {
+      const pohBtn = document.getElementById('pohBtn');
+      if (pohBtn) {
+        pohBtn.addEventListener('click', async (evt) => {
+          evt.preventDefault();
+          await checkPohAndUpdateUI();
         });
       }
-    });
-
-
-    // PoH check and persist using utils.js
-    async function checkPoh() {
-      const result = await checkPohAndPersist();
-      if (result.status && result.address) {
-        setWalletConnected(result.address);
-        setPohVerified(result.address);
-        setPohStatus('Proof of Humanity verified.');
-      } else {
-        setPohStatus(result.error || 'Proof of Humanity check failed.');
-        if (result.error && result.error.includes('No Proof of Humanity')) {
-          const warn = document.getElementById('poh-required');
-          if (warn) warn.classList.remove('hidden');
-        }
-      }
       await updateWeb3IntroVisibility();
-    }
-
-    // Attach handler to the button if present
-    const pohBtn = document.getElementById('pohBtn');
-    if (pohBtn) {
-      pohBtn.addEventListener('click', async (evt) => {
-        evt.preventDefault();
-        await checkPoh();
-      });
-    }
-
-    // On page load, update web3-intro visibility
-    document.addEventListener('DOMContentLoaded', updateWeb3IntroVisibility);
-
-    // Listen for account/network changes to update UI only (never clear POH)
-    if (window.ethereum) {
-      window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3IntroVisibility);
-      window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3IntroVisibility);
-    }
+      // Listen for account/network changes to update UI only (never clear POH)
+      const lockb0xUtils = await waitForLockb0xUtils();
+      if (lockb0xUtils && window.ethereum) {
+        lockb0xUtils.registerWalletEventHandlers(updateWeb3IntroVisibility);
+      }
+    });
 
     // Also update on PoH verification from localStorage (e.g., after reload)
     updateWeb3IntroVisibility();
   </script>
 
-  <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CreativeWorkSeries",
