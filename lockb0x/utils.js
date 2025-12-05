@@ -248,21 +248,7 @@ export async function getCurrentWalletAddress() {
     }
 }
 
-/**
- * Bullet-proof PoH check: checks localStorage, current wallet, and API
- * @returns {Promise<boolean>}
- */
-export async function isPohVerified() {
-    try {
-        const wallet = getWalletConnected();
-        if (!wallet) return false;
-        // Only check localStorage for PoH flag for this address
-        return isPohVerifiedForAddress(wallet);
-    } catch (e) {
-        if (_globalGatingErrorHandler) _globalGatingErrorHandler(e?.message || String(e));
-        return false;
-    }
-}
+
 /**
  * Registers wallet/account/chain change event handlers. Callback is called after flags are cleared.
  * @param {Function} callback
