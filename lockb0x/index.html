@@ -127,36 +127,12 @@
 
         import {
             isMetaMaskInstalled,
-            isMetaMaskConnected,
-            getWalletConnected,
-            isWalletConnectionExpired,
-            isPohVerifiedForAddress,
             getProvider,
-            registerWalletEventHandlers
+            registerWalletEventHandlers,
+            getTokenGatingState,
+            connectWallet,
+            ensureLineaSepolia
         } from './utils.js';
-
-        let pohStatus = false;
-        let walletAddress = null;
-
-        // Utility: Ensure user is on Linea Sepolia, prompt switch if not
-        async function ensureLineaSepoliaNetwork() {
-            if (!window.ethereum) return true;
-            try {
-                const provider = getProvider();
-                const network = await provider.getNetwork();
-                if (network.chainId !== 59141n) {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0xe704' }] // 59141 in hex
-                    });
-                    return true;
-                }
-                return true;
-            } catch (err) {
-                // User rejected or MetaMask error
-                return false;
-            }
-        }
 
         async function updateMintUI() {
             const mintBtn = document.getElementById('mintBtn');
@@ -168,18 +144,11 @@
             const connectBtn = document.getElementById('connectMetaMaskBtn');
 
             // Check wallet and PoH status
-            pohStatus = false;
-            walletAddress = null;
-            let connected = false;
-            if (isMetaMaskInstalled()) {
-                connected = await isMetaMaskConnected();
-                if (connected) {
-                    walletAddress = getWalletConnected();
-                    if (walletAddress && !isWalletConnectionExpired()) {
-                        pohStatus = await isPohVerifiedForAddress(walletAddress);
-                    }
-                }
-            }
+            const gating = await getTokenGatingState();
+            const connected = gating.connected;
+            const walletAddress = gating.wallet;
+            const pohStatus = gating.poh;
+            const gatingError = gating.error;
 
             // Show/hide Connect MetaMask button
             if (!isMetaMaskInstalled()) {
@@ -245,11 +214,10 @@
                     web3Info.textContent = 'Connect MetaMask to mint.';
                 } else if (!onLinea) {
                     web3Info.style.display = '';
-                    if (switchAttempted) {
-                        web3Info.textContent = 'Failed to switch to Linea Sepolia. Please switch manually in MetaMask.';
-                    } else {
-                        web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
-                    }
+                    web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
+                } else if (gatingError) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = gatingError;
                 } else {
                     web3Info.style.display = 'none';
                     web3Info.textContent = '';
@@ -261,10 +229,10 @@
         // Connect MetaMask button logic
         document.getElementById('connectMetaMaskBtn').addEventListener('click', async (evt) => {
             evt.preventDefault();
-            if (window.ethereum) {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                } catch (err) {}
+            try {
+                await connectWallet();
+            } catch (err) {
+                console.error(err);
             }
             await updateMintUI();
         });
@@ -283,17 +251,22 @@
             const tierSelect = document.getElementById('tierSelect');
             const tier = tierSelect ? tierSelect.value : 'standard';
             // Check wallet and PoH again
-            let connected = isMetaMaskInstalled() && await isMetaMaskConnected();
-            let provider, network, onLinea = false;
-            if (connected) {
-                try {
-                    provider = getProvider();
-                    network = await provider.getNetwork();
-                    onLinea = (network.chainId === 59141n);
-                } catch {}
-            }
+            const gating = await getTokenGatingState();
+            const connected = gating.connected;
+            const pohStatus = gating.poh;
+
             if (!connected) {
                 mintStatus.textContent = 'Please connect MetaMask.';
+                return;
+            }
+
+            let provider, network, onLinea = false;
+            try {
+                provider = await ensureLineaSepolia();
+                network = await provider.getNetwork();
+                onLinea = (network.chainId === 59141n);
+            } catch (err) {
+                mintStatus.textContent = err?.message || 'Please switch to Linea Sepolia network.';
                 return;
             }
             if (!onLinea) {

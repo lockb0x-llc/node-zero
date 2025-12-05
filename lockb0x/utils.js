@@ -156,7 +156,9 @@ export async function getTokenGatingState() {
         connected = await isMetaMaskConnected();
         wallet = getWalletConnected();
         address = await getCurrentWalletAddress();
-        poh = await isPohVerifiedForAddress(address);
+        // Prefer persisted wallet, but fall back to the live address if storage is empty
+        wallet = wallet || address;
+        poh = await isPohVerifiedForAddress(wallet);
     } catch (e) {
         error = e?.message || String(e);
         if (_globalGatingErrorHandler) _globalGatingErrorHandler(error);
@@ -368,6 +370,39 @@ export function getProvider() {
 }
 
 // -------------------------------------------------------------
+// NETWORK HELPERS
+// -------------------------------------------------------------
+
+async function ensureNetwork(targetChainId, chainIdHex, friendlyName) {
+    if (!window.ethereum) throw new Error("MetaMask not available");
+
+    let provider = new window.ethers.BrowserProvider(window.ethereum);
+    const network = await provider.getNetwork();
+
+    if (network.chainId !== targetChainId) {
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: chainIdHex }],
+            });
+            provider = new window.ethers.BrowserProvider(window.ethereum);
+        } catch (err) {
+            throw new Error(`Please switch to the ${friendlyName} network.`);
+        }
+    }
+
+    return provider;
+}
+
+export function ensureLineaSepolia() {
+    return ensureNetwork(59141n, "0xE705", "Linea Sepolia");
+}
+
+export function ensureLineaMainnet() {
+    return ensureNetwork(59144n, "0xE708", "Linea Mainnet");
+}
+
+// -------------------------------------------------------------
 // SIGNER (NEVER REQUEST PERMISSIONS HERE)
 // -------------------------------------------------------------
 export async function getSigner() {
@@ -457,28 +492,15 @@ export async function connectWallet() {
     if (!window.ethereum) {
         throw new Error("MetaMask is required.");
     }
-
     // Request wallet connection
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
 
-    // Create provider for Linea Sepolia, ENS disabled
-    const provider = new window.ethers.BrowserProvider(window.ethereum, {
-        chainId: 59141,
-        name: "linea-sepolia",
-        ensAddress: null
-    });
+    // Ensure the wallet is on Linea Sepolia
+    const provider = await ensureLineaSepolia();
 
-    // Check network; prompt switch if needed
-    const network = await provider.getNetwork();
-    if (network.chainId !== 59141n) {
-        try {
-            await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0xe704" }] // 59141 hex
-            });
-        } catch (switchErr) {
-            throw new Error("Please switch to the Linea Sepolia network.");
-        }
+    // Persist the connected wallet for gating state
+    if (Array.isArray(accounts) && accounts.length > 0) {
+        setWalletConnected(accounts[0]);
     }
 
     // Return signer for connected wallet
