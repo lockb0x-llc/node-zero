@@ -83,14 +83,23 @@ async function updateCarrierIndicator() {
   // MetaMask present, check connection
   
   try {
-    let accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    isConnected = Array.isArray(accounts) && accounts.length > 0;
-    account = isConnected ? accounts[0] : null;
+    isMetaMask = (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask);
+    if (isMetaMask) { 
+        let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        isConnected = Array.isArray(accounts) && accounts.length > 0;
+        account = isConnected ? accounts[0] : null;
+    }
+    else {
+        isConnected = false;
+        account = null;
+    }
+
   } catch (e) {
     isConnected = false;
   }
   pohVerified = false;
   hasSigil = false;
+  
   if (isMetaMask && isConnected && account) {
     // Check PoH and NFT status using utils.js if available
     if (window.lockb0xUtils && window.lockb0xUtils.isPohVerifiedForAddress) {
@@ -103,25 +112,26 @@ async function updateCarrierIndicator() {
         hasSigil = await window.lockb0xUtils.checkOwnershipForAddress(account);
       } catch { hasSigil = false; }
     }
+  }
 
-    // --- REDIRECT LOGIC ---
-    if (!hasSigil) {
-      // Get current path (without query/hash)
-      const path = window.location.pathname.replace(/\/$/, '');
-      // List of allowed pages (root, poh-gate, and lockb0x mint page)
-      const allowed = [
-        '/', 
-        '/index.html', 
-        '/poh-gate.html',
-        '/lockb0x/index.html'
-      ];
-      // If not allowed, redirect to root
-      if (!allowed.includes(path)) {
-        window.location.href = '/index.html';
-        return; // Prevent further UI updates
-      }
+  // --- REDIRECT LOGIC ---
+  if (!isConnected || !hasSigil ) {
+    // Get current path (without query/hash)
+    const path = window.location.pathname.replace(/\/$/, '');
+    // List of allowed pages (root, poh-gate, and lockb0x mint page)
+    const allowed = [
+      '/', 
+      '/index.html', 
+      '/poh-gate.html',
+      '/lockb0x/index.html'
+    ];
+    // If not allowed, redirect to root
+    if (!allowed.includes(path)) {
+      window.location.href = '/index.html';
+      return; // Prevent further UI updates
     }
   }
+
   // Update carrier indicator
   if (isConnected) {
     light.classList.remove('bg-red-500');
@@ -189,11 +199,8 @@ function waitForUtilsAndInit(retryCount) {
   statusMsg = document.getElementById('carrier_status_message');
 
   isMetaMask = (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask);
-  isConnected = false;
-  account = null;
-  pohVerified = false;
-  hasSigil = false;
-
+  
+  
   if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress && window.lockb0xUtils.isPohVerifiedForAddress) {
     updateCarrierIndicator();
     if (window.ethereum) {

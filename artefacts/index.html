@@ -65,44 +65,23 @@
       </div>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="../js/main.js"></script>
   <script src="../js/header-loader.js"></script>
-    <script src="../js/header-logic.js"></script>
-  <script type="module">
-    import { isMetaMaskInstalled, isMetaMaskConnected, getWalletConnected } from '../lockb0x/utils.js';
+  <script src="../lockb0x/contract-config.js"></script>
+  <script type="module" src="../lockb0x-utils-global.js"></script>
+  
+  <script>
 
-    async function fetchContractInfo() {
-      const [addressRes, abiRes] = await Promise.all([
-        fetch('../lockb0x/contract-address.json'),
-        fetch('../lockb0x/abi.json')
-      ]);
-      const contractInfo = await addressRes.json();
-      const abi = await abiRes.json();
-      return { contractInfo, abi };
-    }
-
-    async function hasLockb0xSigilNFT(address, contractInfo, abi) {
-      if (!window.ethers || !address) return false;
-      try {
-        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
-        const contract = new window.ethers.Contract(contractInfo.address, abi, provider);
-        const balance = await contract.balanceOf(address);
-        return balance && balance.toString() !== '0';
-      } catch (e) { return false; }
-    }
-
-    async function enforceTokenGate() {
-      if (!isMetaMaskInstalled() || !(await isMetaMaskConnected())) {
-        window.location.href = '../index.html';
-        return;
+    window.addEventListener('DOMContentLoaded', function () {
+      if (!window.lockb0xUtils) {
+        console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
       }
-      const address = getWalletConnected();
-      const { contractInfo, abi } = await fetchContractInfo();
-      if (!address || !(await hasLockb0xSigilNFT(address, contractInfo, abi))) {
-        window.location.href = '../index.html';
-        return;
+      if (typeof window.waitForUtilsAndInit === 'function') {
+        window.waitForUtilsAndInit();
       }
-    }
-    enforceTokenGate();
+
+    });
   </script>
 </body>
 </html>
