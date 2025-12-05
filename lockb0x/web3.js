@@ -7,7 +7,7 @@ export async function ensureLineaMainnet() {
         try {
             await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0xe770" }], // 59144 hex
+                params: [{ chainId: "0xE708" }], // 59144 hex
             });
             provider = new window.ethers.BrowserProvider(window.ethereum);
         } catch (err) {
@@ -64,7 +64,7 @@ export async function ensureLineaSepolia() {
         try {
             await window.ethereum.request({
                 method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0xe708" }], // 59141 hex
+                params: [{ chainId: "0xE705" }], // 59141 hex
             });
             provider = new window.ethers.BrowserProvider(window.ethereum);
         } catch (err) {

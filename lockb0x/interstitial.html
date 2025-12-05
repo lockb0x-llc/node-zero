@@ -23,7 +23,7 @@
     </div>
   </div>
   <script type="module">
-    import { isMetaMaskConnected, getWalletConnected, hasLockb0xSigilNFT, ensureLineaSepolia, registerWalletEventHandlers } from './utils.js';
+    import { isMetaMaskConnected, getWalletConnected, checkOwnershipForAddress, ensureLineaSepolia, registerWalletEventHandlers } from './utils.js';
 
     const statusEl = document.getElementById('status');
     const switchBtn = document.getElementById('switchBtn');
@@ -87,7 +87,7 @@
       const address = getWalletConnected();
       lastCheckedAddress = address;
       try {
-        const hasSigil = await hasLockb0xSigilNFT(address);
+        const hasSigil = await checkOwnershipForAddress(address);
         if (hasSigil) {
           statusEl.textContent = 'NFT found! Redirecting…';
           setTimeout(() => window.location.replace('/index.html'), 1000);

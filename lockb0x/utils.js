@@ -151,11 +151,12 @@ function logDebug(...args) {
  * @returns {Promise<{connected: boolean, wallet: string|null, poh: boolean, error: string|null}>}
  */
 export async function getTokenGatingState() {
-    let connected = false, wallet = null, poh = false, error = null;
+    let connected = false, wallet = null, address = null, poh = false, error = null;
     try {
         connected = await isMetaMaskConnected();
         wallet = getWalletConnected();
-        poh = await isPohVerified();
+        address = await getCurrentWalletAddress();
+        poh = await isPohVerifiedForAddress(address);
     } catch (e) {
         error = e?.message || String(e);
         if (_globalGatingErrorHandler) _globalGatingErrorHandler(error);
