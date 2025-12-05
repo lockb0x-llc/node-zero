@@ -218,7 +218,10 @@ export function setPohVerified(address) {
 // Check PoH verified for address (permanent)
 export function isPohVerifiedForAddress(address) {
     if (!address) return false;
-    return localStorage.getItem(LOCAL_POH_KEY(address)) === 'true';
+    const normalized = address.toLowerCase();
+    const pohKey = LOCAL_POH_KEY(normalized);
+    const value = localStorage.getItem(pohKey);
+    return value === 'true';
 }
 const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
 

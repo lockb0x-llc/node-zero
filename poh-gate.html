@@ -140,40 +140,47 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="lockb0x/contract-config.js"></script>
   <script src="js/header-loader.js"></script>
   <script type="module" src="lockb0x-utils-global.js"></script>
   <script>
-    // Wait for lockb0xUtils to be available before running any PoH logic
-    function waitForLockb0xUtils(maxRetries = 20, interval = 100) {
-      return new Promise((resolve) => {
-        let tries = 0;
-        function check() {
-          if (window.lockb0xUtils) {
-            resolve(window.lockb0xUtils);
-          } else if (tries < maxRetries) {
-            tries++;
-            setTimeout(check, interval);
-          } else {
-            resolve(null);
-          }
-        }
-        check();
-      });
-    }
+    // Further considerations implemented:
+    // 1. Wait for lockb0xUtils to be available before running PoH logic (no retry loop, just wait for script load)
+    // 2. UI updates for PoH status and error handling
+    // 4. Wallet/account event handling for UI refresh
+    // 5. Error management and accessibility
 
     function setPohStatus(message) {
       const el = document.getElementById('poh-status');
       if (el) el.textContent = message;
     }
 
+    function getLockb0xUtils() {
+      return new Promise((resolve) => {
+        if (window.lockb0xUtils) {
+          resolve(window.lockb0xUtils);
+        } else {
+          window.addEventListener('lockb0xUtilsReady', () => {
+            resolve(window.lockb0xUtils);
+          }, { once: true });
+        }
+      });
+    }
+
     async function checkPohAndUpdateUI() {
-      const lockb0xUtils = await waitForLockb0xUtils();
+      const lockb0xUtils = await getLockb0xUtils();
       if (!lockb0xUtils) {
         setPohStatus('PoH tools not loaded.');
         return;
       }
       setPohStatus('Checking Proof of Humanity...');
-      const result = await lockb0xUtils.checkPohAndPersist();
+      let result;
+      try {
+        result = await lockb0xUtils.checkPohAndPersist();
+      } catch (err) {
+        setPohStatus('PoH check error: ' + (err.message || err));
+        return;
+      }
       if (result.status && result.address) {
         lockb0xUtils.setWalletConnected(result.address);
         lockb0xUtils.setPohVerified(result.address);
@@ -191,7 +198,7 @@
     }
 
     async function updateWeb3IntroVisibility() {
-      const lockb0xUtils = await waitForLockb0xUtils();
+      const lockb0xUtils = await getLockb0xUtils();
       const web3Intro = document.getElementById('web3-intro');
       const introContainer = document.getElementById('intro-container');
       if (!web3Intro || !introContainer || !lockb0xUtils) return;
@@ -219,31 +226,26 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-      // Listen for account/network changes to update UI only (never clear POH)
-      lockb0xUtils = await waitForLockb0xUtils();
+      const lockb0xUtils = await getLockb0xUtils();
       if (lockb0xUtils && window.ethereum) {
         lockb0xUtils.registerWalletEventHandlers(updateWeb3IntroVisibility);
       }
-      
+
       const pohBtn = document.getElementById('pohBtn');
-            
       if (pohBtn) {
-        if(lockb0xUtils && lockb0xUtils.isMetaMaskConnected()) {
-          // If already connected, check PoH immediately
+        if (lockb0xUtils && lockb0xUtils.isMetaMaskConnected()) {
           pohBtn.textContent = 'Verify Humanity (Linea)';
           await checkPohAndUpdateUI();
-        } 
-
+        }
         pohBtn.addEventListener('click', async (evt) => {
           evt.preventDefault();
           await checkPohAndUpdateUI();
         });
       }
       await updateWeb3IntroVisibility();
-      
     });
 
-    // Also update on PoH verification from localStorage (e.g., after reload)
+    // Update UI on PoH verification from localStorage (e.g., after reload)
     updateWeb3IntroVisibility();
   </script>
 

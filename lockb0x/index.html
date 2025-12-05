@@ -109,22 +109,22 @@
         </div>
     </main>
 
+    <script src="../js/main.js"></script>
+    <script src="../lockb0x/contract-config.js"></script>
+    <script src="../js/header-loader.js"></script>    
+    <script type="module" src="../lockb0x-utils-global.js"></script>
 
     <script type="module" src="preview.js"></script>
     <script type="module" src="cbor.js"></script>
     <script type="module" src="mint.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../lockb0x/contract-config.js"></script>
-    <script src="../js/header-loader.js"></script>
     
-    <script type="module" src="../lockb0x-utils-global.js"></script>
-
 
 
 
     <!-- Wallet/PoH check and dynamic minting logic (UI always visible) -->
     <script type="module">
+
         import {
             isMetaMaskInstalled,
             isMetaMaskConnected,
@@ -135,9 +135,28 @@
             registerWalletEventHandlers
         } from './utils.js';
 
-
         let pohStatus = false;
         let walletAddress = null;
+
+        // Utility: Ensure user is on Linea Sepolia, prompt switch if not
+        async function ensureLineaSepoliaNetwork() {
+            if (!window.ethereum) return true;
+            try {
+                const provider = getProvider();
+                const network = await provider.getNetwork();
+                if (network.chainId !== 59141n) {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0xe704' }] // 59141 in hex
+                    });
+                    return true;
+                }
+                return true;
+            } catch (err) {
+                // User rejected or MetaMask error
+                return false;
+            }
+        }
 
         async function updateMintUI() {
             const mintBtn = document.getElementById('mintBtn');
@@ -174,11 +193,22 @@
             // Always enable mint button if wallet is connected and on correct network
             let provider, network;
             let onLinea = false;
+            let switchAttempted = false;
             if (connected) {
                 try {
                     provider = getProvider();
                     network = await provider.getNetwork();
                     onLinea = (network.chainId === 59141n);
+                    if (!onLinea) {
+                        // Attempt to switch network
+                        switchAttempted = true;
+                        const switched = await ensureLineaSepoliaNetwork();
+                        if (switched) {
+                            // Re-check network after switch
+                            network = await provider.getNetwork();
+                            onLinea = (network.chainId === 59141n);
+                        }
+                    }
                 } catch {}
             }
 
@@ -215,7 +245,11 @@
                     web3Info.textContent = 'Connect MetaMask to mint.';
                 } else if (!onLinea) {
                     web3Info.style.display = '';
-                    web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
+                    if (switchAttempted) {
+                        web3Info.textContent = 'Failed to switch to Linea Sepolia. Please switch manually in MetaMask.';
+                    } else {
+                        web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
+                    }
                 } else {
                     web3Info.style.display = 'none';
                     web3Info.textContent = '';
