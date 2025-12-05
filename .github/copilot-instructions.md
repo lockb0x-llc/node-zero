@@ -1,10 +1,13 @@
 # Copilot Instructions for node_zero
 
 ## Project Overview
-- **node_zero** is a blockchain metaverse archive, blending narrative, code, and NFTs across GitHub, Lamina1, Linea, and Stellar linked together through the implementationo the lockb0x protocol as an overall decentralized, super-positioned data mangement strategy.
-- Every contribution is a "causal anchor" — a fragment of story, artifact, or code, dual-anchored in GitHub and as an NFT on Lamina1 and Linea.
-- The project is both a creative writing platform and a technical experiment in decentralized provenance and gamified task/gig work management.
-- All participants must be verified through the Linea Proof of Humanity (PoH) system. Most content areas are token-gated based on this verification in addition to the presence of certain NFTs. like the lockb0x Sigil NFT and NFTs specific to the context of the area being accessed.
+- **node_zero** is a blockchain metaverse experience, blending narrative, code, and NFTs across GitHub, Lamina1, Linea, and Stellar blockchain networks.<br/>
+This pan-platform approach is created and managed through Pakana™ a UCC and GPDR Compliant Title and Real Property and IP Asset Management Platform.<br/>
+All linked together through the implementation of the lockb0x protocol as an overall decentralized, super-positioned data management strategy.
+- Every contribution is a "causal anchor" — a fragment of story, artifact, or code, dual-anchored in GitHub and as an NFT on Lamina1 and Linea. Quests are managed through Pakana as WorkOrders.
+- The project is both a creative writing platform and a technical experiment in decentralized asset provenance and gamified income creation.
+- All participants must be verified through the Linea Proof of Humanity (PoH) system to participate in the intial rewards pool, if any are earned, from the Linea Exponent competition.<br/>
+Most content areas are token-gated based on the presence of certain NFTs in the current participant's possesion, like the lockb0x Sigil NFT.
 
 ## Key Architectural Patterns
 - **Content Structure:**
@@ -12,9 +15,10 @@
   - `/stories/` — Main narrative fragments.
   - `/community/` — Community-contributed stories and artifacts.
   - `/lockb0x/` — Smart contract integrations, NFT minting, and verification scripts.
-  - `/ai-memory-mcp/` — AI memory and agent logic.
+  - `/ai-memory-mcp/` — AI memory and agent logic (under development).
 - **Lockb0x Anchoring:**
-  - All valid contributions must be present in both the GitHub repo and as a metadata anchor in a Lamina1 NFT and a transaction anchor on Linea. Reference codes must match.
+  - All valid contributions must be present in both the GitHub repo and as a metadata anchor in a Lamina1 NFT and a transaction anchor on Linea. Reference codes must match. All transactions must have a valid lockb0x protocol codex file associated with them in the root of their sub-folder structure.
+  - Tools are being implemented to automate this dual-anchoring process for contributors.
   - Provenance and immutability are ensured via blockchain anchoring, GitHub Permalinks, social account postings to node_zero accounts on Bluesky, Xitter, Lamina1 NFT Discord posts, AI generated video attestations on a dedicated YouTube channel, and other more or less "immutable" media and data storage archives, through the implementation of the Lockb0x Protocol.
 - **Immutable Archive:**
   - Once merged, contributions are permanent. Edits require new anchors.
