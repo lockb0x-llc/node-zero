@@ -10,6 +10,11 @@ module.exports = {
     "./signals/*.html",
     "./js/*.js"
   ],
+  safelist: [
+    'bg-emerald-400',
+    'bg-red-500',
+    'animate-pulse',
+  ],
   theme: {
   extend: {
     colors: {

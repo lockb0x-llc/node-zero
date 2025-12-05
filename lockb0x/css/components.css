@@ -1,0 +1,113 @@
+/*
+ * components.css — Buttons, Forms, Nav, and UI Elements
+ *
+ * Purpose: Encapsulates reusable UI components and atomic styles for buttons, forms, navbars, tables, and alerts.
+ *
+ * Usage: Import after base.css and layout.css. Use these classes for consistent, theme-driven UI elements.
+ */
+
+/* Buttons */
+.c-btn {
+  background: var(--color-accent-cyan);
+  color: var(--color-bg);
+  font-family: var(--font-sans);
+  font-weight: bold;
+  border: none;
+  border-radius: var(--radius-panel);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.c-btn:hover {
+  background: var(--color-accent-blue);
+  color: var(--color-text);
+}
+.c-btn--danger {
+  background: var(--color-danger);
+  color: var(--color-bg);
+}
+.c-btn--secondary {
+  background: var(--color-bg-light);
+  color: var(--color-accent-cyan);
+  border: 1px solid var(--color-accent-cyan);
+}
+
+/* Forms */
+.c-input, .c-select {
+  background: var(--color-bg-light);
+  color: var(--color-text);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-panel);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-sm);
+}
+.c-label {
+  color: var(--color-text-muted);
+  font-size: 0.95em;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+/* Navbar */
+.c-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--color-bg-mid);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+}
+.c-nav__item {
+  color: var(--color-accent-cyan);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-panel);
+  transition: background 0.2s, color 0.2s;
+}
+.c-nav__item:hover {
+  background: var(--color-accent-cyan);
+  color: var(--color-bg);
+}
+
+/* Tables */
+.c-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-light);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+.c-table th, .c-table td {
+  border: 1px solid var(--color-panel-border);
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+}
+.c-table th {
+  background: var(--color-bg-mid);
+  color: var(--color-accent-cyan);
+}
+
+/* Alerts */
+.c-alert {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-panel);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-sans);
+}
+.c-alert--warning {
+  background: var(--color-warning);
+  color: var(--color-bg);
+}
+.c-alert--danger {
+  background: var(--color-danger);
+  color: var(--color-bg);
+}
+.c-alert--success {
+  background: var(--color-accent-green);
+  color: var(--color-bg);
+}

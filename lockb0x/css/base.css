@@ -1,0 +1,79 @@
+/*
+ * base.css — CSS Reset, Root Variables, and Utility Classes
+ *
+ * Purpose: Provides a clean foundation for all stylesheets. Defines CSS custom properties (variables),
+ * resets browser defaults, and offers utility classes for rapid prototyping.
+ *
+ * Usage: Import this file first in your main stylesheet. All other CSS shards should rely on these variables and utilities.
+ */
+
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* Root Variables: Color, Spacing, Typography */
+:root {
+  --color-bg: #0b0d0f;
+  --color-bg-mid: #1a1d21;
+  --color-bg-light: #2a2f35;
+  --color-accent-cyan: #35eaff;
+  --color-accent-blue: #1b9cff;
+  --color-accent-purple: #a455ff;
+  --color-accent-green: #5bffb5;
+  --color-warning: #ffd43b;
+  --color-danger: #ff4b62;
+  --color-text: #d6e2f2;
+  --color-text-muted: #8ca0b3;
+  --color-panel-border: #101216;
+  --color-panel-glow: rgba(53, 234, 255, 0.15);
+  --radius-panel: 14px;
+  --shadow-panel: 0 0 24px var(--color-panel-glow);
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-sans: 'Orbitron', sans-serif;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+/* Utility Classes */
+.u-flex { display: flex !important; }
+.u-flex-row { flex-direction: row !important; }
+.u-flex-col { flex-direction: column !important; }
+.u-items-center { align-items: center !important; }
+.u-justify-center { justify-content: center !important; }
+.u-gap-xs { gap: var(--space-xs) !important; }
+.u-gap-sm { gap: var(--space-sm) !important; }
+.u-gap-md { gap: var(--space-md) !important; }
+.u-gap-lg { gap: var(--space-lg) !important; }
+.u-mt-md { margin-top: var(--space-md) !important; }
+.u-mb-md { margin-bottom: var(--space-md) !important; }
+.u-px-md { padding-left: var(--space-md) !important; padding-right: var(--space-md) !important; }
+.u-py-md { padding-top: var(--space-md) !important; padding-bottom: var(--space-md) !important; }
+.u-radius-panel { border-radius: var(--radius-panel) !important; }
+.u-shadow-panel { box-shadow: var(--shadow-panel) !important; }

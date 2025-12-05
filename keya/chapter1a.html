@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node_Zero // The Substrate — Interactive Text Adventure</title>
+    <link href="../css/tailwind.generated.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/chapter1a-game.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="min-h-screen text-white font-mono px-4 md:px-8 py-8 md:py-12">
+    <div class="bg-zinc-950" id="site-header"></div>
+    <header class="mb-6 md:mb-10 text-center">
+        <h1 class="title-font text-3xl md:text-5xl font-bold glow-cyan">Node_Zero :: The Substrate</h1>
+        <p class="mt-2 text-sm md:text-base text-gray-300">Interactive text adventure. Your choices unlock intel and
+            illuminate the universe.</p>
+    </header>
+    <!-- Controls / Status -->
+    <section
+        class="max-w-6xl mx-auto mb-4 md:mb-6 flex flex-wrap gap-2 items-center justify-between text-xs md:text-sm">
+        <div class="flex flex-wrap gap-2 items-center">
+            <button id="btn-new" class="btn btn-magenta" title="Start over">⟲ New Game</button>
+            <button id="btn-continue" class="btn btn-cyan" title="Load last save">⏵ Continue</button>
+            <button id="btn-skip" class="btn btn-green" title="Fast-forward current text">⏩ Fast-Forward</button>
+        </div>
+        <div class="flex items-center gap-3">
+            <label class="flex items-center gap-2"><input id="chk-typing" type="checkbox"
+                    checked /><span>Typing</span></label>
+            <label class="flex items-center gap-2"><input id="chk-autoscroll" type="checkbox"
+                    checked /><span>Auto-Scroll</span></label>
+            <div class="hidden md:flex items-center gap-2">
+                <span class="opacity-70">Speed</span>
+                <input id="rng-speed" type="range" min="10" max="60" value="18" />
+            </div>
+        </div>
+    </section>
+    <!-- Main Layout -->
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <!-- Console -->
+        <section class="lg:col-span-2 bg-black/40 border border-white/10 rounded-xl p-4 md:p-6 scanlines">
+            <div id="console-log" class="space-y-3 text-sm md:text-base leading-relaxed max-h-[70vh] overflow-auto">
+            </div>
+            <div id="choices" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </section>
+        <!-- Intel / Lore Panel -->
+        <aside class="bg-black/30 border border-white/10 rounded-xl p-4 md:p-6">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="title-font text-xl glow-green">Intel Unlocked</h2>
+                <span id="intel-count" class="pill" title="Intel items unlocked">0</span>
+            </div>
+            <div id="intel-list" class="space-y-2 text-sm"></div>
+            <hr class="my-4 border-white/10" />
+            <div class="space-y-2 text-xs text-gray-300">
+                <div><span class="badge">Tip</span> Hover or tap intel titles to expand.</div>
+                <div><span class="badge">Note</span> Game auto-saves progress locally.</div>
+            </div>
+        </aside>
+    </main>
+    <footer class="max-w-6xl mx-auto text-center text-[11px] md:text-xs text-gray-400 mt-6">
+        Central Inquiry • Node_Zero Universe • This is a fictional training simulation.
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/header-loader.js"></script>
+    <script src="../lockb0x/contract-config.js"></script>
+    <script type="module" src="../lockb0x-utils-global.js"></script>
+    
+    <script>
+
+        window.addEventListener('DOMContentLoaded', function () {
+            if (!window.lockb0xUtils) {
+                console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
+            }
+            if (typeof window.waitForUtilsAndInit === 'function') {
+                window.waitForUtilsAndInit();
+            }
+
+        });
+    </script>
+    
+    <script src="/js/chapter1a-game.js"></script>
+</body>
+
+</html>

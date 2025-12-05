@@ -19,23 +19,30 @@
         }
     </style>
 </head>
-<body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
-    <div id="site-header"></div>
+<body class="cyberpunk-bg cyberpunk-body text-white font-mono min-h-screen relative overflow-x-hidden">
+    <div class="bg-zinc-950" id="site-header"></div>
+    <!-- HERO IMAGE -->
+    <div class="relative z-20 flex flex-col items-center justify-center mb-8">
+        <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+        
     <main class="flex flex-col items-center min-h-screen w-full pt-8 px-4 relative z-10">
         <div class="max-w-3xl w-full mx-auto flex flex-col items-center">
             <h1 class="text-4xl md:text-5xl font-extrabold neon-cyan mb-4" style="font-family: 'Orbitron', monospace; letter-spacing: 0.12em;">
-                Primer
+                Portal to Node_Zero
             </h1>
             <div class="bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-8 py-12 w-full text-center">
-                <h2 class="text-2xl neon-cyan mb-4">Welcome to the Primer</h2>
+                <h2 class="text-2xl neon-cyan mb-4">Lore</h2>
                 <p class="text-zinc-300 mb-6">
-                    This section provides foundational knowledge and context for the Node_Zero universe. Explore the concepts, technologies, and lore that underpin the stories and intel you'll encounter.
-                </p>
-                <p class="text-zinc-300 mb-6">
-                    Dive into topics such as cybernetics, AI ethics, digital consciousness, and the socio-political landscape of this cyberpunk world. Whether you're a newcomer or a seasoned explorer, the Primer is your gateway to understanding the intricate web of narratives and technologies that define Node_Zero.
-                </p>
-                <p class="text-zinc-300 mb-6">
-                    Stay tuned for updates as we expand this section with more detailed articles, glossaries, and reference materials to enhance your journey through Node_Zero.
+                    <a href="../keya/index.html" class="bg-teal-400 px-8 py-4 text-xl flex flex-col items-center gap-2 group focus:outline-none focus:ring-4 focus:ring-pink-400/60 transition-all duration-200 
+                    font-orbitron tracking-widest uppercase relative overflow-hidden text-cyan-500 border-2
+                     border-pink-400 shadow-emerald-400/40 hover:bg-black hover:text-cyan-200
+                      hover:border-cyan-400 hover:shadow-cyan-400/40"
+                     style="text-shadow:0 0 12px #ada2b8,0 0 32px #ff00e044; letter-spacing:0.13em;">
+                        <span class="relative z-10 flex flex-col items-center">
+                            <span class="text-emerald-500 text-3xl mb-1 group-hover:text-cyan-300 transition-colors duration-200">Keya</span>
+                            <span class="text-cyan-500 text-lg mb-1">An Interactive Experience and Introduction to Keya, GigWork, and Autonomus "Intelligent" Technology in Node_Zero</span>
+                        </span>
+                    </a>
                 </p>
             </div>
 
@@ -68,7 +75,7 @@
                             style="min-width: 18rem; max-width: 22rem; flex:1 1 300px;">
                             <div class="card-body">
                                 <h5 class="card-title text-cyber-yellow">Pakana</h5>
-                                <p class="card-text text-zinc-300">The decentralized gig-economy bridge for Node_Zero, Stellar, and Lamina1.</p>
+                                <p class="card-text text-zinc-300">The decentralized gig-economy hub for Node_Zero, Stellar, Linea and Lamina1.</p>
                                 <a href="pakana.html" class="btn btn-outline-warning">Read Article</a>
                             </div>
                         </div>  
@@ -96,7 +103,28 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="../lockb0x/contract-config.js"></script>
+        <script src="../js/header-loader.js"></script>
+        
+        <script type="module" src="../lockb0x-utils-global.js"></script>
+
+<script>
+        
+        window.addEventListener('DOMContentLoaded', function () {
+            if (!window.lockb0xUtils) {
+                console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
+            }
+            if (typeof window.waitForUtilsAndInit === 'function') {
+                window.waitForUtilsAndInit();
+            }
+
+        });
+    </script>
+        
     </main>
-    <script src="../js/header-loader.js"></script>
+  
 </body>
 </html>

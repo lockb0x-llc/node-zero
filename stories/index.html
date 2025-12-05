@@ -24,8 +24,8 @@
            to-cyber-neon/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm">
           </span>
           <span class="relative z-10 flex flex-col items-center">
-            <span class="text-pink-500 text-3xl mb-1 group-hover:text-cyan-300 transition-colors duration-200">The Whispering Code</span>
-            <span class="text-cyber-magenta text-lg mb-1">Meet Keya</span>
+            <span class="text-pink-500 text-3xl mb-1 group-hover:text-cyan-300 transition-colors duration-200">Keya</span>
+            <span class="text-cyber-magenta text-lg mb-1">Welcome to Node_Zero</span>
             <span class="text-pink-400 text-base opacity-80 group-hover:text-cyan-100">Table of Contents &rarr;</span>
           </span>
         </a>
@@ -33,5 +33,43 @@
     </div>
   </main>
   <script src="../js/header-loader.js"></script>
+    <script src="../js/header-logic.js"></script>
+  <script type="module">
+    import { isMetaMaskInstalled, isMetaMaskConnected, getWalletConnected } from '../lockb0x/utils.js';
+
+    async function fetchContractInfo() {
+      const [addressRes, abiRes] = await Promise.all([
+        fetch('../lockb0x/contract-address.json'),
+        fetch('../lockb0x/abi.json')
+      ]);
+      const contractInfo = await addressRes.json();
+      const abi = await abiRes.json();
+      return { contractInfo, abi };
+    }
+
+    async function hasLockb0xSigilNFT(address, contractInfo, abi) {
+      if (!window.ethers || !address) return false;
+      try {
+        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+        const contract = new window.ethers.Contract(contractInfo.address, abi, provider);
+        const balance = await contract.balanceOf(address);
+        return balance && balance.toString() !== '0';
+      } catch (e) { return false; }
+    }
+
+    async function enforceTokenGate() {
+      if (!isMetaMaskInstalled() || !(await isMetaMaskConnected())) {
+        window.location.href = '../index.html';
+        return;
+      }
+      const address = getWalletConnected();
+      const { contractInfo, abi } = await fetchContractInfo();
+      if (!address || !(await hasLockb0xSigilNFT(address, contractInfo, abi))) {
+        window.location.href = '../index.html';
+        return;
+      }
+    }
+    enforceTokenGate();
+  </script>
 </body>
 </html>

@@ -52,10 +52,36 @@
           </a>
         </div>
 
+        <!-- Artefact Lamina1 Profile Card -->
+        <div
+          class="w-full max-w-2xl bg-gradient-to-r from-cyber-magenta/30 via-black/80 to-cyber-neon/30 border-2 border-cyber-magenta rounded-xl shadow-lg px-6 py-6 flex gap-6 items-center hover:shadow-neon-cyan hover:border-cyber-neon group transition">
+          <a href="https://vimeo.com/1133941819?fl=pl&fe=sh" target="_blank" rel="noopener" class="flex-shrink-0">
+            <img src="https://vimeo.com/1133941819?fl=pl&fe=sh" alt="Artefact"
+              class="w-24 h-24 rounded-lg border-2 border-cyber-neon shadow-cyber-neon/30 object-cover bg-black"
+              onerror="this.style.display='none'">
+          </a>
+        </div>
         
       </div>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="../js/main.js"></script>
   <script src="../js/header-loader.js"></script>
+  <script src="../lockb0x/contract-config.js"></script>
+  <script type="module" src="../lockb0x-utils-global.js"></script>
+  
+  <script>
+
+    window.addEventListener('DOMContentLoaded', function () {
+      if (!window.lockb0xUtils) {
+        console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
+      }
+      if (typeof window.waitForUtilsAndInit === 'function') {
+        window.waitForUtilsAndInit();
+      }
+
+    });
+  </script>
 </body>
 </html>

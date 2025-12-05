@@ -100,18 +100,22 @@
 </body>
 
 <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/header-loader.js"></script>
-  <script>
-    // Ensure the site-header is loaded on this page
-    if (typeof loadSiteHeader === 'function') {
-      loadSiteHeader();
-    } else {
-      window.addEventListener('DOMContentLoaded', function() {
-        if (typeof loadSiteHeader === 'function') loadSiteHeader();
-      });
-    }
-  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/header-loader.js"></script>
+<script src="../lockb0x/contract-config.js"></script>
+<script type="module" src="../lockb0x-utils-global.js"></script>
 
+<script>
+
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!window.lockb0xUtils) {
+      console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
+    }
+    if (typeof window.waitForUtilsAndInit === 'function') {
+      window.waitForUtilsAndInit();
+    }
+
+  });
+</script>
 </html>

@@ -19,8 +19,18 @@
   <main class="flex flex-col items-center min-h-screen pt-8 px-2 relative z-10">
     <div id="chat-messages" class="bg-black/90 rounded-2xl p-10 shadow-neon-cyan border-4 border-cyber-neon my-12 flex flex-col items-center animate-pulse-slow max-w-3xl mx-auto">
       <div class="w-full">
+        <p class="max-w-3xl mx-auto text-justify text-cyber-green text-lg">
+          To anyone else it is junk: more bot‑chatter, more forgotten language channels.
+          But Keya’s eyes don’t scan for meaning the way others do. <br />
+          They feel it in the flow of the Substrate, the swell and decay of digital cadence.
+          Their fingertips hover over their violet‑backlit keyboard, unnecessarily mimicking their intent.
+          The keyboard is just a construct, only visible to them, their network augmentations interact with the data-stream like
+          a
+          sixth-sense, the whispers of 5 Billion souls and the ghosts of countless others who came before,
+          expanding to fill their sensorium with a visceral flood of information.
+        </p>
         <div id="chat-messages" class="bg-black/90 rounded-2xl p-10 shadow-neon-cyan border-4 border-cyber-neon my-12 flex flex-col items-center animate-pulse-slow max-w-3xl mx-auto">
-          <h2 class="text-2xl neon-amber glitch mb-4 text-center">Potentially Obfuscated Pattern Dicovered</h2>
+          <h2 class="text-2xl neon-amber glitch mb-4 text-center">Potentially Obfuscated Pattern Detected</h2>
           <div class="w-full" style="padding:6px;">
             <!-- Sender: Korean -->
             <div class="chat-message">
@@ -224,18 +234,23 @@
 </body>
 
 <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/header-loader.js"></script>
-  <script>
-    // Ensure the site-header is loaded on this page
-    if (typeof loadSiteHeader === 'function') {
-      loadSiteHeader();
-    } else {
-      window.addEventListener('DOMContentLoaded', function() {
-        if (typeof loadSiteHeader === 'function') loadSiteHeader();
-      });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/header-loader.js"></script>
+<script src="../lockb0x/contract-config.js"></script>
+<script type="module" src="../lockb0x-utils-global.js"></script>
+
+<script>
+
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!window.lockb0xUtils) {
+      console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
     }
-  </script>
+    if (typeof window.waitForUtilsAndInit === 'function') {
+      window.waitForUtilsAndInit();
+    }
+
+  });
+</script>
 
 </html>

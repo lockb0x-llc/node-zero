@@ -1,0 +1,28 @@
+/*
+ * theme.css — Color Schemes, Dark/Light Modes, and Theming
+ *
+ * Purpose: Encapsulates theme-specific overrides, color schemes, and dark/light mode support. 
+ *
+ * Usage: Import after base.css. Override or extend :root variables for alternate themes.
+ */
+
+/* Default theme (dark) is set in base.css :root */
+
+/* Example: Light theme override */
+:root[data-theme='light'] {
+  --color-bg: #f7faff;
+  --color-bg-mid: #e3eaf2;
+  --color-bg-light: #f0f4fa;
+  --color-accent-cyan: #1b9cff;
+  --color-accent-blue: #35eaff;
+  --color-accent-purple: #a455ff;
+  --color-accent-green: #1bbf7a;
+  --color-warning: #ffd43b;
+  --color-danger: #ff4b62;
+  --color-text: #1a1d21;
+  --color-text-muted: #6c7a89;
+  --color-panel-border: #cfd8e3;
+  --color-panel-glow: rgba(27, 156, 255, 0.10);
+}
+
+/* Add more theme overrides as needed */

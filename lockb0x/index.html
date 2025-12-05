@@ -1,31 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mint lockb0x Key</title>
+    <meta charset="UTF-8" />
+    <title>Lockb0x Sigi – Designer & Mint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Futuristic fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap"
-    rel="stylesheet">
-  <!-- External stylesheet -->
-  <link rel="stylesheet" href="frontend.css" />
-  <!-- Import the mint script -->
-  <script type="module" src="mint.js"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+
+    <!-- Node-Zero Aesthetic CSS: Match root site -->
+    <link href="../css/tailwind.generated.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="stylesheet" href="./frontend.css">
+
+    <!-- PoH Gating: All gating logic is now centralized in utils.js -->
+
+    <!-- Load config first so window.APP_CONFIG is available globally -->
+    <script src="./config.js"></script>
+    <!-- Load Ethers UMD first so window.ethers exists before modules -->
+    <script src="./ethers.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">Mint your lockb0x Key</div>
-    <div class="nft-gallery">
-      <img src="c7c14c5c-17e8-4961-84f1-c558eadd89b9.png" alt="lockb0x1234 NFT" title="lockb0x1234 NFT Profile">
-      <img src="e68fd7fd-b564-4f2e-81f1-5d3f7b59b5a9.png" alt="Keya NFT" title="Keya's NFT Profile">
-      <img src="8dac5dd5-4f94-442b-a49c-239080e3d46d.png" alt="CIA NFT" title="Central Inquiry Agent's NFT Profile">
-    </div>
-    <button id="mintBtn" class="button">Connect &amp; Mint</button>
-    <p id="status"></p>
-  </div>
-</body>
+        <div id="site-header"></div>
+    <main>
+        <div id="connect-metamask-container" style="display:none; margin: 32px auto 18px auto; max-width: 420px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="background:rgba(16,24,32,0.96); border-radius:1.25rem; box-shadow:0 0 16px #00fff755, 0 0 4px #00fff7cc, 0 0 0 2px #222 inset; padding: 1.5rem 2rem; text-align:center; width: 100%; max-width: 340px;">
+                <button id="connectMetaMaskBtn" class="button" style="font-size:1.1rem;padding:0.7em 2em; background:#00fff7; color:#181824; border-radius:0.5em; font-weight:bold; box-shadow:0 0 8px #00fff7,0 0 16px #ff00ea; border:none; cursor:pointer; width:100%; max-width:320px;">Connect MetaMask</button>
+            </div>
+        </div>
+        
+        <div class="device-panel" id="device-panel">
+            <div id="web3-info" class="web3-info" style="display:none;text-align:center;margin-bottom:18px;"></div>
+            <div class="device-frame">
 
+                <div class="device-title">
+                    LOCKB0X SIGIL GENERATOR
+                </div>
+
+                <!-- Tier Selection --------------------------------------------------->
+                <div class="section-title">Tier Selection</div>
+
+                <div id="tier-wrapper" class="tier-panel standard">
+                    <label for="tierSelect">Minting Tier</label>
+                    <select id="tierSelect">
+                        <option value="standard" selected>Standard Tier (.01 Linea)</option>
+                        <option value="vip">VIP Tier (Requires Secret Code)</option>
+                        <option value="premium">Premium Tier (.05 Linea)</option>
+                    </select>
+
+                    <div id="secretCodeWrapper" style="display:none; margin-top:12px;">
+                        <label for="secretCode">Enter Secret Code</label>
+                        <input type="text" id="secretCode" placeholder="•••••••">
+                    </div>
+
+                    <div id="tierPrice" style="margin-top:10px; opacity:0.85;">
+                        Price: <strong>0.01 LINEA</strong>
+                    </div>
+                </div>
+
+                <!-- SVG Designer Panel --------------------------------------------->
+                <div class="section-title">Design Your Sigil</div>
+
+                <label for="variantSelect">Variant</label>
+                <select id="variantSelect">
+                    <option id="variant1" value="1">Variant 1 – Ocular</option>
+                    <option id="variant2" value="2">Variant 2 – Node Alignment</option>
+                    <option id="variant3" value="3">Variant 3 – Eye of Osiris</option>
+                    <option style="display: none;" id="variant4" value="4">Variant 4 – Trap</option>
+                    <option style="display: none;" id="variant5" value="5">Variant 5 – Radial</option>
+                    <option style="display: none;" id="variant6" value="6">Variant 6 – Corona</option>
+                    <option style="display: none;" id="variant7" value="7">Variant 7 – Flare</option>
+                    <option style="display: none;" id="variant8" value="8">Variant 8 – Dome</option>
+                    <option style="display: none;" id="variant9" value="9">Variant 9 – Double Aught</option>
+                </select>
+
+                <label for="bgHue">Background Hue</label>
+                <input id="bgHue" type="range" min="0" max="359" value="210">
+
+                <label for="primaryHue">Primary Hue</label>
+                <input id="primaryHue" type="range" min="0" max="359" value="180">
+
+                <label for="secondaryHue">Secondary Hue</label>
+                <input id="secondaryHue" type="range" min="0" max="359" value="280">
+
+                <label for="tilt">Tilt (°)</label>
+                <input id="tilt" type="range" min="-18" max="18" value="0">
+
+                <label for="stroke">Stroke Width</label>
+                <input id="stroke" type="range" min="10" max="40" value="20">
+
+                <label for="glow">Glow Intensity (%)</label>
+                <input id="glow" type="range" min="20" max="90" value="40">
+
+                <div id="preview-container">
+                    <svg id="preview"></svg>
+                </div>
+
+                <!-- Wallet Actions -->
+                <div class="section-title">Wallet & Mint</div>
+
+                <button id="mintBtn" class="button" disabled style="margin-top:14px;">Mint Lockb0x Sigil NFT</button>
+                <div id="mintStatus" style="margin-top:14px; min-height:20px; font-size:14px;"></div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <script type="module" src="preview.js"></script>
+    <script type="module" src="cbor.js"></script>
+    <script type="module" src="mint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../lockb0x/contract-config.js"></script>
+    <script src="../js/header-loader.js"></script>
+    
+    <script type="module" src="../lockb0x-utils-global.js"></script>
+
+
+
+
+    <!-- Wallet/PoH check and dynamic minting logic (UI always visible) -->
+    <script type="module">
+        import {
+            isMetaMaskInstalled,
+            isMetaMaskConnected,
+            getWalletConnected,
+            isWalletConnectionExpired,
+            isPohVerifiedForAddress,
+            getProvider,
+            registerWalletEventHandlers
+        } from './utils.js';
+
+
+        let pohStatus = false;
+        let walletAddress = null;
+
+        async function updateMintUI() {
+            const mintBtn = document.getElementById('mintBtn');
+            const mintStatus = document.getElementById('mintStatus');
+            const web3Info = document.getElementById('web3-info');
+            const tierSelect = document.getElementById('tierSelect');
+            const tierPrice = document.getElementById('tierPrice');
+            const connectContainer = document.getElementById('connect-metamask-container');
+            const connectBtn = document.getElementById('connectMetaMaskBtn');
+
+            // Check wallet and PoH status
+            pohStatus = false;
+            walletAddress = null;
+            let connected = false;
+            if (isMetaMaskInstalled()) {
+                connected = await isMetaMaskConnected();
+                if (connected) {
+                    walletAddress = getWalletConnected();
+                    if (walletAddress && !isWalletConnectionExpired()) {
+                        pohStatus = await isPohVerifiedForAddress(walletAddress);
+                    }
+                }
+            }
+
+            // Show/hide Connect MetaMask button
+            if (!isMetaMaskInstalled()) {
+                if (connectContainer) connectContainer.style.display = 'none';
+            } else if (!connected) {
+                if (connectContainer) connectContainer.style.display = '';
+            } else {
+                if (connectContainer) connectContainer.style.display = 'none';
+            }
+
+            // Always enable mint button if wallet is connected and on correct network
+            let provider, network;
+            let onLinea = false;
+            if (connected) {
+                try {
+                    provider = getProvider();
+                    network = await provider.getNetwork();
+                    onLinea = (network.chainId === 59141n);
+                } catch {}
+            }
+
+            // Update price display based on tier and PoH
+            let tier = tierSelect ? tierSelect.value : 'standard';
+            let priceText = '';
+            if (tier === 'standard') {
+                priceText = pohStatus ? 'Free Mint! (gas required)' : '0.01 LineaETH';
+            } else if (tier === 'vip') {
+                priceText = pohStatus ? 'Free w/ secret code' : '0.01 LINEA + secret code';
+            } else if (tier === 'premium') {
+                priceText = '0.05 LINEA';
+            }
+            if (tierPrice) tierPrice.innerHTML = `Price: <strong>${priceText}</strong>`;
+
+            // Enable/disable mint button
+            if (mintBtn) {
+                if (connected && onLinea) {
+                    mintBtn.disabled = false;
+                    mintBtn.style.opacity = '1';
+                } else {
+                    mintBtn.disabled = true;
+                    mintBtn.style.opacity = '0.5';
+                }
+            }
+
+            // Show wallet/network info if needed
+            if (web3Info) {
+                if (!isMetaMaskInstalled()) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Please install MetaMask to mint.';
+                } else if (!connected) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Connect MetaMask to mint.';
+                } else if (!onLinea) {
+                    web3Info.style.display = '';
+                    web3Info.textContent = 'Switch to Linea Sepolia network in MetaMask.';
+                } else {
+                    web3Info.style.display = 'none';
+                    web3Info.textContent = '';
+                }
+            }
+            if (mintStatus) mintStatus.textContent = '';
+        }
+
+        // Connect MetaMask button logic
+        document.getElementById('connectMetaMaskBtn').addEventListener('click', async (evt) => {
+            evt.preventDefault();
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                } catch (err) {}
+            }
+            await updateMintUI();
+        });
+
+        // Listen for tier changes to update price
+        document.getElementById('tierSelect').addEventListener('change', updateMintUI);
+
+        // Wallet/network/PoH event handlers
+        document.addEventListener('DOMContentLoaded', updateMintUI);
+        registerWalletEventHandlers(updateMintUI);
+
+        // Mint button logic
+        document.getElementById('mintBtn').addEventListener('click', async (evt) => {
+            evt.preventDefault();
+            const mintStatus = document.getElementById('mintStatus');
+            const tierSelect = document.getElementById('tierSelect');
+            const tier = tierSelect ? tierSelect.value : 'standard';
+            // Check wallet and PoH again
+            let connected = isMetaMaskInstalled() && await isMetaMaskConnected();
+            let provider, network, onLinea = false;
+            if (connected) {
+                try {
+                    provider = getProvider();
+                    network = await provider.getNetwork();
+                    onLinea = (network.chainId === 59141n);
+                } catch {}
+            }
+            if (!connected) {
+                mintStatus.textContent = 'Please connect MetaMask.';
+                return;
+            }
+            if (!onLinea) {
+                mintStatus.textContent = 'Please switch to Linea Sepolia network.';
+                return;
+            }
+            // Enforce minting rules
+            if (tier === 'standard' && !pohStatus) {
+                // Not PoH, must pay
+                // (Assume mint.js enforces payment, but show error if user tries to mint without payment)
+                // Here, just allow mint.js to handle payment, but show error if user tries to bypass
+                // Optionally, you could check for payment input here if UI allows
+            }
+            if (tier === 'vip') {
+                // Require secret code
+                const code = document.getElementById('secretCode').value.trim();
+                if (!code) {
+                    mintStatus.textContent = 'Secret code required for VIP tier.';
+                    return;
+                }
+            }
+            // Call mint.js logic (assumed to handle payment, PoH, etc.)
+            mintStatus.textContent = 'Processing mint...';
+            // The actual minting logic is in mint.js, which should enforce payment and PoH as needed
+        });
+    </script>
+    <script src="/js/header-loader.js"></script>
+</body>
 </html>

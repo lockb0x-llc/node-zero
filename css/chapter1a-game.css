@@ -1,0 +1,134 @@
+/* Layout, font, glow, button, and background styles from original chapter1a.html */
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00e0;
+  --neon-green: #00ffa3;
+  --amber: #fbbf24;
+  --bg-deep: #0a0b10;
+}
+body {
+  background: radial-gradient(1200px 700px at 50% -10%, rgba(0, 240, 255, 0.1), transparent 60%), #0a0b10;
+}
+.title-font {
+  font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+.glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 240, 255, .6), 0 0 18px rgba(0, 240, 255, .3);
+}
+.glow-magenta {
+  text-shadow: 0 0 8px rgba(255, 0, 224, .6), 0 0 18px rgba(255, 0, 224, .3);
+}
+.glow-green {
+  text-shadow: 0 0 8px rgba(0, 255, 163, .6), 0 0 18px rgba(0, 255, 163, .3);
+}
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px, transparent 3px);
+  mix-blend-mode: overlay;
+  opacity: .25;
+  border-radius: .75rem;
+}
+pre,
+.console-line {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.cursor::after {
+  content: '▌';
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  color: var(--neon-cyan);
+  margin-left: 2px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+.btn {
+  border: 1px solid rgba(255, 255, 255, .2);
+  padding: .5rem .8rem;
+  border-radius: .5rem;
+  background: rgba(255, 255, 255, .04);
+  transition: .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .35);
+}
+.btn-green {
+  border-color: rgba(0, 255, 163, .35);
+  color: var(--neon-green);
+}
+.btn-cyan {
+  border-color: rgba(0, 240, 255, .35);
+  color: var(--neon-cyan);
+}
+.btn-magenta {
+  border-color: rgba(255, 0, 224, .35);
+  color: var(--neon-magenta);
+}
+.pill {
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  padding: .15rem .6rem;
+  font-size: .75rem;
+  opacity: .85;
+}
+.badge {
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: .4rem;
+  padding: .1rem .4rem;
+  font-size: .7rem;
+  opacity: .9;
+}
+/* Styles for interactive fiction game UI (choices, log, etc.) */
+.choice {
+  border: 1px solid rgba(255, 255, 255, .15);
+  background: rgba(255, 255, 255, .03);
+  transition: opacity 0.15s;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  color: inherit;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+.choice[disabled], .choice.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.choice:hover:not([disabled]):not(.disabled) {
+  background: rgba(255, 255, 255, .07);
+  border-color: rgba(255, 255, 255, .35);
+}
+#log {
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1rem;
+  background: #18181b;
+  color: #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

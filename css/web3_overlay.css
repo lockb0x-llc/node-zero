@@ -1,0 +1,32 @@
+< !-- Web3Auth error overlay and style (placed just after <body> tag) --><style>#web3auth-error-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(20, 0, 30, 0.95);
+    color: #fff;
+    font-family: monospace;
+    padding: 2rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#web3auth-error-overlay.visible {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#web3auth-error-overlay code {
+    background: #222;
+    color: #ffb;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+}
+
+</style>

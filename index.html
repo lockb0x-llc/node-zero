@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Node Zero | Keya — Cyberpunk Metaverse Saga</title>
-<meta name="description" content="Enter the world of Node Zero: a cyberpunk metaverse where quantum blockchain entanglement, hidden artifacts, and secret transmissions reveal fragments of the Collapse. Start with Keya.">
+  <title>Node Zero | Keya</title>
+<meta name="description" content="Enter the world of Node Zero: a  metaverse where quantum blockchain entanglement, hidden artifacts, and secret transmissions reveal fragments. Start with Keya.">
 <meta name="keywords" content="Node Zero, Central Inquiry, cyberpunk, metaverse, The Collapse, Keya, Lamina1, lockb0x, alt_nexus, quantum blockchain entanglement, sci-fi storytelling">
-<meta property="og:title" content="Node Zero | Keya — Cyberpunk Metaverse Saga">
-<meta property="og:description" content="The signal from the future you were never meant to hear. Explore the Collapse, decode the ciphers, and uncover artifacts of the Node Zero metaverse.">
-<meta property="og:image" content="https://node-zero.xyz/assets/og-nodezero.jpg">
+<meta property="og:title" content="Node Zero | Keya">
+<meta property="og:description" content="Spanning time, truth, and blockchain entanglement, help Keya discover what's way out in The Blue and find out what it has in store for you.">
+<meta property="og:image" content="media/image/node_zero_profile.gif">
 <meta property="og:url" content="https://node-zero.xyz">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Node Zero | Keya — Cyberpunk Metaverse Saga">
-<meta name="twitter:description" content="A cryptic cyberpunk saga spanning time, truth, and blockchain entanglement.">
+<meta name="twitter:card" content="media/image/node_zero_profile.gif">
+<meta name="twitter:title" content="Node Zero | Keya — a Web3 adventure.">
+<meta name="twitter:description" content="Spanning time, truth, and blockchain entanglement, help Keya discover what's way out in The Blue and find out what it has in store for you.">
 <meta name="twitter:image" content="https://node-zero.xyz/assets/og-nodezero.jpg">
 <link href="css/tailwind.generated.css" rel="stylesheet">
 <link href="./css/styles.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://node-zero.xyz/" />
 <link rel="icon" type="image/png" href="media/favicon.png">
+<link rel="stylesheet" href="css/landing.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,166 +41,300 @@
     ]
   }
   </script>
-</head>
-<body class="cyberpunk-bg text-white font-mono min-h-screen relative overflow-x-hidden">
-  <div id="site-header"></div>
-  <!-- Animated scanlines overlay -->
-  <div class="scanlines pointer-events-none fixed inset-0 z-0"></div>
+
+<body class="bg-zinc-950">
+  <div class="bg-zinc-950" id="site-header"></div>
   <main>
-    <section class="relative min-h-[92vh] flex flex-col items-center justify-start bg-zinc-950 text-zinc-100 overflow-hidden pt-10">
-      <!-- ambient field -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 [background:radial-gradient(1100px_520px_at_70%_20%,rgba(59,130,246,.10),transparent_60%),radial-gradient(760px_360px_at_18%_82%,rgba(168,85,247,.10),transparent_60%)]"></div>
-      <div aria-hidden="true" class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,rgba(255,255,255,.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.22)_1px,transparent_1px)]; [background-size:32px_32px]"></div>
+    <div id="hero-banner" class="relative z-20 flex flex-col items-center justify-center mb-8 bg-zinc-950 pt-12 pb-6 px-4 rounded-b-3xl shadow-neon-cyan border-4 border-cyber-neon max-w-3xl mx-auto">
+    
+      <!-- <div class="relative flex items-center justify-center mx-auto overflow-visible" style="min-width:0; min-height:0;">
+            <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
+              <video id="hero-video" src="media/video/node_zero_you_are_here.mp4" alt="Node_Zero: Entry point." 
+              class="relative z-10 rounded-xl bg-zinc-900/80 shadow-lg" autoplay loop muted playsinline></video>
+          </div> 
+             -->
+      <h1 class="text-zinc-100">NODE_ZERO</h1>
+      
+      
+    </div>
 
-      <!-- HERO IMAGE -->
-      <div class="relative z-20 flex flex-col items-center justify-center mb-8">
-        <div class="relative flex items-center justify-center mx-auto overflow-visible" style="min-width:0; min-height:0;">
-          <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
-          <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
-            <video id="hero-video" src="media/video/node_zero_you_are_here.mp4" alt="Node_Zero: Entry point into the distributed cyberpunk metaverse." 
-            class="relative z-10 rounded-xl bg-zinc-900/80 shadow-lg" autoplay loop muted playsinline></video>
-        </div>
-        <h1 class="font-extrabold tracking-tight text-5xl sm:text-6xl md:text-7xl mt-8">
-          <span class="relative inline-block">
-            <span class="relative z-[2] block select-none">NODE_ZERO</span>
-          </span>
-        </h1>
-        <div class="mt-4 mb-2 inline-flex items-center gap-2 rounded-full border border-zinc-700/60 bg-zinc-900/40 px-3 py-1 text-xs uppercase tracking-wider text-zinc-300">
-          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Carrier detected
+    <section
+      class="relative min-h-[92vh] flex flex-col items-center justify-start bg-zinc-950 text-zinc-100 overflow-hidden pt-10">
+      <div id="glitch-bg" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></div>
+      <div id="intro-container"
+        class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
+        <div id="intro-middle-ring"
+          class="absolute inset-0 rounded-2xl border-4 border-cyber-neon pointer-events-none rainbow-pulse"></div>
+        <div id="intro-inner-ring"
+          class="absolute inset-2 rounded-xl border-4 border-cyber-magenta pointer-events-none rainbow-pulse"></div>
+        <div id="web3-intro" class="relative z-10 w-full flex flex-col items-center">
+          <h2 class="mb-2 text-cyber-neon neon-cyan">A World Woven Through Networks</h2>
+          <p>
+            A Lockb0x Sigil NFT is the key to the Node_Zero metaverse and its experiences.<br/>
+           <span class="text-cyan-300 content-center">There are three ways to obtain one; Prove Your Humanity, Purchase, or Join Lamina1.com, mint an NFT and send it to @cia.</p>
+          <div class="flex flex-col sm:flex-row gap-6 w-full justify-center  items-start mb-6">
+            <div id="verifyPoH" class="flex-1 flex flex-col items-center">
+              <h2>
+              <a href="poh-gate.html" target="_self" rel="nofollow" class="cyberpunk-link px-6 py-3 border border-cyan-400 rounded-lg bg-zinc-900/70 hover:bg-cyan-900/80 text-cyan-200 text-sm tracking-wide uppercase transition">
+                Verify Proof of Humanity
+              </a>
+              </h2>
+              <span class="text-sm text-cyan-300 mt-2 text-center block max-w-xs">
+                Prove your humanity via Linea.Build Hub.<br>PoH-verified users can mint from the Standard tier for free, VIP tier for free (with secret code), and are eligible for the <span class="text-magenta-400">Linea Exponent rewards pool</span>.</span>
+            </div>
+            <div id="mintNFT" class="flex-1 flex flex-col items-center">
+              <h2>
+              <a href="lockb0x/index.html" target="_self" rel="nofollow" class="cyberpunk-link-magenta px-6 py-3 border border-cyan-400 rounded-lg bg-zinc-900/70 hover:bg-cyan-900/80 text-magenta-200 text-sm tracking-wide uppercase transition">
+                Mint Lockb0x Sigil NFT
+              </a>
+            </h2>
+              <span class="text-sm text-magenta-300 mt-2 text-center block max-w-xs">Skip PoH and mint directly.<br>Anyone can mint from any tier by paying the required amount.<br/>
+              <span class="text-zinc-400">(PoH is required for Exponent Participation.)</span></span>
+
+            </div>
+          </div>
+          <div class="w-full mt-4 mb-4">
+            <table id="price-chart" class="w-full text-xs text-center border-collapse border border-cyber-neon bg-green-900/80 rounded-xl overflow-hidden price-chart-table">
+              <thead>
+                <tr class="bg-cyber-neon/10">
+                  <th class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">Tier</th>
+                  <th class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">PoH Verified</th>
+                  <th class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">Not PoH</th>
+                  <th class="p-2 border-b border-cyber-neon">Exponent Rewards Pool</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">Standard</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-green-400">Free (gas only)</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-magenta-300">0.01 LineaETH</td>
+                  <td class="p-2 border-b border-cyber-neon text-green-400">Eligible if Humanity Proven</td>
+                </tr>
+                <tr>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">VIP</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-green-400">Free w/ secret code</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-magenta-300">0.01 LineaETH + secret code</td>
+                  <td class="p-2 border-b border-cyber-neon text-green-400">Eligible if Humanity Proven</td>
+                </tr>
+                <tr>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon">Premium</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-magenta-300">0.05 LineaETH</td>
+                  <td class="p-2 border-b border-cyber-neon border-r-2 border-r-cyber-neon text-magenta-300">0.05 LineaETH</td>
+                  <td class="p-2 border-b border-cyber-neon text-green-400">Eligible if Humanity Proven</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer">What is Node_Zero?</summary>
+              <div class="mt-2">
+                <p>
+                  <span class="text-cyan-300">Node_Zero</span> is an early experimental  metaverse experience that blends storytelling, multimedia, interactive gaming adventures, web technologies, decentralization, and blockchain.<br/>
+                  Node_Zero invites participants to explore and contribute to a world filled with hidden artifacts, secret transmissions, and "quantum blockchain entanglement".<br/><br/>
+                  At its core, Node_Zero is about discovery and connection. Participants explore and are recruited to investigate and uncover pieces of intel that reveal the mysteries Node_Zero by receiving Work-Orders from the enigmatic Central Inquiry.<br/>Real-world and online missions are interwoven with in-world experiences.<br/><br/> 
+                  <h3 class="text-cyber-magenta">Node_Zero is for Humans Only</h3>
+                  <h5 class="text-cyber-yellow">although all entities encountered may not be.</h5>
+                  By participating in Node_Zero, users become part of a larger community engaged in exploring the implications of technology, identity, creativity, and commerce. The integration of blockchain adds a unique dimension to the experience, allowing for true ownership of digital assets and participation in decentralized networks.<br/><br/>
+                  
+                </p>
+              </div>
+            </details>
+          </div>
+          
+          
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer flex items-center gap-2">
+                <span id="faq_poh_badge">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" class="inline align-middle">
+                  <circle cx="10" cy="10" r="9" stroke="#34d399" stroke-width="2" fill="none" />
+                  <path d="M10 6.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 5c2.21 0 4 1.12 4 2.5V16H6v-2c0-1.38 1.79-2.5 4-2.5z"
+                    fill="#34d399" />
+                </svg>
+              </span>What is Proof of Humanity (PoH) and why does it matter? 
+            </summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300">Proof of Humanity (PoH)</span> is a decentralized identity verification system that ensures users are real humans and not bots. It combines social verification with biometric data to create a unique digital identity on the blockchain.<br/>
+                In the context of Node_Zero, PoH is important because it allows users to access certain features, such as minting Lockb0x Sigil NFTs for free and participating in the <span class="text-magenta-400">Exponent Participation Rewards Pool</span>.<br/><br/>To get PoH, follow the verification process at the <a href="https://linea.build/poh" target="_blank" rel="noopener" class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.
+                </p>
+                <p class="mt-2"><span class="text-magenta-300">Not interested in PoH?</span> You can still mint a Lockb0x Sigil NFT by paying the required amount, but you won't be eligible for the rewards pool.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer">What is the Exponent Participation Rewards Pool?</summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300">Lines Exponent Rewards</span> is an engagement rewards competition being conducted by the Linea blockshain. By participating in the Node_Zero Exponent Rewards Pool and regularly engaging with Node_Zero, you will share in any rewards that are earned by Node_Zero through January 31, 2026.<br/>
+                To be eligible for the Exponent Rewards Pool, you must be PoH-verified when you mint your Lockb0x Sigil NFT. <br><br>To get PoH, follow the verification process at the <a href="https://linea.build/poh" target="_blank" rel="noopener" class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.
+                </p>
+                <p class="mt-2"><span class="text-magenta-300">Not interested in PoH?</span> You can still mint a Lockb0x Sigil
+                  NFT by paying the required amount, but you won't be eligible for the rewards pool.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer">What is a Lockb0x Sigil?</summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300"><a href="https://lamina1.com" target="_blank" rel="noopener"
+                      class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Your Sigil NFT is a symbol or icon is
+                      your key to Node_Zero. It is used to unlock content and to represent your entity and its activities in
+                      Node_Zero. It is used as a visual identifier and the unique attibutes you set by customizing it along with
+                      other metadfata are used for various randomness and entropy characteristics within Node_ero
+                      experiences.</span>.
+                <ul>
+                  <li>Create a free Lamina1 Profile on the website, then join the Lamina1 Discord.</li>
+                  <li>Say "hello" to @og_paka in the Lamina1 Discord General channel and ask for one!</li>
+                  <li>To get PoH (optional but required for rewards), follow the verification process at the <a
+                      href="https://linea.build/poh" target="_blank" rel="noopener"
+                      class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.</li>
+                </ul>
+          
+                </p>
+          
+              </div>
+            </details>
+          </div>
+
+          
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer">How do I get a Secret Code???</summary>
+              <div class="mt-2">
+                <p><span class="text-cyan-300"><a href="https://lamina1.com" target="_blank" rel="noopener"
+                  class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Lamina1</a> Community Members are eligible for a free Lockb0x Sigil NFT</span>. 
+                  <ul>
+                    <li>Create a free Lamina1 Profile on the website, then join the Lamina1 Discord.</li>
+                    <li>Mint an NFT on Lamina1 and send it to @cia in the Lamina1 Hub.</li>
+                    <li>To get PoH (optional but required for rewards), follow the verification process at the <a
+                        href="https://linea.build/poh" target="_blank" rel="noopener"
+                        class="cyberpunk-link underline text-cyan-300 hover:text-cyan-200">Linea.Build Hub</a>.</li>
+                  </ul>
+                  
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <div class="w-full mt-4">
+            <details class="cyberpunk-panel bg-zinc-800/80 rounded-lg p-4 border border-cyber-neon text-xs text-zinc-300">
+              <summary class="text-cyan-300 cursor-pointer">Why are you making this so hard?</summary>
+              <div class="mt-2">
+                <p>
+                  <span class="text-cyan-300">Node_Zero</span> is designed to be an exclusive and immersive experience that rewards genuine engagement and exploration. By implementing verification steps like Proof of Humanity (PoH) and requiring specific actions to obtain a Lockb0x Sigil NFT, the aim to create a community of dedicated participants who are truly invested in the world of Node_Zero.<br/><br/>
+                  These requirements help ensure that the experience remains authentic and meaningful, fostering a sense of belonging among participants. While it may seem challenging at first, these steps are intended to enhance the overall experience and create a more vibrant and engaged community within Node_Zero.  
+                </p>
+              </div>
+            </details>
+          </div>
         </div>
       </div>
-
-      <!-- INTRO TEXT BOX -->
-      <div id="intro-text" class="relative z-10 bg-black/80 rounded-2xl shadow-neon-cyan border-4 border-cyber-neon px-6 py-8 max-w-3xl mx-auto mb-12 flex flex-col items-center gap-8">
-        <div class="absolute inset-0 rounded-2xl border-4 border-cyber-neon animate-glow-cyan pointer-events-none"></div>
-        <div class="absolute inset-2 rounded-xl border-4 border-cyber-magenta animate-glow-magenta pointer-events-none"></div>
-        <div class="relative z-10 w-full flex flex-col items-center">
-          <h2 class="mb-2 text-cyber-neon neon-cyan">A World Threaded Through Networks</h2>
-          <p class="text-zinc-300">
-            Node_Zero exists in the seams of the web you already use, the long tail of the old Internet. <br/>
-            It is not a single plot or platform, but an inception point of decentralized threads in the fabric of time and space rendered across cyberspace.<br/>
-            Encounter experiences in any order.<br/>
-            Engagement is rewarded.<br/>
-            Dissemination is celebrated.
-          </p>
-          <h2 class="mt-6 mb-2 text-cyber-neon neon-cyan w-full flex justify-center text-center">How to Read This Place</h2>
-          <p class="text-zinc-300">
-            Think of this site as a catalog to a distributed archive. node_zero is a trans-media 
-            experience existing across the digital landscape, 
-            hidden in plain-sight, deployed off-label.
-          </p>
-          <p class="mt-6 text-cyber-green font-medium w-full flex justify-center text-center">
-            Start; Anywhere. Wander. Contribute.<br/>
-            Unlock Rewarding Experiences.</p>
-        </div>
-      </div>
-
-      <!-- ENTRY POINTS -->
-      <div class="relative z-10 w-full max-w-5xl px-6">
-        <h2 class="text-left">Entry Points</h2>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          <!-- Entry: Vignette (Keya) -->
-          <a href="keya/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Keya</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Meet Keya and discover node_zero.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Experience Keya →</div>
-          </a>
-          <!-- Entry: Universe Primer -->
-          <a href="primer/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Universe Primer</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">A gentle orientation to the meta-web and its moving parts.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Read overview →</div>
-          </a>
-          <!-- Entry: Artifacts Index -->
-          <a href="artefacts/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Artefacts Index</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Neal S. Stephenson created the <em>Metaverse</em> in Snowcrash, in 1992.<br/>
-              Thirty years later, the technology has nearly caught up, Artefact is an inception point for a new kind of trans-media experience.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Browse Artefact →</div>
-          </a>
-          <!-- Entry: Stories Hub -->
-          <a href="stories/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Stories Hub</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">Short fiction and serials from multiple points of view.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Enter stories →</div>
-          </a>
-          <!-- Entry: The Blue (metaspace) -->
-          <a href="the-blue/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">The Blue</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">A metaspace where instances spin up, do their work, and fade.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Visit the edge →</div>
-          </a>
-          <!-- Entry: Ledgers & Signals -->
-          <a href="signals/index.html" class="group block rounded-xl border border-zinc-800/70 bg-zinc-900/40 p-5 hover:bg-zinc-900/60 focus:outline-none focus:ring-2 focus:ring-zinc-600">
-            <h3 class="m-0 text-zinc-100">Ledgers &amp; Signals</h3>
-            <p class="m-0 mt-1 text-sm text-zinc-400">On-chain traces, off-chain echoes, and how to verify them.</p>
-            <div class="mt-3 text-xs text-zinc-500 group-hover:text-zinc-400">Trace signals →</div>
-          </a>
-        </div>
         <!-- Footer tags -->
         <div class="mt-8 text-xs text-zinc-500 text-left">
           #NodeZero #CentralInquiry #BeforeTheInquiry #FragmentsOfTheCollapse #QuantumBlockchain #nft #blockchain #ai #metaverse #scifi #booksky
         </div>
           <footer class="bg-gray-900 text-gray-400 text-xs text-center p-6">
         <div>
-          &copy; 2025 lockb0x LLC. All rights reserved. &bull; 
+          &copy; 1998 lockb0x LLC. All rights reserved. &bull; 
         <span class="text-[10px] mt-1 block text-gray-400">
-          Node_Zero is an independent project and is not currently officially affiliated with Lamina1, Linea, or the Stellar Development Foundation in any official capacity.
+          Node_Zero is an independant project built by <a href="https://steventomlinson.dev" target="_blank" rel="noopener" class="cyberpunk-link">Steven Tomlinson</a> AKA O G Paka, an awarded and funded Engineer, Creator, and Ambassador in the Lamina1 and Stellar communities.
         </span>
-          <a href="https://lamina1.com" target="_blank" rel="noopener" class="text-cyan-400 hover:text-cyan-600">LAMINA1</a>
-          &bull; <a href="https://stellar.org" target="_blank" rel="noopener" class="text-cyan-400 hover:text-cyan-600">Stellar</a>
+        <a href="https://lamina1.com" target="_blank" rel="noopener" class="cyberpunk-link text-cyan-400 hover:text-cyan-600">Lamina1.com</a>
+        &bull; <a href="https://linea.build" target="_blank" rel="noopener" class="cyberpunk-link text-cyan-400 hover:text-cyan-600">Linea.Build</a>
+          &bull; <a href="https://stellar.org" target="_blank" rel="noopener" class="cyberpunk-link text-cyan-400 hover:text-cyan-600">Stellar.org</a>
         </div>
-        <span class="text-[10px] mt-2 block">
-          Stellar is a trademark of the Stellar Development Foundation. 
-          <br/>All rights reserved.
-        </span>
+        
       </footer>
       </div>
     </section>
   </main>
-  <!-- Scripts -->
+  
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/header-loader.js"></script>
+  <script src="lockb0x/contract-config.js"></script>
+  <script type="module" src="lockb0x-utils-global.js"></script>
 
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWorkSeries",
-  "name": "Node Zero Saga",
-  "alternateName": "Fragments of the Collapse",
-  "author": {
-    "@type": "Person",
-    "name": "Steven B. Tomlinson AKA O G Paka",
-    "url": "https://steventomlinson.dev"
-  },
-  "description": "A serialized cyberpunk metaverse saga where Node Zero, an orphaned AGI strategist, reveals fragments of the Collapse through entangled blockchain artifacts.",
-  "genre": ["Science Fiction", "Cyberpunk", "Metaverse Fiction"],
-  "keywords": "Node Zero, Keya, cyberpunk metaverse, Collapse, Central Inquiry, Lamina1, blockchain storytelling, AI narrative",
-  "url": "https://node-zero.xyz",
-  "hasPart": [
-    {
-      "@type": "Chapter",
-      "name": "Keya — Chapter 1",
-      "url": "https://node-zero.xyz/keya/chapter1-1.html",
-      "description": "Keya stumbles upon cryptic ciphers hidden in Discord language channels — the beginning of her journey into Node Zero’s metaverse.",
-      "position": 1
-    },
-    {
-      "@type": "WebPage",
-      "name": "Lamina1",
-      "url": "https://lamina1.com",
-      "description": "Lamina1 is a Layer One blockchain for the open metaverse, co-founded by Neal Stephenson. It is a major element in the Node_Zero universe."
+<script type="module">
+
+async function updateWeb3IntroVisibility() {
+  const web3Intro = document.getElementById('web3-intro');
+  const introContainer = document.getElementById('intro-container');
+  if (!web3Intro || !introContainer) return;
+
+  // Wait for dependencies
+  if (
+    !window.lockb0xUtils ||
+    typeof window.lockb0xUtils.checkOwnershipForAddress !== 'function' ||
+    !window.ethereum
+  ) {
+    setTimeout(updateWeb3IntroVisibility, 150);
+    return;
+  }
+
+  let address = null;
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    if (Array.isArray(accounts) && accounts.length > 0) {
+      address = accounts[0];
     }
-  ],
-  "publisher": {
-    "@type": "Organization",
-    "name": "lockb0x LLC",
-    "url": "https://node-zero.xyz"
+  } catch {}
+
+  if (!address) {
+    web3Intro.style.display = '';
+    introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
+    return;
+  }
+
+  try {
+    const hasSigil = await window.lockb0xUtils.checkOwnershipForAddress(address);
+    if (hasSigil) {
+      web3Intro.style.display = 'none';
+      introContainer.classList.add('intro-container-clickable', 'rainbow-pulse');
+      introContainer.onclick = () => {
+        window.location.href = 'primer/index.html';
+      };
+    } else {
+      web3Intro.style.display = '';
+      introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
+    }
+  } catch {
+    web3Intro.style.display = '';
+    introContainer.classList.remove('intro-container-clickable', 'rainbow-pulse');
   }
 }
-</script>
 
+document.addEventListener('DOMContentLoaded', updateWeb3IntroVisibility);
+  if (window.ethereum) {
+    window.ethereum.on && window.ethereum.on('accountsChanged', updateWeb3IntroVisibility);
+    window.ethereum.on && window.ethereum.on('chainChanged', updateWeb3IntroVisibility);
+  }
+  
+  // Backward compatibility: set window.lockb0x = window.lockb0xUtils if available
+    window.addEventListener('DOMContentLoaded', function () {
+    if (!window.lockb0xUtils) {
+      console.warn('lockb0xUtils not found; backward compatibility assignment skipped..');
+    }
+    if (typeof window.waitForUtilsAndInit === 'function') {
+      window.waitForUtilsAndInit();
+    }
+
+  });
+</script>
+</main>
+
+<!-- MS Clarity Cookie Consent Banner and Logic -->
+<div id="cookie-consent-banner" style="position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:1em;z-index:9999;display:none;justify-content:center;align-items:center;gap:1em;">
+  <span>This site only uses cookies for internal analytics (Microsoft Clarity) and others for some cool features, never for marketing. Do you accept?</span>
+  <button id="accept-cookies" style="background:#4caf50;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Accept</button>
+  <button id="decline-cookies" style="background:#f44336;color:#fff;border:none;padding:0.5em 1em;cursor:pointer;">Decline</button>
+</div>
 </body>
 </html>

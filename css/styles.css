@@ -1,3 +1,15 @@
+/* === Price Chart Table Borders === */
+#price-chart th, #price-chart td {
+  border: 1px solid var(--neon-cyan, #67e8f9) !important;
+  border-right-width: 3px !important;
+  background: rgba(10,20,30,0.92);
+}
+#price-chart th:last-child, #price-chart td:last-child {
+  border-right-width: 1px !important;
+}
+#price-chart th, #price-chart td {
+  box-shadow: 0 0 4px #00fff755;
+}
 /* Consistent readable background for chapter content */
 .chapter-content {
   background: rgba(20, 24, 40, 0.97);
@@ -151,36 +163,7 @@ body::after {
   90% { filter: brightness(1.3) drop-shadow(0 0 32px #ff00e0); }
   100% { filter: brightness(1) drop-shadow(0 0 8px #ff00e0); }
 }
-/* === Tooltip Styles === */
-.tooltip {
-  position: relative;
-  cursor: pointer;
-}
-.tooltip .tooltip-text {
-  visibility: hidden;
-  opacity: 0;
-  width: max-content;
-  max-width: 260px;
-  background: #111827ee;
-  color: #00fff7;
-  text-align: center;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  z-index: 20;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 16px #00fff7cc, 0 0 8px #ff00e0cc;
-  font-size: 0.95rem;
-  transition: opacity 0.2s, visibility 0.2s;
-  pointer-events: none;
-}
-.tooltip:hover .tooltip-text,
-.tooltip:focus .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
+
 /* === Cyberpunk Text Glow Styles === */
 .text-glow-cyan {
   text-shadow: 0 0 8px #00fff7, 0 0 16px #00fff7, 0 0 32px #00fff7;
@@ -428,3 +411,44 @@ legend {
   margin-left: 1.5rem !important;
 }
 
+:root {
+  --neon-cyan: #67e8f9;
+  --neon-magenta: #f472b6;
+  --muted-bg: rgba(12, 12, 24, 0.85);
+}
+
+body.cyberpunk-body {
+  font-size: 1.05rem;
+  letter-spacing: 0.035em;
+  line-height: 1.75;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Orbitron', monospace;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-shadow: 0 0 6px var(--neon-cyan), 0 0 12px var(--neon-magenta);
+}
+
+.cyberpunk-panel {
+  background: var(--muted-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-magenta);
+}
+
+.cyberpunk-link {
+  transition: all 0.3s ease;
+}
+
+.cyberpunk-link:hover {
+  color: #a5f3fc;
+  text-shadow: 0 0 4px var(--neon-cyan);
+}

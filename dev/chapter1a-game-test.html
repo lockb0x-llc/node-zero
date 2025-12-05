@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Fiction Game Test</title>
+  <link rel="stylesheet" href="../css/chapter1a-game.css">
+  <link rel="stylesheet" href="../css/chapter1.css">
+  <style>
+    body { background: #18181b; color: #e0e0e0; font-family: 'Fira Mono', 'Consolas', monospace; padding: 2rem; }
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Interactive Fiction Game Test</h1>
+  <div id="log"></div>
+  <div id="choices"></div>
+  <button id="start-game-btn" style="margin-top:1rem;display:none;">Start Game</button>
+  <div id="error-msg" style="color:#ff5555;margin-top:1rem;"></div>
+  <script src="../js/chapter1a-game.js"></script>
+  <script>
+    // Fallback: show start button if game does not auto-start
+    setTimeout(function() {
+      if (!window.chapter1aGame || !chapter1aGame.state.scene) {
+        document.getElementById('start-game-btn').style.display = 'inline-block';
+      }
+    }, 500);
+    document.getElementById('start-game-btn').onclick = function() {
+      if (window.chapter1aGame) chapter1aGame.runScene('start');
+    };
+    // Error message if log/choices missing
+    window.addEventListener('DOMContentLoaded', function() {
+      if (!document.getElementById('log') || !document.getElementById('choices')) {
+        document.getElementById('error-msg').textContent = 'Error: #log or #choices element missing from page.';
+      }
+    });
+  </script>
+</body>
+</html>

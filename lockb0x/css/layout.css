@@ -1,0 +1,46 @@
+/*
+ * layout.css — Layout, Containers, and Grid Utilities
+ *
+ * Purpose: Defines reusable layout patterns, containers, wrappers, and grid/flex utilities for rapid prototyping and consistent structure.
+ *
+ * Usage: Import after base.css. Use these classes to build page structure and responsive layouts.
+ */
+
+/* Main container for centered content */
+.l-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--color-bg-mid);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Panel for card-like UI */
+.l-panel {
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* Flex and grid helpers */
+.l-flex { display: flex; }
+.l-flex-col { flex-direction: column; }
+.l-flex-row { flex-direction: row; }
+.l-flex-center { align-items: center; justify-content: center; }
+.l-gap-md { gap: var(--space-md); }
+
+/* Responsive grid */
+.l-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+@media (max-width: 700px) {
+  .l-container { padding: var(--space-md) var(--space-sm); }
+  .l-grid { grid-template-columns: 1fr; }
+}

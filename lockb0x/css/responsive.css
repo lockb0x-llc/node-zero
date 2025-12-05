@@ -1,0 +1,43 @@
+/*
+ * responsive.css — Media Queries and Responsive Utilities
+ *
+ * Purpose: Contains all responsive breakpoints, mobile/tablet overrides, and utility classes for adaptive layouts.
+ *
+ * Usage: Import after all other CSS shards. Use these classes and breakpoints to ensure mobile-first, accessible design.
+ */
+
+@media (max-width: 900px) {
+  .l-container {
+    max-width: 100%;
+    padding: var(--space-md) var(--space-sm);
+  }
+  .c-nav {
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .l-container {
+    padding: var(--space-sm);
+  }
+  .c-btn, .c-input, .c-select {
+    width: 100%;
+    font-size: 1em;
+  }
+  .c-table th, .c-table td {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.95em;
+  }
+}
+
+/* Utility: Hide on mobile */
+.u-hide-mobile {
+  display: none !important;
+}
+@media (min-width: 601px) {
+  .u-hide-mobile {
+    display: initial !important;
+  }
+}
