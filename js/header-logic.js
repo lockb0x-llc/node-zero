@@ -93,15 +93,33 @@ async function updateCarrierIndicator() {
   hasSigil = false;
   if (isMetaMask && isConnected && account) {
     // Check PoH and NFT status using utils.js if available
-    if (window.lockb0x && window.lockb0x.isPohVerifiedForAddress) {
+    if (window.lockb0xUtils && window.lockb0xUtils.isPohVerifiedForAddress) {
       try {
-        pohVerified = window.lockb0x.isPohVerifiedForAddress(account);
+        pohVerified = window.lockb0xUtils.isPohVerifiedForAddress(account);
       } catch { pohVerified = false; }
     }
-    if (window.lockb0x && window.lockb0x.checkOwnershipForAddress) {
+    if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress) {
       try {
-        hasSigil = await window.lockb0x.checkOwnershipForAddress(account);
+        hasSigil = await window.lockb0xUtils.checkOwnershipForAddress(account);
       } catch { hasSigil = false; }
+    }
+
+    // --- REDIRECT LOGIC ---
+    if (!hasSigil) {
+      // Get current path (without query/hash)
+      const path = window.location.pathname.replace(/\/$/, '');
+      // List of allowed pages (root, poh-gate, and lockb0x mint page)
+      const allowed = [
+        '/', 
+        '/index.html', 
+        '/poh-gate.html',
+        '/lockb0x/index.html'
+      ];
+      // If not allowed, redirect to root
+      if (!allowed.includes(path)) {
+        window.location.href = '/index.html';
+        return; // Prevent further UI updates
+      }
     }
   }
   // Update carrier indicator
@@ -153,15 +171,10 @@ async function updateCarrierIndicator() {
     connectBtn._handlerSet = true;
   }
   // lockb0x utils unavailable
-  if (isConnected && (!window.lockb0x || !window.lockb0x.checkOwnershipForAddress || !window.lockb0x.isPohVerifiedForAddress)) {
+  if (isConnected && (!window.lockb0xUtils || !window.lockb0xUtils.checkOwnershipForAddress || !window.lockb0xUtils.isPohVerifiedForAddress)) {
       console.log('Advanced features unavailable (lockb0x not loaded).');
   }
 }
-
-
-
-
-
 
 
 function waitForUtilsAndInit(retryCount) {
@@ -181,7 +194,7 @@ function waitForUtilsAndInit(retryCount) {
   pohVerified = false;
   hasSigil = false;
 
-  if (window.lockb0x && window.lockb0x.checkOwnershipForAddress && window.lockb0x.isPohVerifiedForAddress) {
+  if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress && window.lockb0xUtils.isPohVerifiedForAddress) {
     updateCarrierIndicator();
     if (window.ethereum) {
       window.ethereum.on && window.ethereum.on('accountsChanged', updateCarrierIndicator);
@@ -196,7 +209,7 @@ function waitForUtilsAndInit(retryCount) {
       window.ethereum.on && window.ethereum.on('accountsChanged', updateCarrierIndicator);
       window.ethereum.on && window.ethereum.on('chainChanged', updateCarrierIndicator);
     }
-    if (typeof window.lockb0x === 'undefined') {
+    if (typeof window.lockb0xUtils === 'undefined') {
       console.warn('lockb0x utils not available after retries; proceeding with basic carrier detection.');
     }
   }

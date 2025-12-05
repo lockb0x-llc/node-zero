@@ -141,6 +141,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/header-loader.js"></script>
+  <script type="module" src="lockb0x-utils-global.js"></script>
   <script>
     // Wait for lockb0xUtils to be available before running any PoH logic
     function waitForLockb0xUtils(maxRetries = 20, interval = 100) {
@@ -218,19 +219,28 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
+      // Listen for account/network changes to update UI only (never clear POH)
+      lockb0xUtils = await waitForLockb0xUtils();
+      if (lockb0xUtils && window.ethereum) {
+        lockb0xUtils.registerWalletEventHandlers(updateWeb3IntroVisibility);
+      }
+      
       const pohBtn = document.getElementById('pohBtn');
+            
       if (pohBtn) {
+        if(lockb0xUtils && lockb0xUtils.isMetaMaskConnected()) {
+          // If already connected, check PoH immediately
+          pohBtn.textContent = 'Verify Humanity (Linea)';
+          await checkPohAndUpdateUI();
+        } 
+
         pohBtn.addEventListener('click', async (evt) => {
           evt.preventDefault();
           await checkPohAndUpdateUI();
         });
       }
       await updateWeb3IntroVisibility();
-      // Listen for account/network changes to update UI only (never clear POH)
-      const lockb0xUtils = await waitForLockb0xUtils();
-      if (lockb0xUtils && window.ethereum) {
-        lockb0xUtils.registerWalletEventHandlers(updateWeb3IntroVisibility);
-      }
+      
     });
 
     // Also update on PoH verification from localStorage (e.g., after reload)
