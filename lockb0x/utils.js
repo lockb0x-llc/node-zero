@@ -265,9 +265,7 @@ export function registerWalletEventHandlers(callback) {
         });
     }
 }
-
-// Alias for compatibility with import { isPoHVerified }
-export const isPoHVerified = isPohVerified;
+;
 
 // Export TIER_PRICE for compatibility with import { TIER_PRICE }
 export const TIER_PRICE = {
