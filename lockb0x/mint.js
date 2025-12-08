@@ -1,5 +1,5 @@
 
-// mint.js — FINAL CLEAN VERSION
+// mint.js - NFT minting logic for Lockb0x
 // ---------------------------------------------------------------------
 import {
     connectWallet,
@@ -11,11 +11,13 @@ import {
     registerWalletEventHandlers,
     setDebugMode,
     setGatingErrorHandler,
-    isWalletConnectionExpired,
     isPohVerifiedForAddress,
     getPohSignature,
     checkPohAndPersist
 } from "./utils.js";
+
+
+
 // Enable debug mode for development (set to false in production)
 setDebugMode(true);
 
@@ -107,11 +109,14 @@ mintBtn.addEventListener("click", async () => {
         try {
             // Centralized gating check
             const { connected, wallet, error } = await getTokenGatingState();
-            if (!connected || !wallet || isWalletConnectionExpired()) {
+            if (!connected || !wallet) {
                 let msg = error ? `Mint blocked: ${error}` : "Mint blocked: Wallet connection required.";
-                if (isWalletConnectionExpired()) {
-                    msg = "Mint blocked: Wallet connection expired. Please reconnect your wallet.";
+                if(!connected) {
+                    msg = "Mint blocked: Wallet not connected.";
+                } else if (!wallet) {
+                    msg = "Mint blocked: Wallet address not found.";
                 }
+
                 mintStatus.textContent = msg;
                 mintStatus.style.color = "#f66";
                 mintBtn.disabled = false;

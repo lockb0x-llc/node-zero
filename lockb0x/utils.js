@@ -1,3 +1,16 @@
+import {
+    getPohSignature,
+    setPohSignature,
+    isPohSignatureVerified,
+    getTokenGatingState,
+    setPohVerified,
+    isPohVerifiedForAddress,
+    checkPohAndPersist
+} from './session.js';
+
+const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
+
+
 /**
  * Centralized eligibility logic for minting.
  * @param {string} address - Wallet address (required)
@@ -82,11 +95,12 @@ export async function checkOwnershipForAddress(address) {
             console.error("checkOwnershipForAddress: window.ethers missing");
             return false;
         }
-        const provider = new window.ethers.providers.Web3Provider(window.ethereum);
+        const provider = new window.ethers.BrowserProvider(window.ethereum);
         const network = await provider.getNetwork();
+        const chainId = typeof network.chainId === 'bigint' ? network.chainId : BigInt(network.chainId);
         // Only check on Linea Sepolia (59141)
-        if (network.chainId !== 59141) {
-            console.warn("checkOwnershipForAddress: Not on Linea Sepolia (59141)", { chainId: network.chainId });
+        if (chainId !== 59141n) {
+            console.warn("checkOwnershipForAddress: Not on Linea Sepolia (59141)", { chainId });
             return false;
         }
         const contract = new window.ethers.Contract(window.SIGIL_CONTRACT_ADDRESS, window.SIGIL_CONTRACT_ABI, provider);
@@ -106,7 +120,7 @@ export async function checkOwnershipForAddress(address) {
 // These helpers store and retrieve the PoH signature for a given address in localStorage.
 // The signature is public and permanent for each address, and is reused for all future operations.
 
-// Retrieve the PoH signature for the given address (returns string|null)
+/* // Retrieve the PoH signature for the given address (returns string|null)
 export function getPohSignature(address) {
     if (!address) return null;
     const key = `poh_signature_${address.toLowerCase()}`;
@@ -124,7 +138,7 @@ export function setPohSignature(address, signature) {
 // This is true if a signature exists in localStorage for the address.
 export function isPohSignatureVerified(address) {
     return !!getPohSignature(address);
-}
+} */
 /**
  * Lockb0x Token-Gating Utilities
  * Centralizes all wallet/PoH state, event registration, debug mode, and error handling.
@@ -150,14 +164,11 @@ function logDebug(...args) {
  * Returns the current token-gating state.
  * @returns {Promise<{connected: boolean, wallet: string|null, poh: boolean, error: string|null}>}
  */
-export async function getTokenGatingState() {
+/* export async function getTokenGatingState() {
     let connected = false, wallet = null, address = null, poh = false, error = null;
     try {
         connected = await isMetaMaskConnected();
-        wallet = getWalletConnected();
         address = await getCurrentWalletAddress();
-        // Prefer persisted wallet, but fall back to the live address if storage is empty
-        wallet = wallet || address;
         poh = await isPohVerifiedForAddress(wallet);
     } catch (e) {
         error = e?.message || String(e);
@@ -165,7 +176,7 @@ export async function getTokenGatingState() {
     }
     logDebug('Gating state:', { connected, wallet, poh, error });
     return { connected, wallet, poh, error };
-}
+} 
 export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v2'; // v2: stores JSON with timestamp
 export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase()}`;
 
@@ -179,39 +190,10 @@ export function setWalletConnected(address) {
     };
     localStorage.setItem(LOCAL_WALLET_KEY, JSON.stringify(data));
 }
-
-// Get wallet connection state from localStorage (returns address if not expired, else null)
-export function getWalletConnected() {
-    const data = localStorage.getItem(LOCAL_WALLET_KEY);
-    if (!data) return null;
-    try {
-        const parsed = JSON.parse(data);
-        // 24h = 86400000 ms
-        if (Date.now() - parsed.connectedAt > 86400000) {
-            localStorage.removeItem(LOCAL_WALLET_KEY);
-            return null;
-        }
-        return parsed.address;
-    } catch (e) {
-        localStorage.removeItem(LOCAL_WALLET_KEY);
-        return null;
-    }
-}
-
-// Check if wallet connection is expired (returns true if expired, false if valid)
-export function isWalletConnectionExpired() {
-    const data = localStorage.getItem(LOCAL_WALLET_KEY);
-    if (!data) return true;
-    try {
-        const parsed = JSON.parse(data);
-        return (Date.now() - parsed.connectedAt > 86400000);
-    } catch (e) {
-        return true;
-    }
-}
+*/
 
 // Set PoH verified for address (permanent, never expires)
-export function setPohVerified(address) {
+/* export function setPohVerified(address) {
     if (address) {
         localStorage.setItem(LOCAL_POH_KEY(address), 'true');
     }
@@ -225,8 +207,7 @@ export function isPohVerifiedForAddress(address) {
     const value = localStorage.getItem(pohKey);
     return value === 'true';
 }
-const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
-
+ */
 // Check if MetaMask is installed
 export function isMetaMaskInstalled() {
     return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
@@ -289,7 +270,7 @@ export const TIER_PRICE = {
  * @param {function} pohVerifyFn - (Optional) A function to perform PoH verification and return the signature.
  * @returns {Promise<{ status: boolean, address: string|null, signature: string|null, error: string|null }>} 
  */
-export async function checkPohAndPersist(address, pohVerifyFn) {
+/* export async function checkPohAndPersist(address, pohVerifyFn) {
     let resolvedAddress = address;
     if (!resolvedAddress) {
         resolvedAddress = await getCurrentWalletAddress();
@@ -329,7 +310,7 @@ export async function checkPohAndPersist(address, pohVerifyFn) {
     } catch (err) {
         return { status: false, address: resolvedAddress, signature: null, error: err?.message || String(err) };
     }
-}
+} */
 // utils.js — Shared helpers for Lockb0x Symbol Designer & Mint
 // Uses ESM but expects ethers.min.js (UMD) to already be loaded globally.
 
@@ -525,3 +506,13 @@ export function getTierPrice(tier) {
             throw new Error("Unknown tier: " + tier);
     }
 }
+
+export {
+    getPohSignature,
+    setPohSignature,
+    isPohSignatureVerified,
+    getTokenGatingState,
+    setPohVerified,
+    isPohVerifiedForAddress,
+    checkPohAndPersist
+  } from './session.js';

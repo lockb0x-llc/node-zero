@@ -31,12 +31,7 @@ export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase
 
 export async function checkPohAndPersist(address, pohVerifyFn) {
     let resolvedAddress = address;
-    if (!resolvedAddress) {
-        // Use web3.js for getCurrentWalletAddress if available
-        if (typeof window.getCurrentWalletAddress === 'function') {
-            resolvedAddress = await window.getCurrentWalletAddress();
-        }
-    }
+    
     // If still no address, prompt user to connect wallet
     if (!resolvedAddress && window.ethereum) {
         try {
