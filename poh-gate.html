@@ -176,14 +176,13 @@
       setPohStatus('Checking Proof of Humanity...');
       let result;
       try {
-        result = await lockb0xUtils.checkPohAndPersist();
+        result = await lockb0xUtils.checkPoh();
       } catch (err) {
         setPohStatus('PoH check error: ' + (err.message || err));
         return;
       }
       if (result.status && result.address) {
         lockb0xUtils.setWalletConnected(result.address);
-        lockb0xUtils.setPohVerified(result.address);
         setPohStatus('Proof of Humanity verified.');
       } else {
         setPohStatus(result.error || 'Proof of Humanity check failed.');
@@ -210,8 +209,7 @@
       }
       let poh = false;
       if (address) {
-        poh = lockb0xUtils.isPohVerifiedForAddress(address);
-        if (poh) lockb0xUtils.setPohVerified(address);
+        poh = await lockb0xUtils.checkPohStatus(address);
       }
       if (connected && poh) {
         web3Intro.style.display = 'none';

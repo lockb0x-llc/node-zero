@@ -102,9 +102,9 @@ async function updateCarrierIndicator() {
   
   if (isMetaMask && isConnected && account) {
     // Check PoH and NFT status using utils.js if available
-    if (window.lockb0xUtils && window.lockb0xUtils.isPohVerifiedForAddress) {
+    if (window.lockb0xUtils && window.lockb0xUtils.checkPohStatus) {
       try {
-        pohVerified = window.lockb0xUtils.isPohVerifiedForAddress(account);
+        pohVerified = await window.lockb0xUtils.checkPohStatus(account);
       } catch { pohVerified = false; }
     }
     if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress) {
@@ -181,7 +181,7 @@ async function updateCarrierIndicator() {
     connectBtn._handlerSet = true;
   }
   // lockb0x utils unavailable
-  if (isConnected && (!window.lockb0xUtils || !window.lockb0xUtils.checkOwnershipForAddress || !window.lockb0xUtils.isPohVerifiedForAddress)) {
+  if (isConnected && (!window.lockb0xUtils || !window.lockb0xUtils.checkOwnershipForAddress || !window.lockb0xUtils.checkPohStatus)) {
       console.log('Advanced features unavailable (lockb0x not loaded).');
   }
 }
@@ -201,7 +201,7 @@ function waitForUtilsAndInit(retryCount) {
   isMetaMask = (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask);
   
   
-  if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress && window.lockb0xUtils.isPohVerifiedForAddress) {
+  if (window.lockb0xUtils && window.lockb0xUtils.checkOwnershipForAddress && window.lockb0xUtils.checkPohStatus) {
     updateCarrierIndicator();
     if (window.ethereum) {
       window.ethereum.on && window.ethereum.on('accountsChanged', updateCarrierIndicator);

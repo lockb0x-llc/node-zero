@@ -1,35 +1,59 @@
-// Returns true if PoH is verified for the currently connected wallet (localStorage only)
-export async function isPohVerified() {
+// session.js - Wallet connection, expiry, PoH on-demand checks, gating state, debug/error
+
+export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v2';
+
+// PoH API endpoints
+const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
+const POH_SIGNER_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_SIGNER_API_BASE) ? window.APP_CONFIG.POH_SIGNER_API_BASE : 'https://poh-signer-api.linea.build/poh/v2/';
+
+/**
+ * Check PoH status on-demand via API (no persistence)
+ * @param {string} address - Wallet address to check
+ * @returns {Promise<boolean>} True if address has PoH verification
+ */
+export async function checkPohStatus(address) {
+    if (!address) return false;
     try {
-        const wallet = getWalletConnected();
-        if (!wallet) return false;
-        // Only check localStorage for PoH flag for this address
-        return isPohVerifiedForAddress(wallet);
-    } catch (e) {
-        if (_globalGatingErrorHandler) _globalGatingErrorHandler(e?.message || String(e));
+        const resp = await fetch(`${POH_API_BASE}${address}`);
+        if (!resp.ok) return false;
+        const text = (await resp.text()).trim();
+        return text === 'true';
+    } catch (err) {
+        console.error('checkPohStatus error:', err);
         return false;
     }
 }
 
-// session.js - Wallet connection, expiry, PoH signature, gating state, debug/error
-
-export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v2';
-export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase()}`;
-
-
-
-// Check PoH for current wallet, persist if verified, returns {status, address, error}
 /**
- * Check PoH and persist signature if not already present.
- * If address is not provided, uses the currently connected wallet address (async).
- * This restores backward compatibility with previous usage in index.html and other callers.
- *
- * @param {string} [address] - The wallet address to check. If omitted, uses current wallet.
- * @param {function} pohVerifyFn - (Optional) A function to perform PoH verification and return the signature.
- * @returns {Promise<{ status: boolean, address: string|null, signature: string|null, error: string|null }>} 
+ * Get PoH signature from PoH Signer API (no persistence)
+ * @param {string} address - Wallet address
+ * @returns {Promise<string|null>} Hex signature string or null if not verified
  */
+export async function getPohSignatureFromAPI(address) {
+    if (!address) return null;
+    try {
+        const resp = await fetch(`${POH_SIGNER_API_BASE}${address}`);
+        if (!resp.ok) {
+            if (resp.status === 404) {
+                return null; // No PoH verification for this address
+            }
+            throw new Error(`PoH Signer API error: ${resp.status}`);
+        }
+        const signature = (await resp.text()).trim();
+        return signature || null;
+    } catch (err) {
+        console.error('getPohSignatureFromAPI error:', err);
+        return null;
+    }
+}
 
-export async function checkPohAndPersist(address, pohVerifyFn) {
+/**
+ * Check PoH for current wallet (on-demand, no persistence)
+ * If address is not provided, uses the currently connected wallet address (async).
+ * @param {string} [address] - The wallet address to check. If omitted, uses current wallet.
+ * @returns {Promise<{ status: boolean, address: string|null, error: string|null }>} 
+ */
+export async function checkPoh(address) {
     let resolvedAddress = address;
     
     // If still no address, prompt user to connect wallet
@@ -40,42 +64,40 @@ export async function checkPohAndPersist(address, pohVerifyFn) {
                 resolvedAddress = accounts[0];
             }
         } catch (e) {
-            return { status: false, address: null, signature: null, error: 'Wallet connection rejected.' };
+            return { status: false, address: null, error: 'Wallet connection rejected.' };
         }
     }
     if (!resolvedAddress) {
-        return { status: false, address: null, signature: null, error: 'No address provided.' };
+        return { status: false, address: null, error: 'No address provided.' };
     }
-    // 1. Check for existing PoH flag
-    if (isPohVerifiedForAddress(resolvedAddress)) {
-        return { status: true, address: resolvedAddress, signature: null, error: null };
-    }
-    // 2. Perform PoH verification (default: API check, or custom function)
-    const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
+    
+    // Perform PoH verification via API
     try {
-        let verified = false;
-        if (typeof pohVerifyFn === 'function') {
-            verified = await pohVerifyFn(resolvedAddress);
+        const verified = await checkPohStatus(resolvedAddress);
+        if (verified) {
+            return { status: true, address: resolvedAddress, error: null };
         } else {
-            // Default: check API
-            const resp = await fetch(`${POH_API_BASE}${resolvedAddress}`);
-            if (!resp.ok) {
-                return { status: false, address: resolvedAddress, signature: null, error: 'Unable to contact Linea PoH service. Please try again later.' };
-            }
-            const text = (await resp.text()).trim();
-            if (text === 'true') {
-                verified = true;
-            } else {
-                return { status: false, address: resolvedAddress, signature: null, error: 'No Proof of Humanity found for this wallet.' };
-            }
+            return { status: false, address: resolvedAddress, error: 'No Proof of Humanity found for this wallet.' };
         }
-        if (!verified) {
-            return { status: false, address: resolvedAddress, signature: null, error: 'PoH verification failed.' };
-        }
-        setPohVerified(resolvedAddress);
-        return { status: true, address: resolvedAddress, signature: null, error: null };
     } catch (err) {
-        return { status: false, address: resolvedAddress, signature: null, error: err?.message || String(err) };
+        return { status: false, address: resolvedAddress, error: err?.message || String(err) };
+    }
+}
+
+// Backward compatibility alias
+export const checkPohAndPersist = checkPoh;
+
+/**
+ * Returns true if PoH is verified for the currently connected wallet (on-demand check)
+ */
+export async function isPohVerified() {
+    try {
+        const wallet = getWalletConnected();
+        if (!wallet) return false;
+        return await checkPohStatus(wallet);
+    } catch (e) {
+        if (_globalGatingErrorHandler) _globalGatingErrorHandler(e?.message || String(e));
+        return false;
     }
 }
 
@@ -115,32 +137,8 @@ export function isWalletConnectionExpired() {
     }
 }
 
-export function setPohVerified(address) {
-    if (address) {
-        localStorage.setItem(LOCAL_POH_KEY(address), 'true');
-    }
-}
-
-export function isPohVerifiedForAddress(address) {
-    if (!address) return false;
-    return localStorage.getItem(LOCAL_POH_KEY(address)) === 'true';
-}
-
-export function getPohSignature(address) {
-    if (!address) return null;
-    const key = `poh_signature_${address.toLowerCase()}`;
-    return localStorage.getItem(key);
-}
-
-export function setPohSignature(address, signature) {
-    if (!address || !signature) throw new Error('Address and signature required');
-    const key = `poh_signature_${address.toLowerCase()}`;
-    localStorage.setItem(key, signature);
-}
-
-export function isPohSignatureVerified(address) {
-    return !!getPohSignature(address);
-}
+// PoH persistence functions removed - now using on-demand API checks
+// Removed: setPohVerified, isPohVerifiedForAddress, getPohSignature, setPohSignature, isPohSignatureVerified
 
 let _debugMode = false;
 export function setDebugMode(enabled) {
@@ -156,12 +154,30 @@ function logDebug(...args) {
     if (_debugMode) console.debug('[TokenGating]', ...args);
 }
 
-export async function getTokenGatingState(isMetaMaskConnected, getWalletConnected, isPohVerified) {
+/**
+ * Returns the current token-gating state (on-demand PoH check)
+ * @returns {Promise<{connected: boolean, wallet: string|null, poh: boolean, error: string|null}>}
+ */
+export async function getTokenGatingState() {
     let connected = false, wallet = null, poh = false, error = null;
     try {
-        connected = await isMetaMaskConnected();
+        // Check MetaMask connection
+        if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                connected = Array.isArray(accounts) && accounts.length > 0;
+            } catch (e) {
+                connected = false;
+            }
+        }
+        
+        // Get wallet from localStorage (if available)
         wallet = getWalletConnected();
-        poh = await isPohVerified();
+        
+        // Check PoH status on-demand
+        if (wallet) {
+            poh = await checkPohStatus(wallet);
+        }
     } catch (e) {
         error = e?.message || String(e);
         if (_globalGatingErrorHandler) _globalGatingErrorHandler(error);

@@ -1,11 +1,9 @@
 import {
-    getPohSignature,
-    setPohSignature,
-    isPohSignatureVerified,
     getTokenGatingState,
-    setPohVerified,
-    isPohVerifiedForAddress,
-    checkPohAndPersist
+    checkPohAndPersist,
+    checkPoh,
+    checkPohStatus,
+    getPohSignatureFromAPI
 } from './session.js';
 
 const POH_API_BASE = (window.APP_CONFIG && window.APP_CONFIG.POH_API_BASE) ? window.APP_CONFIG.POH_API_BASE : 'https://poh-api.linea.build/poh/v2/';
@@ -34,8 +32,8 @@ export async function getMintEligibility(address, tier, hasSecretCode = false) {
     if (alreadyMinted) {
         return { eligible: false, reason: 'You have already minted a Lockb0x Sigil NFT.', free: false, priceWei: 0n };
     }
-    // 2. PoH status
-    const poh = isPohVerifiedForAddress(address);
+    // 2. PoH status (on-demand check)
+    const poh = await checkPohStatus(address);
     // 3. Tier logic
     let free = false;
     let priceWei = 0n;
@@ -91,11 +89,13 @@ export async function checkOwnershipForAddress(address) {
             });
             return false;
         }
-        if (!window.ethers) {
-            console.error("checkOwnershipForAddress: window.ethers missing");
+        if (!window.ethers && typeof ethers === 'undefined') {
+            console.error("checkOwnershipForAddress: ethers missing");
             return false;
         }
-        const provider = new window.ethers.BrowserProvider(window.ethereum);
+        // Use global ethers if available, fallback to window.ethers
+        const ethersLib = typeof ethers !== 'undefined' ? ethers : window.ethers;
+        const provider = new ethersLib.BrowserProvider(window.ethereum);
         const network = await provider.getNetwork();
         const chainId = typeof network.chainId === 'bigint' ? network.chainId : BigInt(network.chainId);
         // Only check on Linea Sepolia (59141)
@@ -103,7 +103,7 @@ export async function checkOwnershipForAddress(address) {
             console.warn("checkOwnershipForAddress: Not on Linea Sepolia (59141)", { chainId });
             return false;
         }
-        const contract = new window.ethers.Contract(window.SIGIL_CONTRACT_ADDRESS, window.SIGIL_CONTRACT_ABI, provider);
+        const contract = new ethersLib.Contract(window.SIGIL_CONTRACT_ADDRESS, window.SIGIL_CONTRACT_ABI, provider);
         if (typeof contract.balanceOf !== 'function') {
             console.error("checkOwnershipForAddress: contract.balanceOf is not a function");
             return false;
@@ -116,29 +116,7 @@ export async function checkOwnershipForAddress(address) {
         return false;
     }
 }
-// --- PoH Signature Storage & Retrieval Helpers ---
-// These helpers store and retrieve the PoH signature for a given address in localStorage.
-// The signature is public and permanent for each address, and is reused for all future operations.
-
-/* // Retrieve the PoH signature for the given address (returns string|null)
-export function getPohSignature(address) {
-    if (!address) return null;
-    const key = `poh_signature_${address.toLowerCase()}`;
-    return localStorage.getItem(key);
-}
-
-// Set PoH signature for the given address (for testing or manual override)
-export function setPohSignature(address, signature) {
-    if (!address || !signature) throw new Error('Address and signature required');
-    const key = `poh_signature_${address.toLowerCase()}`;
-    localStorage.setItem(key, signature);
-}
-
-// Check if PoH is verified for the given address (returns boolean)
-// This is true if a signature exists in localStorage for the address.
-export function isPohSignatureVerified(address) {
-    return !!getPohSignature(address);
-} */
+// PoH signature helpers removed - now using on-demand API checks via session.js
 /**
  * Lockb0x Token-Gating Utilities
  * Centralizes all wallet/PoH state, event registration, debug mode, and error handling.
@@ -160,54 +138,7 @@ export function setGatingErrorHandler(fn) {
 function logDebug(...args) {
     if (_debugMode) console.debug('[TokenGating]', ...args);
 }
-/**
- * Returns the current token-gating state.
- * @returns {Promise<{connected: boolean, wallet: string|null, poh: boolean, error: string|null}>}
- */
-/* export async function getTokenGatingState() {
-    let connected = false, wallet = null, address = null, poh = false, error = null;
-    try {
-        connected = await isMetaMaskConnected();
-        address = await getCurrentWalletAddress();
-        poh = await isPohVerifiedForAddress(wallet);
-    } catch (e) {
-        error = e?.message || String(e);
-        if (_globalGatingErrorHandler) _globalGatingErrorHandler(error);
-    }
-    logDebug('Gating state:', { connected, wallet, poh, error });
-    return { connected, wallet, poh, error };
-} 
-export const LOCAL_WALLET_KEY = 'nodezero_wallet_connected_v2'; // v2: stores JSON with timestamp
-export const LOCAL_POH_KEY = (address) => `nodezero_poh_v1_${address.toLowerCase()}`;
-
-
-// Set wallet connection state in localStorage (lowercase, with timestamp, 24h expiry)
-export function setWalletConnected(address) {
-    if (!address) return;
-    const data = {
-        address: address.toLowerCase(),
-        connectedAt: Date.now()
-    };
-    localStorage.setItem(LOCAL_WALLET_KEY, JSON.stringify(data));
-}
-*/
-
-// Set PoH verified for address (permanent, never expires)
-/* export function setPohVerified(address) {
-    if (address) {
-        localStorage.setItem(LOCAL_POH_KEY(address), 'true');
-    }
-}
-
-// Check PoH verified for address (permanent)
-export function isPohVerifiedForAddress(address) {
-    if (!address) return false;
-    const normalized = address.toLowerCase();
-    const pohKey = LOCAL_POH_KEY(normalized);
-    const value = localStorage.getItem(pohKey);
-    return value === 'true';
-}
- */
+// getTokenGatingState is now exported from session.js - no local implementation needed
 // Check if MetaMask is installed
 export function isMetaMaskInstalled() {
     return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
@@ -260,57 +191,7 @@ export const TIER_PRICE = {
     premium: window.ethers?.parseEther ? window.ethers.parseEther("0.05") : "0.05"
 };
 
-// Check PoH for current wallet, persist if verified, returns {status, address, error}
-/**
- * Check PoH and persist signature if not already present.
- * If address is not provided, uses the currently connected wallet address (async).
- * This restores backward compatibility with previous usage in index.html and other callers.
- *
- * @param {string} [address] - The wallet address to check. If omitted, uses current wallet.
- * @param {function} pohVerifyFn - (Optional) A function to perform PoH verification and return the signature.
- * @returns {Promise<{ status: boolean, address: string|null, signature: string|null, error: string|null }>} 
- */
-/* export async function checkPohAndPersist(address, pohVerifyFn) {
-    let resolvedAddress = address;
-    if (!resolvedAddress) {
-        resolvedAddress = await getCurrentWalletAddress();
-    }
-    // If still no address, prompt user to connect wallet
-    if (!resolvedAddress && window.ethereum) {
-        try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            if (Array.isArray(accounts) && accounts.length > 0) {
-                resolvedAddress = accounts[0];
-            }
-        } catch (e) {
-            return { status: false, address: null, signature: null, error: 'Wallet connection rejected.' };
-        }
-    }
-    if (!resolvedAddress) {
-        return { status: false, address: null, signature: null, error: 'No address provided.' };
-    }
-    // 1. Check for existing PoH flag
-    if (isPohVerifiedForAddress(resolvedAddress)) {
-        return { status: true, address: resolvedAddress, signature: null, error: null };
-    }
-    // 2. Perform PoH verification (default: API check, or custom function)
-    try {
-        // Default: check API
-        const resp = await fetch(`${POH_API_BASE}${resolvedAddress}`);
-        if (!resp.ok) {
-            return { status: false, address: resolvedAddress, signature: null, error: 'Unable to contact Linea PoH service. Please try again later.' };
-        }
-        const text = (await resp.text()).trim();
-        if (text === 'true') {
-            setPohVerified(resolvedAddress);
-            return { status: true, address: resolvedAddress, signature: null, error: null };
-        } else {
-            return { status: false, address: resolvedAddress, signature: null, error: 'No Proof of Humanity found for this account.' };
-        }
-    } catch (err) {
-        return { status: false, address: resolvedAddress, signature: null, error: err?.message || String(err) };
-    }
-} */
+// checkPohAndPersist is now exported from session.js - no local implementation needed
 // utils.js — Shared helpers for Lockb0x Symbol Designer & Mint
 // Uses ESM but expects ethers.min.js (UMD) to already be loaded globally.
 
@@ -345,8 +226,14 @@ export function getProvider() {
     if (!window.ethereum)
         throw new Error("MetaMask not available");
 
+    // Use global ethers if available, fallback to window.ethers
+    const ethersLib = typeof ethers !== 'undefined' ? ethers : window.ethers;
+    if (!ethersLib || !ethersLib.BrowserProvider) {
+        throw new Error("ethers.js BrowserProvider not available");
+    }
+
     // Create provider exactly once
-    _provider = new window.ethers.BrowserProvider(window.ethereum);
+    _provider = new ethersLib.BrowserProvider(window.ethereum);
     return _provider;
 }
 
@@ -357,7 +244,13 @@ export function getProvider() {
 async function ensureNetwork(targetChainId, chainIdHex, friendlyName) {
     if (!window.ethereum) throw new Error("MetaMask not available");
 
-    let provider = new window.ethers.BrowserProvider(window.ethereum);
+    // Use global ethers if available, fallback to window.ethers
+    const ethersLib = typeof ethers !== 'undefined' ? ethers : window.ethers;
+    if (!ethersLib || !ethersLib.BrowserProvider) {
+        throw new Error("ethers.js BrowserProvider not available");
+    }
+
+    let provider = new ethersLib.BrowserProvider(window.ethereum);
     const network = await provider.getNetwork();
 
     if (network.chainId !== targetChainId) {
@@ -366,7 +259,7 @@ async function ensureNetwork(targetChainId, chainIdHex, friendlyName) {
                 method: "wallet_switchEthereumChain",
                 params: [{ chainId: chainIdHex }],
             });
-            provider = new window.ethers.BrowserProvider(window.ethereum);
+            provider = new ethersLib.BrowserProvider(window.ethereum);
         } catch (err) {
             throw new Error(`Please switch to the ${friendlyName} network.`);
         }
@@ -508,11 +401,13 @@ export function getTierPrice(tier) {
 }
 
 export {
-    getPohSignature,
-    setPohSignature,
-    isPohSignatureVerified,
     getTokenGatingState,
-    setPohVerified,
-    isPohVerifiedForAddress,
-    checkPohAndPersist
+    checkPohAndPersist,
+    checkPoh,
+    checkPohStatus,
+    getPohSignatureFromAPI,
+    getWalletConnected,
+    setWalletConnected
   } from './session.js';
+
+// Note: checkOwnershipForAddress is already exported above (line 79)

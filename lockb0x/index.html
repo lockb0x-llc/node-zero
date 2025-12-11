@@ -171,7 +171,7 @@
                     if (!onLinea) {
                         // Attempt to switch network
                         switchAttempted = true;
-                        const switched = await ensureLineaSepoliaNetwork();
+                        await ensureLineaSepolia();
                         if (switched) {
                             // Re-check network after switch
                             network = await provider.getNetwork();

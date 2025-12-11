@@ -11,10 +11,9 @@ import {
     registerWalletEventHandlers,
     setDebugMode,
     setGatingErrorHandler,
-    isPohVerifiedForAddress,
-    getPohSignature,
-    checkPohAndPersist
+    checkPohStatus
 } from "./utils.js";
+import { mintPoh } from "./mint-poh.js";
 
 
 
@@ -147,29 +146,24 @@ mintBtn.addEventListener("click", async () => {
             let tx;
             let codeHash = null;
 
-            if (tier === "standard" && isPohVerifiedForAddress(wallet)) {
-                let pohSignature = getPohSignature(wallet);
-                let pohPayload = localStorage.getItem(`poh_payload_${wallet.toLowerCase()}`);
-                // Validate PoH payload/signature
-                if (!pohSignature || !pohPayload) {
-                    // Auto-trigger PoH verification
-                    mintStatus.textContent = "Verifying Proof of Humanity...";
-                    const pohResult = await checkPohAndPersist(wallet);
-                    if (!pohResult.status || !pohResult.signature) {
-                        mintStatus.textContent = "PoH verification failed. Cannot mint for free.";
-                        mintStatus.style.color = "#f66";
-                        return;
-                    }
-                    pohSignature = pohResult.signature;
-                    pohPayload = localStorage.getItem(`poh_payload_${wallet.toLowerCase()}`);
-                    if (!pohPayload) {
-                        mintStatus.textContent = "PoH payload missing after verification.";
-                        mintStatus.style.color = "#f66";
+            // Check if user is PoH verified for free standard tier mint
+            if (tier === "standard") {
+                const isPoh = await checkPohStatus(wallet);
+                if (isPoh) {
+                    // Use mintPoh function for free PoH mint
+                    try {
+                        await mintPoh(wallet, tier, mintStatus);
+                        return; // mintPoh handles the transaction and status updates
+                    } catch (err) {
+                        // Error already handled in mintPoh, just return
                         return;
                     }
                 }
-                tx = await contract.mintPoHFree(params, pohPayload, pohSignature);
-            } else if (tier === "standard") {
+                // Fall through to paid standard mint if not PoH verified
+            }
+            
+            // Paid minting paths (standard without PoH, VIP, Premium)
+            if (tier === "standard") {
                 tx = await contract.mintStandard(params, { value: priceWei });
             } else if (tier === "vip") {
                 const code = document.getElementById("secretCode").value.trim();
