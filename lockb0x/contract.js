@@ -30,7 +30,7 @@ export async function hasLockb0xSigilNFT(address) {
     if (chainId !== lineaSepoliaChainId) {
         return false;
     }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
     try {
         const balance = await contract.balanceOf(address);
